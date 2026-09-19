@@ -71,7 +71,7 @@ if (!defined('AURAGOLD_SUPERADMIN_USERNAMES')) {
 // Production: use a public HTTPS URL to this file, or '' to disable (local skips the check via AURAGOLD_PROJECT).
 $auragold_remote_license_url = (isset($project) && (string) $project === 'prod')
     ? 'https://main.goldmatrixsoft.com/assets/js/pages/license.txt'
-    : 'http://localhost/goldmatrix/assets/js/pages/license.txt';
+    : 'http://localhost/goldmatrix_offline/assets/js/pages/license.txt';
 $__auragold_license_env = getenv('AURAGOLD_REMOTE_LICENSE_URL');
 if ($__auragold_license_env !== false) {
     $auragold_remote_license_url = trim((string) $__auragold_license_env);
@@ -155,7 +155,7 @@ $App_Name = "GoldMatrix";
 if (!defined('APP_NAME')) {
     define('APP_NAME', $App_Name);
 }
-$SiteUrl = "http://localhost/goldmatrix/";
+$SiteUrl = "http://localhost/goldmatrix_offline/";
 
 /**
  * Application name for document titles and branding labels.
