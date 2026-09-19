@@ -1,0 +1,5 @@
+{
+    "line": 263,
+    "old": "            badge.textContent = (wMm \/ 10) + ' cm × ' + (hMm \/ 10) + ' cm';",
+    "new": "            badge.textContent = (badgeWMm \/ 10) + ' cm × ' + (badgeHMm \/ 10) + ' cm';"
+}

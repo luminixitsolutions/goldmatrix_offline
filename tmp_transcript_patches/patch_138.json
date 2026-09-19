@@ -1,0 +1,5 @@
+{
+    "line": 447,
+    "old": ".dual-barcode-layout.barcode-dual-unified-120x50 .barcode-label-canvas {\n    width: 100% !important;\n    height: 100% !important;\n}\n.dual-barcode-layout #barcodeLabelsContainer {",
+    "new": ".dual-barcode-layout.barcode-dual-unified-120x50 .barcode-label-canvas {\n    width: 100% !important;\n    height: 100% !important;\n}\n.dual-barcode-layout.barcode-dual-unified-120x50 .barcode-label-center-guide {\n    display: none;\n}\n.dual-barcode-layout.barcode-dual-unified-120x50 .barcode-print-size-badge {\n    bottom: 2px;\n    font-size: 9px;\n}\n.dual-barcode-layout #barcodeLabelsContainer {"
+}

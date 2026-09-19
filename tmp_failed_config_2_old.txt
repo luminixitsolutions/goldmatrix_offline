@@ -1,0 +1,1 @@
+    $ids = getList("SELECT DISTINCT metal_type FROM $table $branchSql AND metal_type IS NOT NULL AND metal_type != '' ORDER BY metal_type ASC");

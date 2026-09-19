@@ -1,0 +1,5 @@
+{
+    "line": 178,
+    "old": "\/* JsBarcode SVG: keep line thickness — scale height only, never stretch width (stretched width = fat bars) *\/\n.barcode-default-white .barcode-stripes svg,\n.barcode-default-white .barcode-stripes img {\n    width: auto !important;\n    height: 100% !important;\n    max-width: 100%;\n    min-height: 0;\n    max-height: 100%;\n    display: block;\n    vertical-align: middle;\n    object-fit: contain;\n    object-position: left center;\n}",
+    "new": "\/* JsBarcode SVG: height from container; width auto unless scaled via resize handle *\/\n.barcode-default-white .barcode-stripes svg,\n.barcode-default-white .barcode-stripes img {\n    height: 100% !important;\n    min-height: 0;\n    max-height: 100%;\n    display: block;\n    vertical-align: middle;\n}\n.barcode-default-white .barcode-stripes:not(.is-scaled-x) svg {\n    width: auto !important;\n    max-width: 100%;\n    object-fit: contain;\n    object-position: left center;\n}\n.barcode-default-white .barcode-stripes.is-scaled-x svg {\n    max-width: none;\n}"
+}

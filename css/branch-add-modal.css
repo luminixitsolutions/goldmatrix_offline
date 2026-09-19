@@ -1,0 +1,324 @@
+/* Add Branch modals — AuraGold admin */
+
+.branch-add-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.45);
+    z-index: 1050;
+    display: none;
+    align-items: flex-start;
+    justify-content: center;
+    padding: max(16px, env(safe-area-inset-top)) 16px max(16px, env(safe-area-inset-bottom));
+    box-sizing: border-box;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.branch-add-overlay.is-open {
+    display: flex;
+}
+
+.branch-add-dialog {
+    position: relative;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.18);
+    max-width: 520px;
+    width: 100%;
+    /* Cap height so inner body scrolls; min-height:0 lets flex children shrink */
+    max-height: min(92vh, 100dvh - 32px);
+    min-height: 0;
+    margin: auto;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #e2e8f0;
+}
+
+.branch-add-dialog.branch-add-dialog--wide {
+    max-width: 560px;
+}
+
+.branch-add-dialog__head {
+    padding: 16px 20px;
+    border-bottom: 1px solid #e2e8f0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    background: linear-gradient(180deg, #f8fafc 0%, #fff 100%);
+    flex-shrink: 0;
+}
+
+.branch-add-dialog__title {
+    margin: 0;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #0f172a;
+}
+
+.branch-add-dialog__close {
+    border: none;
+    background: #f1f5f9;
+    color: #475569;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 18px;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.branch-add-dialog__close:hover {
+    background: #e2e8f0;
+    color: #0f172a;
+}
+
+/* Form wraps body + foot: form must participate in flex so body gets a max height */
+.branch-add-dialog > form {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow: hidden;
+}
+
+.branch-add-dialog__body {
+    padding: 20px;
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+}
+
+.branch-add-dialog__foot {
+    padding: 12px 20px 18px;
+    border-top: 1px solid #e2e8f0;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    flex-wrap: wrap;
+    background: #fafafa;
+    flex-shrink: 0;
+}
+
+.branch-add-label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    color: #334155;
+    margin-bottom: 6px;
+}
+
+.branch-add-input,
+.branch-add-textarea,
+.branch-add-select {
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    padding: 9px 12px;
+    font-size: 14px;
+    color: #0f172a;
+    background: #fff;
+}
+
+.branch-add-select {
+    min-height: 40px;
+    cursor: pointer;
+    appearance: auto;
+}
+
+.branch-add-input:focus,
+.branch-add-textarea:focus,
+.branch-add-select:focus {
+    outline: none;
+    border-color: #11294b;
+    box-shadow: 0 0 0 3px rgba(17, 41, 75, 0.12);
+}
+
+.branch-add-textarea {
+    min-height: 72px;
+    resize: vertical;
+}
+
+.branch-add-row {
+    margin-bottom: 14px;
+}
+
+.branch-add-row--2col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+@media (max-width: 520px) {
+    .branch-add-row--2col {
+        grid-template-columns: 1fr;
+    }
+}
+
+.branch-add-error {
+    font-size: 13px;
+    color: #b91c1c;
+    margin-top: 8px;
+    display: none;
+}
+
+.branch-add-error.is-visible {
+    display: block;
+}
+
+/* Inline field error (e.g. IP) — directly under the input, not the global form banner */
+.branch-add-field-error {
+    margin-top: 6px;
+    margin-bottom: 0;
+}
+
+.branch-add-check {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: #334155;
+}
+
+.branch-add-check input {
+    width: 18px;
+    height: 18px;
+    accent-color: #11294b;
+}
+
+.branch-add-btn {
+    border-radius: 8px;
+    padding: 9px 18px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    border: 1px solid transparent;
+}
+
+.branch-add-btn--primary {
+    background: linear-gradient(135deg, #11294b 0%, #0d1f38 100%);
+    color: #fff;
+}
+
+.branch-add-btn--primary:hover:not(:disabled) {
+    filter: brightness(1.05);
+}
+
+.branch-add-btn--primary:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+.branch-add-btn--ghost {
+    background: #fff;
+    border-color: #cbd5e1;
+    color: #334155;
+}
+
+.branch-add-btn--ghost:hover {
+    background: #f8fafc;
+}
+
+.branch-add-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.branch-add-toolbar h1 {
+    margin-bottom: 0 !important;
+}
+
+.branch-add-toolbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.btn-branch-add-main {
+    border-color: #0f766e;
+    background: linear-gradient(135deg, #0f766e 0%, #0d5c56 100%);
+    box-shadow: 0 2px 8px rgba(15, 118, 110, 0.22);
+}
+
+.btn-branch-add-open {
+    border-radius: 10px;
+    padding: 10px 18px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    border: 1px solid #11294b;
+    background: linear-gradient(135deg, #11294b 0%, #0d1f38 100%);
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(17, 41, 75, 0.2);
+}
+
+.btn-branch-add-open:hover {
+    filter: brightness(1.06);
+}
+
+/* Full-dialog “please wait” while saving branch (DB provisioning can take time) */
+.branch-add-saving-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 20;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 14px;
+    padding: 24px;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(2px);
+    border-radius: 12px;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.branch-add-saving-overlay.is-visible {
+    display: flex;
+}
+
+.branch-add-saving-spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid #e2e8f0;
+    border-top-color: #11294b;
+    border-radius: 50%;
+    animation: branch-add-spin 0.75s linear infinite;
+}
+
+@keyframes branch-add-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.branch-add-saving-text {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 600;
+    color: #334155;
+    max-width: 280px;
+    line-height: 1.45;
+}
+
+.branch-add-saving-hint {
+    margin: 0;
+    font-size: 12px;
+    color: #64748b;
+    max-width: 280px;
+    line-height: 1.4;
+}

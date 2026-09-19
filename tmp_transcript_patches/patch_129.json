@@ -1,0 +1,5 @@
+{
+    "line": 440,
+    "old": "                    <div class=\"barcode-dual-sticker-shell\" id=\"barcodeDualStickerShell\" aria-label=\"120mm x 50mm dual barcode sticker\">\n                    <div class=\"barcode-labels-container\" id=\"barcodeLabelsContainer\">",
+    "new": "                    <div class=\"barcode-dual-sticker-shell\" id=\"barcodeDualStickerShell\" aria-label=\"120mm x 50mm dual barcode sticker\">\n                    <div class=\"barcode-dual-outer-frame\" id=\"barcodeDualOuterFrame\">\n                        <span class=\"barcode-dual-outer-ruler-w\" id=\"barcodeDualOuterRulerW\">W = 8.2 cm<\/span>\n                        <span class=\"barcode-dual-outer-ruler-h\" id=\"barcodeDualOuterRulerH\">H = 3.8 cm<\/span>\n                        <div class=\"barcode-dual-sheet-inner\" id=\"barcodeDualSheetInner\">\n                    <div class=\"barcode-labels-container\" id=\"barcodeLabelsContainer\">"
+}

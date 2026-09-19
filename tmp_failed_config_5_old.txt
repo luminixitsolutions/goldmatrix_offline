@@ -1,0 +1,6 @@
+ * @param string|null $metalType  Display name e.g. Gold, Silver — loads that metal's row when set.
+ * @return array|null  Keys: id, label_size_preset, label_width_mm, label_height_mm, font_size,
+ *                     show_product_name, show_price, show_barcode_number, print_copies,
+ *                     barcode_bar_width, barcode_bar_height (when columns exist), metal_type, design_layout
+ */
+function getBarcodeSettings($metalType = null) {

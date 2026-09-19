@@ -1,0 +1,5 @@
+{
+    "line": 52,
+    "old": "        if (!payload.metal_type) {\n            resetSaveButton();\n            alert('Please select a Metal Type before saving barcode settings.');\n            return;\n        }",
+    "new": "        if (!payload.metal_type) {\n            resetSaveButton();\n            alert('Please select a Metal Type before saving barcode settings.');\n            return;\n        }\n        if (!payload.label_size_preset) {\n            resetSaveButton();\n            alert('Please select a Label Size before saving barcode settings.');\n            return;\n        }"
+}

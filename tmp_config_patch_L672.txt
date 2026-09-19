@@ -1,0 +1,4 @@
+        $boxDesign = auragold_82x38_box_design_items($snapshot, (int) $num);
+        if (empty($boxDesign)) {
+            $boxDesign = auragold_82x38_default_box_design_items($snapshot);
+        }

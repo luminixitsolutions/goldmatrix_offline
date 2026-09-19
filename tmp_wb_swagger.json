@@ -1,0 +1,17 @@
+﻿
+<!DOCTYPE html>
+<html lang="en" xml:lang="en">
+<head>
+<title>Logout Page</title>
+<meta charset="ISO-8859-1">
+
+</head>
+<body>
+    <script>
+        // Redirect to the specified URL after a delay
+        setTimeout(function() {
+            window.location.href = "https://accounts.whitebooks.in/login";
+        }, 0); // Adjust the delay time if needed
+    </script>
+</body>
+</html>

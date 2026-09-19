@@ -1,0 +1,18 @@
+/**
+ * Mobile chrome overrides — loaded last so it wins over page inline footer styles.
+ */
+@media (max-width: 991.98px) {
+    nav.layout-footer,
+    .layout-footer.footer,
+    .layout-footer {
+        display: none !important;
+        visibility: hidden !important;
+        height: 0 !important;
+        min-height: 0 !important;
+        overflow: hidden !important;
+        pointer-events: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        border: none !important;
+    }
+}

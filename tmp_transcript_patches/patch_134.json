@@ -1,0 +1,5 @@
+{
+    "line": 441,
+    "old": "        if (isDual) {\n            if (canvasEl) canvasEl.classList.add('dual-barcode-layout');",
+    "new": "        if (isDual) {\n            if (canvasEl) canvasEl.classList.add('dual-barcode-layout');\n            if (isDualUnified120x50(val)) {\n                canvasEl.classList.add('barcode-dual-unified-120x50');\n            } else {\n                canvasEl.classList.remove('barcode-dual-unified-120x50');\n            }"
+}

@@ -1,0 +1,5 @@
+{
+    "line": 183,
+    "old": "            svg.style.width = 'auto';\n            svg.style.height = '100%';\n        }\n        var canvasEl = wrap.closest('.barcode-label-canvas');\n        anchorBarcodeWrapAfterWidthChange(wrap, canvasEl);\n    }\n\n    function ensureBarcodeResizeHandle(wrap) {",
+    "new": "            svg.style.width = 'auto';\n            svg.style.height = '100%';\n        }\n    }\n\n    function ensureBarcodeResizeHandle(wrap) {"
+}

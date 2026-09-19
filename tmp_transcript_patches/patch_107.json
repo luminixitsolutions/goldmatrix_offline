@@ -1,0 +1,5 @@
+{
+    "line": 335,
+    "old": "        var is120x50Dual = (val === '120x50');\n        if (is120x50Dual) {\n            stripW = 18;\n            handleW = 10;\n            padH = 5;\n            padV = 4;\n            barcodeBox.classList.add('barcode-tag-jewelry');\n            if (barcodeBox2) barcodeBox2.classList.add('barcode-tag-jewelry');\n        }\n        var dualTagPx = is120x50Dual ? get120x50DualTagLayoutPx() : null;",
+    "new": "        var isDualJewelry = isDualLabelLayoutPreset(val);\n        if (isDualJewelry) {\n            var dualCfg = getDualPresetConfig(val);\n            stripW = dualCfg.stripPx;\n            handleW = dualCfg.handlePx;\n            padH = dualCfg.padH;\n            padV = dualCfg.padV;\n            barcodeBox.classList.add('barcode-tag-jewelry');\n            if (barcodeBox2) barcodeBox2.classList.add('barcode-tag-jewelry');\n        }\n        var dualTagPx = isDualJewelry ? getDualTagLayoutPx(val) : null;"
+}

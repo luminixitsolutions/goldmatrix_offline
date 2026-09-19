@@ -1,0 +1,266 @@
+/**
+ * Manufacturer menu pages — mobile/tablet only (≤991.98px).
+ * Desktop layout is unchanged; rules are scoped by page body classes.
+ */
+@media (max-width: 991.98px) {
+    /* —— department.php —— */
+    body.department-page .department-form-grid {
+        grid-template-columns: 1fr;
+    }
+    body.department-page .department-panels {
+        grid-template-columns: 1fr;
+        min-height: 0;
+    }
+    body.department-page .field-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    body.department-page .form-label {
+        min-width: 0;
+    }
+    body.department-page .checkbox-line {
+        margin-left: 0;
+        flex-wrap: wrap;
+    }
+    body.department-page .options-grid {
+        grid-template-columns: 1fr;
+    }
+    body.department-page .short-code-line {
+        grid-template-columns: 1fr auto 1fr;
+    }
+    body.department-page .panel-box {
+        border-right: 0;
+        border-bottom: 1px solid #d7dce8;
+    }
+    body.department-page .table-wrap {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    body.department-page .department-title-chip {
+        position: static;
+        display: inline-block;
+        margin: 6px 10px;
+    }
+    body.department-page .department-top-bar {
+        height: auto;
+        min-height: 34px;
+        padding-bottom: 4px;
+    }
+
+    /* —— department-report.php —— */
+    body.dept-report-page,
+    body.dept-report-page html {
+        overflow-y: auto !important;
+        height: auto;
+        min-height: 100vh;
+    }
+    body.dept-report-page .layout-content {
+        height: auto;
+        min-height: calc(100vh - 60px);
+        overflow: visible;
+    }
+    body.dept-report-page .container-fluid,
+    body.dept-report-page .dept-report-shell {
+        height: auto;
+        min-height: 0;
+        overflow: visible;
+    }
+    body.dept-report-page .dept-report-scroll {
+        flex: 1 1 auto;
+        min-height: 200px;
+        max-height: none;
+        overflow: auto;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    body.dept-report-page .dept-report-toolbar {
+        justify-content: stretch;
+    }
+    body.dept-report-page .dept-report-toolbar form {
+        width: 100%;
+    }
+    body.dept-report-page .dept-report-header {
+        height: auto;
+        min-height: 34px;
+        padding: 4px 0;
+    }
+    body.dept-report-page .title-chip {
+        position: static;
+        display: inline-block;
+        margin: 6px 10px;
+    }
+    body.dept-report-page .table-wrap {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* —— jobwork-queue.php —— */
+    body.jobwork-queue-page .jwq-from-block,
+    body.jobwork-queue-page .jwq-to-block {
+        grid-template-columns: 1fr;
+    }
+    body.jobwork-queue-page .jwq-modal-head {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+    }
+    body.jobwork-queue-page .jwq-modal-head-actions {
+        justify-content: flex-start;
+        flex-wrap: wrap;
+    }
+    body.jobwork-queue-page .jwq-search-wrap {
+        max-width: 100%;
+        min-width: 0;
+        flex: 1 1 100%;
+    }
+    body.jobwork-queue-page .jwq-picker-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    body.jobwork-queue-page .jwq-page-embed .jwq-modal {
+        min-height: 0;
+    }
+    body.jobwork-queue-page #jwqInwardStockModal .modal-dialog {
+        min-width: 0;
+        width: calc(100vw - 1rem);
+        max-width: 100%;
+        margin: 0.5rem auto;
+    }
+    body.jobwork-queue-page .jwq-table-wrap {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* —— manufacturing-process.php —— */
+    body.manufacturing-process-page,
+    body.manufacturing-process-page html {
+        overflow-y: auto !important;
+        height: auto;
+        min-height: 100vh;
+    }
+    body.manufacturing-process-page .layout-content {
+        height: auto;
+        min-height: calc(100vh - 60px);
+        overflow: auto;
+    }
+    body.manufacturing-process-page .process-shell,
+    body.manufacturing-process-page .process-layout {
+        height: auto;
+        min-height: 0;
+    }
+    body.manufacturing-process-page .process-layout {
+        grid-template-columns: 1fr;
+    }
+    body.manufacturing-process-page .dept-panel {
+        border-right: 0;
+        border-bottom: 1px solid #d6dbea;
+        max-height: min(42vh, 320px);
+        overflow: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    body.manufacturing-process-page .stock-split {
+        grid-template-columns: 1fr;
+    }
+    body.manufacturing-process-page .mp-user-strip {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    body.manufacturing-process-page .mp-toolbar-actions {
+        width: 100%;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+    }
+    body.manufacturing-process-page .mp-tag-search {
+        min-width: 0;
+        width: 100%;
+        max-width: 100%;
+    }
+    body.manufacturing-process-page .mp-job-meta {
+        grid-template-columns: 1fr;
+    }
+    body.manufacturing-process-page .jwq-from-block,
+    body.manufacturing-process-page .jwq-to-block {
+        grid-template-columns: 1fr;
+    }
+    body.manufacturing-process-page #jwqInwardStockModal .modal-dialog {
+        min-width: 0;
+        width: calc(100vw - 1rem);
+        max-width: 100%;
+        margin: 0.5rem auto;
+    }
+    body.manufacturing-process-page .table-wrap {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* —— loss-tracking.php —— */
+    body.loss-tracking-page .lt-bar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    body.loss-tracking-page .lt-search-wrap {
+        max-width: 100%;
+        min-width: 0;
+        flex: 1 1 100%;
+    }
+    body.loss-tracking-page .lt-bar-actions {
+        width: 100%;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+    }
+    body.loss-tracking-page .lt-table-scroll {
+        max-height: none;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    body.loss-tracking-page .lt-columns-panel {
+        width: min(280px, calc(100vw - 24px));
+        right: 0;
+        left: auto;
+    }
+
+    /* —— closing-report.php —— */
+    body.closing-report-page .cr-head {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    body.closing-report-page .cr-toolbar {
+        width: 100%;
+        justify-content: flex-start;
+    }
+    body.closing-report-page .cr-table-scroll {
+        max-height: none;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    body.closing-report-page .cr-columns-panel {
+        width: min(280px, calc(100vw - 24px));
+        right: 0;
+        left: auto;
+    }
+
+    /* —— job-card-print.php —— */
+    body.job-card-print-page .layout-content {
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+    body.job-card-print-page .mp-jcp-print-grid {
+        grid-template-columns: 1fr;
+    }
+    body.job-card-print-page .mp-jcp-drawer-toolbar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    body.job-card-print-page .mp-jcp-drawer-toolbar input[type="text"] {
+        min-width: 0;
+        width: 100%;
+    }
+    body.job-card-print-page .mp-jcp-drawer {
+        max-width: 100%;
+        border-radius: 0;
+    }
+    body.job-card-print-page .mp-jcp-table-scroll {
+        -webkit-overflow-scrolling: touch;
+        overflow-x: auto;
+    }
+}

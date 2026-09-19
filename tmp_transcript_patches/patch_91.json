@@ -1,0 +1,5 @@
+{
+    "line": 282,
+    "old": "                var leftMm = clampMmGlobal(left * pxToMmX2, labelW);\n                var topMm = clampMmGlobal(top * pxToMmY2, labelH);",
+    "new": "                var leftMm = clampMmGlobal(left * pxToMmX2, labelWHalf);\n                var topMm = clampMmGlobal(top * pxToMmY2, labelHSave);"
+}

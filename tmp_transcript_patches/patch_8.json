@@ -1,0 +1,5 @@
+{
+    "line": 38,
+    "old": "$bs_metal = isset($bs['metal_type']) ? trim((string)$bs['metal_type']) : '';",
+    "new": "$bs_metal = $bs_load_metal !== '' ? $bs_load_metal : (isset($bs['metal_type']) ? trim((string) $bs['metal_type']) : '');"
+}

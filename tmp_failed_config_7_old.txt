@@ -1,0 +1,38 @@
+/**
+ * All saved barcode setting rows for the current branch, keyed by metal_type display name.
+ *
+ * @return array<string, array>
+ */
+function getBarcodeSettingsByMetalMap() {
+    global $conn;
+    $table = 'tbl_barcode_settings';
+    $exists = @mysqli_query($conn, "SHOW TABLES LIKE '$table'");
+    if (!$exists || mysqli_num_rows($exists) === 0) {
+        if ($exists) {
+            mysqli_free_result($exists);
+        }
+        return [];
+    }
+    mysqli_free_result($exists);
+    auragold_ensure_branch_id_on_settings_tables($conn);
+    $bid = auragold_settings_branch_id();
+    $hasBranch = auragold_tbl_has_column($conn, $table, 'branch_id');
+    $branchSql = ($hasBranch && $bid > 0) ? (' WHERE branch_id = ' . (int) $bid) : '';
+    $metalListWhere = ($branchSql !== '' ? $branchSql . ' AND' : ' WHERE') . " metal_type IS NOT NULL AND metal_type != ''";
+    $ids = getList("SELECT DISTINCT metal_type FROM $table $metalListWhere ORDER BY metal_type ASC");
+    if (!is_array($ids)) {
+        return [];
+    }
+    $map = [];
+    foreach ($ids as $r) {
+        $mt = isset($r['metal_type']) ? trim((string) $r['metal_type']) : '';
+        if ($mt === '') {
+            continue;
+        }
+        $full = getBarcodeSettings($mt);
+        if (is_array($full) && !empty($full)) {
+            $map[$mt] = $full;
+        }
+    }
+    return $map;
+}

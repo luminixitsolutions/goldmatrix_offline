@@ -1,0 +1,5 @@
+{
+    "line": 75,
+    "old": "    (function initBarcode1Drag() {\n        var barcodeBox = barcode1El;\n        var canvas = labelCanvas1;\n        if (!barcodeBox || !canvas) return;\n        var isDragging = false, offsetX, offsetY;\n        barcodeBox.addEventListener('mousedown', function(e) {\n            e.preventDefault();\n            e.stopPropagation();\n            e.stopImmediatePropagation();\n            isDragging = true;",
+    "new": "    (function initBarcode1Drag() {\n        var barcodeBox = barcode1El;\n        var canvas = labelCanvas1;\n        if (!barcodeBox || !canvas) return;\n        initBarcodePrintWrapInteractions(barcodeBox);\n        var isDragging = false, offsetX, offsetY;\n        barcodeBox.addEventListener('mousedown', function(e) {\n            if (e.target.closest('.barcode-resize-handle')) return;\n            selectBarcodePrintWrap(barcodeBox);"
+}

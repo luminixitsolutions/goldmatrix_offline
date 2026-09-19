@@ -1,0 +1,5 @@
+        $row = getRecord("SELECT $colsBase FROM $table $metalWhere ORDER BY id DESC LIMIT 1");
+        if (!$row) {
+            $legacyWhere = ($branchSql !== '' ? $branchSql . ' AND' : ' WHERE') . " (metal_type IS NULL OR metal_type = '')";
+            $row = getRecord("SELECT $colsBase FROM $table $legacyWhere ORDER BY id DESC LIMIT 1");
+        }

@@ -1,0 +1,523 @@
+/* POS Sale Invoice — billing layout inspired by compact sale counter (light gray + purple accents) */
+.pos-sale-page {
+    --pos-purple: #6b5b95;
+    --pos-purple-dark: #4f4378;
+    --pos-purple-light: #8a7ab8;
+    --pos-bg-shell: #e4e4eb;
+    --pos-card: #ffffff;
+    --pos-border: #d4d4de;
+    --pos-text: #2d2640;
+    --pos-muted: #6c6488;
+    font-size: 0.8125rem;
+    max-width: 100%;
+    color: var(--pos-text);
+    background: var(--pos-bg-shell);
+    margin: -0.5rem -0.25rem 0;
+    padding: 0.65rem 0.5rem 1rem;
+    border-radius: 0;
+}
+
+.pos-sale-page .pos-billing-shell {
+    max-width: 100%;
+}
+
+.pos-sale-page .pos-billing-card {
+    background: var(--pos-card);
+    border: 1px solid var(--pos-border);
+    border-radius: 10px;
+    box-shadow: 0 4px 24px rgba(79, 67, 120, 0.08);
+    overflow: visible;
+}
+
+/* Top toolbar — New + / Save (reference style) */
+.pos-sale-page .pos-bill-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    padding: 0.55rem 0.85rem;
+    border-bottom: 1px solid var(--pos-border);
+    background: linear-gradient(180deg, #faf9fd 0%, #f3f1f8 100%);
+    border-radius: 10px 10px 0 0;
+}
+
+.pos-sale-page .pos-bill-toolbar h1 {
+    margin: 0;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--pos-purple-dark);
+    letter-spacing: -0.02em;
+}
+
+.pos-sale-page .pos-toolbar-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    align-items: center;
+}
+
+.pos-sale-page .btn-pos-new {
+    color: var(--pos-purple);
+    border-color: #c4bdd9;
+    background: #fff;
+    font-weight: 600;
+    font-size: 0.8rem;
+}
+
+.pos-sale-page .btn-pos-new:hover {
+    background: #f5f3fa;
+    color: var(--pos-purple-dark);
+}
+
+.pos-sale-page .btn-pos-save {
+    background: linear-gradient(180deg, var(--pos-purple-light) 0%, var(--pos-purple) 55%, var(--pos-purple-dark) 100%);
+    border: 1px solid var(--pos-purple-dark);
+    color: #fff;
+    font-weight: 600;
+    font-size: 0.8rem;
+    padding: 0.4rem 0.9rem;
+    box-shadow: 0 2px 6px rgba(79, 67, 120, 0.25);
+}
+
+.pos-sale-page .btn-pos-save:hover {
+    color: #fff;
+    filter: brightness(1.05);
+}
+
+.pos-sale-page .btn-pos-save-outline {
+    color: var(--pos-purple);
+    border: 1px solid var(--pos-purple);
+    background: #fff;
+    font-weight: 600;
+    font-size: 0.8rem;
+}
+
+.pos-sale-page .btn-pos-save-outline:hover {
+    background: #f5f3fa;
+    color: var(--pos-purple-dark);
+}
+
+/* Header fields */
+.pos-sale-page .pos-bill-fields {
+    padding: 0.65rem 0.85rem 0.5rem;
+    border-bottom: 1px solid #eceaf2;
+}
+
+.pos-sale-page .pos-fields-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 0.75rem;
+    align-items: flex-end;
+    margin-bottom: 0.45rem;
+}
+
+.pos-sale-page .pos-fields-row:last-child {
+    margin-bottom: 0;
+}
+
+.pos-sale-page .pos-bill-fields .form-group {
+    margin-bottom: 0;
+    min-width: 0;
+}
+
+.pos-sale-page .pos-bill-fields label {
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--pos-purple);
+    font-weight: 600;
+    margin-bottom: 0.15rem;
+}
+
+.pos-sale-page .pos-field-invoice {
+    width: 7.5rem;
+}
+
+.pos-sale-page .pos-field-date {
+    width: 10rem;
+}
+
+.pos-sale-page .pos-field-customer {
+    flex: 1 1 14rem;
+    min-width: 12rem;
+    overflow: visible;
+}
+
+.pos-sale-page .pos-field-currency {
+    width: 6.5rem;
+}
+
+.pos-sale-page .pos-bill-fields .form-control-sm {
+    border-color: #cfc8e0;
+    border-radius: 6px;
+}
+
+.pos-sale-page .pos-bill-fields .form-control-sm:focus {
+    border-color: var(--pos-purple-light);
+    box-shadow: 0 0 0 0.15rem rgba(107, 91, 149, 0.2);
+}
+
+/* Main grid: workspace + summary aside */
+.pos-sale-page .pos-bill-grid {
+    display: grid;
+    grid-template-columns: 1fr minmax(240px, 290px);
+    gap: 0;
+    align-items: stretch;
+    min-height: 0;
+}
+
+@media (max-width: 991.98px) {
+    .pos-sale-page .pos-bill-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.pos-sale-page .pos-bill-main {
+    padding: 0.65rem 0.85rem 0.75rem;
+    min-width: 0;
+    border-right: 1px solid var(--pos-border);
+}
+
+@media (max-width: 991.98px) {
+    .pos-sale-page .pos-bill-main {
+        border-right: none;
+        border-bottom: 1px solid var(--pos-border);
+    }
+}
+
+/* Barcode strip */
+.pos-sale-page .pos-barcode-strip {
+    display: flex;
+    align-items: stretch;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(90deg, #f7f5fb 0%, #fff 40%);
+    border: 1px solid #e0dbe8;
+    border-radius: 8px;
+    padding: 0.35rem 0.45rem;
+}
+
+.pos-sale-page .pos-barcode-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    flex-shrink: 0;
+    color: var(--pos-purple);
+    font-size: 1.35rem;
+    border-right: 1px solid #e8e3f0;
+    padding-right: 0.35rem;
+}
+
+.pos-sale-page .pos-barcode-inner {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.pos-sale-page .pos-barcode-inner label {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--pos-muted);
+    font-weight: 600;
+    margin: 0;
+}
+
+.pos-sale-page #posBarcodeInput {
+    font-size: 1.05rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    border: none;
+    background: transparent;
+    padding: 0.15rem 0.25rem;
+    box-shadow: none;
+}
+
+.pos-sale-page #posBarcodeInput:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.pos-sale-page .pos-product-search-row {
+    display: flex;
+    gap: 0.35rem;
+    align-items: flex-end;
+}
+
+.pos-sale-page .pos-product-search-row label {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    color: var(--pos-muted);
+    font-weight: 600;
+    margin-bottom: 0.1rem;
+}
+
+.pos-sale-page .pos-product-search-row input {
+    font-size: 0.8rem;
+    border-radius: 6px;
+    border-color: #cfc8e0;
+}
+
+/* Items table */
+.pos-sale-page .pos-items-wrap {
+    border: 1px solid var(--pos-border);
+    border-radius: 8px;
+    overflow: auto;
+    max-height: min(48vh, 480px);
+    background: #fff;
+    margin-top: 0.35rem;
+}
+
+.pos-sale-page .pos-items-table {
+    width: 100%;
+    margin: 0;
+    font-size: 0.78rem;
+}
+
+.pos-sale-page .pos-items-table thead th {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background: linear-gradient(180deg, var(--pos-purple-light) 0%, var(--pos-purple) 45%, var(--pos-purple-dark) 100%);
+    color: #fff;
+    border: none;
+    padding: 0.45rem 0.3rem;
+    white-space: nowrap;
+    font-weight: 600;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+.pos-sale-page .pos-items-table td {
+    padding: 0.3rem 0.25rem;
+    vertical-align: middle;
+    border-color: #ebe8f2;
+}
+
+.pos-sale-page .pos-items-table tbody tr:nth-child(even) {
+    background: #faf9fc;
+}
+
+.pos-sale-page .pos-items-table input.form-control-sm {
+    padding: 0.18rem 0.35rem;
+    min-width: 0;
+    font-size: 0.78rem;
+    border-radius: 4px;
+    border-color: #d8d2e6;
+}
+
+/* Comment row */
+.pos-sale-page .pos-comment-row {
+    margin-top: 0.45rem;
+}
+
+.pos-sale-page .pos-comment-row input {
+    border-radius: 6px;
+    border-color: #cfc8e0;
+    font-size: 0.8rem;
+}
+
+.pos-sale-page .pos-comment-row label {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    color: var(--pos-muted);
+    font-weight: 600;
+}
+
+/* Payment icon strip */
+.pos-sale-page .pos-payment-strip {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.55rem;
+    padding: 0.45rem 0.5rem;
+    background: #f5f3fa;
+    border: 1px solid #e0dbe8;
+    border-radius: 8px;
+}
+
+.pos-sale-page .pos-payment-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--pos-purple);
+    margin-right: 0.25rem;
+}
+
+.pos-sale-page .pos-payment-icons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+}
+
+.pos-sale-page .pos-pay-icon {
+    width: 2.35rem;
+    height: 2.35rem;
+    border-radius: 8px;
+    border: 1px solid #cfc8e0;
+    background: #fff;
+    color: var(--pos-muted);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    cursor: pointer;
+    transition: color 0.15s, border-color 0.15s, background 0.15s, box-shadow 0.15s;
+}
+
+.pos-sale-page .pos-pay-icon i {
+    font-size: 1.1rem;
+}
+
+.pos-sale-page .pos-pay-icon:hover {
+    border-color: var(--pos-purple-light);
+    color: var(--pos-purple);
+    background: #faf8ff;
+}
+
+.pos-sale-page .pos-pay-icon.active {
+    border-color: var(--pos-purple);
+    color: #fff;
+    background: linear-gradient(180deg, var(--pos-purple-light), var(--pos-purple-dark));
+    box-shadow: 0 2px 8px rgba(107, 91, 149, 0.35);
+}
+
+.pos-sale-page .pos-sr-only {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+}
+
+/* Summary aside */
+.pos-sale-page .pos-bill-aside {
+    background: linear-gradient(180deg, #faf9fd 0%, #f4f2f9 100%);
+    padding: 0.65rem 0.85rem 0.85rem;
+    min-width: 0;
+}
+
+.pos-sale-page .pos-aside-title {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--pos-purple);
+    margin: 0 0 0.5rem 0;
+    padding-bottom: 0.35rem;
+    border-bottom: 2px solid var(--pos-purple);
+}
+
+.pos-sale-page .pos-summary {
+    border: none;
+    border-radius: 0;
+    padding: 0;
+    background: transparent;
+    box-shadow: none;
+}
+
+.pos-sale-page .pos-summary-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.35rem 0;
+    border-bottom: 1px solid #e5e1ef;
+    font-size: 0.8rem;
+    color: var(--pos-text);
+}
+
+.pos-sale-page .pos-summary-row span:first-child {
+    color: var(--pos-muted);
+    font-weight: 500;
+}
+
+.pos-sale-page .pos-summary-row span:last-child {
+    font-weight: 600;
+    color: var(--pos-text);
+}
+
+.pos-sale-page .pos-summary-row.pos-grand {
+    font-weight: 800;
+    font-size: 1rem;
+    color: var(--pos-purple-dark);
+    padding-top: 0.55rem;
+    margin-top: 0.35rem;
+    border-top: 2px solid var(--pos-purple);
+    border-bottom: none;
+}
+
+.pos-sale-page .pos-summary-row.pos-grand span:last-child {
+    font-size: 1.05rem;
+    color: var(--pos-purple-dark);
+}
+
+.pos-sale-page .pos-aside-paid label {
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--pos-purple);
+}
+
+.pos-sale-page .pos-aside-paid .form-control-sm {
+    border-color: #cfc8e0;
+    border-radius: 6px;
+}
+
+/* Footer secondary actions */
+.pos-sale-page .pos-bill-footer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    padding: 0.55rem 0.85rem;
+    border-top: 1px solid var(--pos-border);
+    background: #faf9fc;
+    border-radius: 0 0 10px 10px;
+}
+
+.pos-sale-page .pos-bill-footer .btn {
+    font-size: 0.78rem;
+}
+
+.pos-sale-page .pos-suggest {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    z-index: 2005;
+    background: #fff;
+    border: 1px solid var(--pos-border);
+    border-radius: 8px;
+    max-height: 240px;
+    overflow-y: auto;
+    box-shadow: 0 10px 28px rgba(79, 67, 120, 0.18);
+    margin-top: 3px;
+    display: none;
+}
+
+.pos-sale-page .pos-suggest-item {
+    padding: 0.4rem 0.55rem;
+    cursor: pointer;
+    border-bottom: 1px solid #f0eef5;
+    font-size: 0.8rem;
+}
+
+.pos-sale-page .pos-suggest-item:hover,
+.pos-sale-page .pos-suggest-item.active {
+    background: #f3effa;
+    color: var(--pos-purple-dark);
+}
+
+.pos-sale-page .pos-relative {
+    position: relative;
+}

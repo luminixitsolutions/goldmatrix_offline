@@ -1,0 +1,5 @@
+{
+    "line": 71,
+    "old": "        var minBarH = isShortLabel ? 8 : 10;\n        var barH = (isNaN(h) || h < minBarH) ? (isShortLabel ? 10 : 28) : Math.min(200, h);\n        barH = Math.min(barH, maxBarH);\n        var barW = (isNaN(w) || w < 1) ? (isShortLabel ? 1 : 2) : Math.min(10, w);\n        return { width: barW, height: barH };\n    }",
+    "new": "        var minBarH = isShortLabel ? 8 : 10;\n        var barH = (isNaN(h) || h < minBarH) ? (isShortLabel ? 10 : 28) : Math.min(200, h);\n        barH = Math.min(barH, maxBarH);\n        var barW = (isNaN(w) || w < 1) ? (isShortLabel ? 1 : 2) : Math.min(10, w);\n        return { width: barW, height: barH, minBarH: minBarH };\n    }"
+}

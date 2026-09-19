@@ -1,0 +1,5 @@
+{
+    "line": 259,
+    "old": "                var mmToPxX2 = cw2 \/ labelHalfMm;\n                var mmToPxY2 = ch2 \/ (labelHeightMm || 18);",
+    "new": "                var mmToPxX2 = cw2 \/ labelBoxWMm;\n                var mmToPxY2 = ch2 \/ labelBoxHMm;"
+}

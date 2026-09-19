@@ -1,0 +1,5 @@
+{
+    "line": 259,
+    "old": "            var pxToMmX2 = labelWHalf \/ contentW2;\n            var pxToMmY2 = labelH \/ contentH2;",
+    "new": "            var pxToMmX2 = labelWHalf \/ contentW2;\n            var pxToMmY2 = labelHSave \/ contentH2;"
+}

@@ -1,0 +1,2 @@
+            $def = auragold_82x38_default_box_design_items($snapshot, (int) $num);
+            $inner = renderBarcodeLayout($productData, array_merge($boxSettings, ['design_layout' => $def]));

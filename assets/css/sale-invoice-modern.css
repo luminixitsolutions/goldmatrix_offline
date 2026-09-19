@@ -1,0 +1,716 @@
+/**
+ * Sale Invoice — modern navy + gold layout (Create Sales Invoice mockup)
+ */
+.si-modern-page {
+    --si-navy: #1a2e4c;
+    --si-navy-dark: #11294b;
+    --si-gold: #c69c4e;
+    --si-gold-light: #d4af37;
+    --si-gold-dark: #a68a4a;
+    --si-gold-bg: #faf6ee;
+    --si-gold-bg-strong: #f5ecd8;
+    --si-page-bg: #eef1f5;
+    --si-card-bg: #ffffff;
+    --si-border: #e2e8f0;
+    --si-text: #1e293b;
+    --si-muted: #64748b;
+    --si-radius: 12px;
+    --si-shadow: 0 2px 14px rgba(26, 46, 76, 0.07);
+    padding: 14px 18px 24px !important;
+    max-width: 1680px;
+    margin: 0 auto;
+}
+
+.si-modern-page,
+.si-modern-page .layout-content {
+    background: var(--si-page-bg) !important;
+}
+
+/* ── Page header ── */
+.si-page-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+}
+
+.si-page-header-left {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.85rem;
+    min-width: 0;
+}
+
+.si-page-icon {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--si-gold-light) 0%, var(--si-gold) 55%, var(--si-gold-dark) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 4px 12px rgba(198, 156, 78, 0.35);
+}
+
+.si-page-icon i {
+    color: var(--si-navy-dark);
+    font-size: 1.25rem;
+}
+
+.si-page-title {
+    margin: 0 0 0.2rem 0;
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--si-navy);
+    letter-spacing: -0.02em;
+}
+
+.si-page-subtitle {
+    margin: 0;
+    font-size: 0.82rem;
+    color: var(--si-muted);
+    font-weight: 400;
+}
+
+.si-page-header-right {
+    text-align: right;
+    flex-shrink: 0;
+}
+
+.si-page-tagline {
+    font-family: Georgia, "Times New Roman", serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--si-gold);
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.35rem;
+    white-space: nowrap;
+}
+
+.si-page-tagline i {
+    font-size: 0.9rem;
+}
+
+.si-header-search {
+    margin-top: 0.5rem;
+    max-width: 320px;
+    margin-left: auto;
+    position: relative;
+}
+
+.si-header-search input {
+    border-radius: 8px !important;
+    border: 1px solid var(--si-border) !important;
+    font-size: 0.78rem !important;
+    padding-right: 2rem !important;
+    background: #fff !important;
+}
+
+.si-header-search .feather {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #94a3b8;
+    font-size: 12px;
+    pointer-events: none;
+}
+
+/* ── Cards ── */
+.si-modern-page .card {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    border: 1px solid var(--si-border) !important;
+    border-radius: var(--si-radius) !important;
+    box-shadow: var(--si-shadow) !important;
+    background: var(--si-card-bg) !important;
+    overflow: hidden;
+}
+
+.si-modern-page .card-body {
+    padding: 1rem 1.15rem !important;
+}
+
+.si-modern-page .card-body:not(.billing-form) {
+    border: none !important;
+}
+
+.si-modern-page .card.mb-4 {
+    margin-bottom: 1rem !important;
+}
+
+/* ── Billing form (labels above inputs) ── */
+.si-modern-page .billing-form.si-modern-form .form-group {
+    display: block;
+    margin-bottom: 0;
+}
+
+.si-modern-page .billing-form.si-modern-form label {
+    display: block;
+    margin: 0 0 0.3rem 0;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--si-muted);
+    text-transform: none;
+    letter-spacing: 0.01em;
+}
+
+.si-modern-page .billing-form.si-modern-form .form-control,
+.si-modern-page .billing-form.si-modern-form .form-control-sm {
+    width: 100%;
+    border: 1px solid #d1d9e6 !important;
+    border-radius: 8px !important;
+    font-size: 0.82rem !important;
+    height: auto !important;
+    min-height: 2.15rem;
+    padding: 0.4rem 0.65rem !important;
+    box-shadow: none !important;
+    background: #fff !important;
+}
+
+.si-modern-page .billing-form.si-modern-form .form-control:focus,
+.si-modern-page .billing-form.si-modern-form .form-control-sm:focus {
+    border-color: var(--si-gold) !important;
+    box-shadow: 0 0 0 3px rgba(198, 156, 78, 0.18) !important;
+}
+
+.si-modern-page .billing-form.si-modern-form .si-invoice-billing-grid > [class*="col-"] {
+    margin-bottom: 0.75rem;
+}
+
+.si-modern-page .billing-form.si-modern-form .form-check-label {
+    color: var(--si-text) !important;
+    font-size: 0.78rem !important;
+    font-weight: 500 !important;
+    text-transform: none !important;
+}
+
+.si-modern-page .si-invoice-no-field {
+    background: #f8fafc !important;
+    color: var(--si-navy);
+    font-weight: 600;
+}
+
+.si-modern-page .si-eway-options-row {
+    border-top: 1px solid var(--si-border) !important;
+    padding-top: 0.65rem !important;
+    margin-top: 0.25rem !important;
+}
+
+/* ── Product section tabs ── */
+.si-product-section-card .card-body {
+    padding-top: 0.65rem !important;
+}
+
+.si-product-tabs {
+    display: flex;
+    gap: 0;
+    border-bottom: 2px solid var(--si-border);
+    margin: 0 -1.15rem 0.85rem -1.15rem;
+    padding: 0 1.15rem;
+    flex-wrap: wrap;
+}
+
+.si-product-tab {
+    padding: 0.55rem 1.1rem;
+    border: none;
+    background: transparent;
+    color: var(--si-muted);
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -2px;
+    transition: all 0.2s ease;
+    border-radius: 6px 6px 0 0;
+}
+
+.si-product-tab:hover {
+    color: var(--si-navy);
+    background: rgba(198, 156, 78, 0.08);
+}
+
+.si-product-tab.active {
+    color: var(--si-navy);
+    background: var(--si-gold-bg);
+    border-bottom-color: var(--si-gold);
+}
+
+.si-product-search-row {
+    display: flex;
+    gap: 0.5rem;
+    align-items: stretch;
+    margin-bottom: 0.85rem;
+}
+
+.si-product-search-wrap {
+    flex: 1;
+    position: relative;
+}
+
+.si-product-search-wrap .feather.icon-maximize {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #94a3b8;
+    font-size: 14px;
+    pointer-events: none;
+}
+
+.si-product-search-wrap input {
+    width: 100%;
+    border: 1px solid #d1d9e6;
+    border-radius: 8px;
+    padding: 0.55rem 0.75rem 0.55rem 2.1rem;
+    font-size: 0.82rem;
+    min-height: 2.5rem;
+    background: #fff;
+}
+
+.si-product-search-wrap input:focus {
+    outline: none;
+    border-color: var(--si-gold);
+    box-shadow: 0 0 0 3px rgba(198, 156, 78, 0.18);
+}
+
+.si-btn-add-product {
+    background: linear-gradient(135deg, var(--si-gold-light) 0%, var(--si-gold) 50%, var(--si-gold-dark) 100%);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 0 1.25rem;
+    font-weight: 700;
+    font-size: 0.85rem;
+    white-space: nowrap;
+    cursor: pointer;
+    box-shadow: 0 3px 10px rgba(198, 156, 78, 0.35);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    min-height: 2.5rem;
+}
+
+.si-btn-add-product:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 5px 14px rgba(198, 156, 78, 0.45);
+    color: #fff;
+}
+
+.si-btn-add-product:disabled,
+.si-btn-add-product.si-disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.si-product-tab-panel {
+    display: none;
+}
+
+.si-product-tab-panel.active {
+    display: block;
+}
+
+.si-modern-page .add-item-link {
+    display: none !important;
+}
+
+/* Product list embedded in product card */
+.si-modern-page .si-product-list-embed .product-list-card {
+    margin-bottom: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+}
+
+.si-modern-page .si-product-list-embed .product-list-card-body {
+    padding: 0 !important;
+    border: none !important;
+}
+
+.si-modern-page .si-product-list-embed .table-header-wrapper h6 {
+    display: none;
+}
+
+.si-modern-page .product-table {
+    border-radius: 8px !important;
+    border: 1px solid var(--si-border) !important;
+    overflow: hidden;
+}
+
+.si-modern-page .product-table thead th {
+    background: var(--si-navy) !important;
+    color: #fff !important;
+    border-color: rgba(255, 255, 255, 0.12) !important;
+    font-size: 0.68rem !important;
+    font-weight: 600 !important;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 0.65rem 0.5rem !important;
+    border-bottom: none !important;
+}
+
+.si-modern-page .product-table thead th::after {
+    display: none !important;
+}
+
+.si-modern-page .product-table thead th:last-child,
+.si-modern-page .product-table thead th[data-column="net-amt-tax"],
+.si-modern-page .product-table thead th[data-column="net-amt"] {
+    background: var(--si-navy) !important;
+}
+
+.si-modern-page .product-table tbody tr.no-drag td {
+    padding: 2.5rem 1rem !important;
+    color: var(--si-muted) !important;
+    font-style: normal !important;
+    font-size: 0.85rem !important;
+    background: #fafbfc !important;
+}
+
+.si-modern-page .product-table tbody tr.no-drag td::before {
+    content: "📦";
+    display: block;
+    font-size: 1.75rem;
+    margin-bottom: 0.5rem;
+    opacity: 0.45;
+}
+
+/* ── Payment section ── */
+.si-modern-page .si-payment-card .form-group label,
+.si-modern-page .si-payment-card > .row > .col-md-5 label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--si-muted);
+    margin-bottom: 0.3rem;
+    display: block;
+}
+
+.si-modern-page .payment-icons {
+    gap: 0.35rem;
+    justify-content: flex-start;
+}
+
+.si-modern-page .payment-icon {
+    width: 56px !important;
+    height: auto !important;
+    min-height: 56px;
+    border-radius: 50% !important;
+    border: 2px solid var(--si-border) !important;
+    background: #fff !important;
+    flex-direction: column;
+    padding: 6px 4px 4px;
+    margin-right: 0 !important;
+}
+
+.si-modern-page .payment-icon img {
+    width: 26px !important;
+    height: 26px !important;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.si-modern-page .payment-icon::after {
+    content: attr(title);
+    font-size: 0.58rem;
+    color: var(--si-muted);
+    margin-top: 3px;
+    line-height: 1.1;
+    text-align: center;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: block;
+}
+
+.si-modern-page .payment-icon.active,
+.si-modern-page .payment-icon:hover {
+    border-color: var(--si-gold) !important;
+    background: var(--si-gold-bg) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(198, 156, 78, 0.25) !important;
+}
+
+/* ── Summary sidebar ── */
+.si-modern-page .summary-panel {
+    background: var(--si-card-bg) !important;
+    border: 1px solid var(--si-border) !important;
+    border-radius: var(--si-radius) !important;
+    box-shadow: var(--si-shadow) !important;
+    padding: 0 !important;
+    overflow: hidden;
+}
+
+.si-summary-header {
+    background: var(--si-navy);
+    color: #fff;
+    padding: 0.75rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.si-summary-header i {
+    font-size: 1rem;
+    opacity: 0.9;
+}
+
+.si-summary-header-title {
+    font-size: 0.88rem;
+    font-weight: 700;
+    margin: 0;
+    flex: 1;
+}
+
+.si-summary-header-no {
+    font-size: 0.82rem;
+    font-weight: 600;
+    opacity: 0.92;
+}
+
+.si-summary-body {
+    padding: 0.85rem 1rem 1rem;
+}
+
+.si-metal-summary-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.35rem 0;
+    font-size: 0.8rem;
+}
+
+.si-metal-summary-row .si-metal-label {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    color: var(--si-text);
+    font-weight: 500;
+}
+
+.si-metal-icon {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--si-gold-bg);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.65rem;
+    color: var(--si-gold-dark);
+}
+
+.si-metal-summary-row .si-metal-value {
+    font-weight: 700;
+    color: var(--si-navy);
+}
+
+.si-summary-divider {
+    height: 1px;
+    background: var(--si-border);
+    margin: 0.5rem 0;
+}
+
+.si-modern-page .previous-balance-panel {
+    margin-bottom: 0.65rem !important;
+    padding-bottom: 0.65rem !important;
+    border-bottom: 1px solid var(--si-border) !important;
+}
+
+.si-modern-page .previous-balance-panel h6.pb-panel-title,
+.si-modern-page .previous-balance-panel .pb-panel-divider-wrap {
+    display: none !important;
+}
+
+.si-modern-page .previous-balance-panel .d-flex:not(.pb-use-previous-row) {
+    display: none !important;
+}
+
+.si-modern-page .previous-balance-panel .d-flex.justify-content-between:first-of-type,
+.si-modern-page .previous-balance-panel > .d-flex.justify-content-between.align-items-center.mb-1:first-of-type {
+    display: flex !important;
+}
+
+.si-modern-page .previous-balance-panel > .d-flex.justify-content-between.align-items-center.mb-1:not(:first-of-type) {
+    display: none !important;
+}
+
+.si-total-amount-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.65rem 0;
+    margin: 0.25rem 0;
+}
+
+.si-total-amount-row .si-total-label {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--si-navy);
+}
+
+.si-total-amount-row .si-total-value {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: var(--si-navy);
+}
+
+.si-modern-page .summary-section {
+    border-bottom: none !important;
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+.si-modern-page .summary-section h6 {
+    display: none !important;
+}
+
+.si-modern-page .summary-row {
+    padding: 0.3rem 0;
+}
+
+.si-modern-page .summary-label {
+    color: var(--si-muted) !important;
+    font-size: 0.75rem !important;
+    text-transform: none !important;
+    font-weight: 500 !important;
+}
+
+.si-modern-page .summary-value {
+    font-size: 0.82rem !important;
+    color: var(--si-text) !important;
+}
+
+.si-modern-page #summaryTotal {
+    color: var(--si-navy) !important;
+    font-weight: 700 !important;
+}
+
+.si-grand-total-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--si-gold-bg-strong);
+    border-radius: 8px;
+    padding: 0.65rem 0.75rem;
+    margin: 0.65rem 0;
+}
+
+.si-grand-total-row .summary-label {
+    font-weight: 700 !important;
+    color: var(--si-navy) !important;
+    font-size: 0.82rem !important;
+}
+
+.si-grand-total-row #summaryGrandTotal {
+    color: var(--si-gold) !important;
+    font-size: 1.05rem !important;
+    font-weight: 800 !important;
+}
+
+.si-modern-page #summaryBalanceAmt {
+    color: #16a34a !important;
+    font-weight: 700 !important;
+}
+
+.si-modern-page #summaryPaidAmt {
+    color: var(--si-gold-dark) !important;
+}
+
+.si-summary-actions-top {
+    display: flex;
+    gap: 0.4rem;
+    padding: 0.5rem 1rem;
+    background: #f8fafc;
+    border-bottom: 1px solid var(--si-border);
+}
+
+.si-summary-actions-top .btn-new-invoice,
+.si-summary-actions-top .btn-save-invoice {
+    font-size: 0.75rem !important;
+    padding: 0.35rem 0.85rem !important;
+}
+
+.si-btn-generate-print {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
+    margin-top: 0.85rem;
+    padding: 0.75rem 1rem;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(135deg, var(--si-gold-light) 0%, var(--si-gold) 45%, var(--si-gold-dark) 100%);
+    color: #fff;
+    font-weight: 700;
+    font-size: 0.88rem;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(198, 156, 78, 0.4);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.si-btn-generate-print:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(198, 156, 78, 0.5);
+    color: #fff;
+}
+
+.si-btn-generate-print:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.si-btn-generate-print .si-f8-hint {
+    font-size: 0.72rem;
+    opacity: 0.85;
+    font-weight: 600;
+}
+
+.si-modern-page .invoice-header {
+    display: none !important;
+}
+
+.si-modern-page .form-check-input:checked {
+    background-color: var(--si-gold) !important;
+    border-color: var(--si-gold) !important;
+}
+
+.si-modern-page .table-settings-btn {
+    background: var(--si-navy) !important;
+}
+
+.si-modern-page .table-settings-btn:hover {
+    background: var(--si-gold) !important;
+    color: #fff !important;
+}
+
+.si-modern-page .layout-footer {
+    background: #fff !important;
+    border-top: 1px solid var(--si-border) !important;
+}
+
+@media (max-width: 991px) {
+    .si-page-header {
+        flex-direction: column;
+    }
+    .si-page-header-right {
+        text-align: left;
+        width: 100%;
+    }
+    .si-page-tagline {
+        justify-content: flex-start;
+    }
+    .si-header-search {
+        margin-left: 0;
+        max-width: 100%;
+    }
+}

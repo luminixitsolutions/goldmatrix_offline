@@ -1,0 +1,5 @@
+{
+    "line": 335,
+    "old": "        if (!currentBarcodeMetalKey) {\n            document.querySelectorAll('.canvas-dropped-item').forEach(function(el) { el.remove(); });\n            setLastLoadedBarcodeContext('', lp.ui, lp.w, lp.h);\n            if (typeof refreshStandardBarcodeAfterLabelSizeChange === 'function') {\n                setTimeout(refreshStandardBarcodeAfterLabelSizeChange, 50);\n            }\n            return;\n        }",
+    "new": "        if (!currentBarcodeMetalKey) {\n            document.querySelectorAll('.canvas-dropped-item').forEach(function(el) { el.remove(); });\n            setLastLoadedBarcodeContext('', lp.ui, lp.w, lp.h);\n            if (isDualLabelLayoutPreset(lp.ui)) {\n                setTimeout(function() {\n                    ensureDualBarcodesRendered({ preservePositions: false });\n                }, 120);\n            } else if (typeof refreshStandardBarcodeAfterLabelSizeChange === 'function') {\n                setTimeout(refreshStandardBarcodeAfterLabelSizeChange, 50);\n            }\n            return;\n        }"
+}

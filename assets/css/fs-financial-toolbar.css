@@ -1,0 +1,47 @@
+/**
+ * Financial Statement submenu pages — uniform spacing between
+ * date range, Apply, Clear, Export, and other toolbar controls.
+ */
+.tb-toolbar-header,
+.bs-toolbar-header {
+    gap: 1rem;
+}
+
+.tb-toolbar-actions,
+.bs-toolbar-actions {
+    gap: 0.75rem;
+}
+
+form.tb-toolbar,
+form.bs-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+/* Cluster next to page title (date / buttons / export) */
+.tb-wrap > .d-flex.align-items-center.justify-content-between > .tb-toolbar.d-flex,
+.tb-wrap > .d-flex.align-items-center.justify-content-between > .d-flex.align-items-center {
+    gap: 0.75rem;
+}
+
+.tb-wrap > .d-flex.align-items-center.justify-content-between .tb-toolbar > form.d-flex,
+.tb-wrap > .d-flex.align-items-center.justify-content-between > .tb-toolbar > form {
+    gap: 0.75rem;
+}
+
+/* Analysis / performance toolbars */
+.sa-wrap .sa-toolbar,
+.gsa-wrap .gsa-toolbar,
+.dsa-wrap .dsa-toolbar,
+.pa-wrap .pa-toolbar,
+.sp-wrap .sp-toolbar {
+    gap: 0.75rem;
+}
+
+/* Profit & Loss */
+.pl-wrap .pl-toolbar.d-flex,
+.pl-wrap .pl-toolbar > form.d-flex {
+    gap: 0.75rem;
+}

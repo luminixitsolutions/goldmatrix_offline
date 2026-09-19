@@ -1,0 +1,5 @@
+{
+    "line": 425,
+    "old": "        \/\/ Left preview tag = bottom-left on sticker; right preview tag = top-right on sticker\n        placeInTag(bc1, c1, 'left', isDual120 ? 'bottom' : null);\n        placeInTag(bc2, c2, 'right', isDual120 ? 'top' : null);",
+    "new": "        if (isDual120) {\n            placeInTagCentered(bc1, c1);\n            placeInTagCentered(bc2, c2);\n        } else {\n            placeInTag(bc1, c1, 'left', null);\n            placeInTag(bc2, c2, 'right', null);\n        }"
+}

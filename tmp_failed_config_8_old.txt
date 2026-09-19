@@ -1,0 +1,5 @@
+    return [
+        'metal_type' => trim((string) ($bs['metal_type'] ?? '')),
+        'label_size_preset' => trim((string) ($bs['label_size_preset'] ?? '100x18')),
+        'label_width_mm' => (float) ($bs['label_width_mm'] ?? 100),
+        'label_height_mm' => (float) ($bs['label_height_mm'] ?? 18),

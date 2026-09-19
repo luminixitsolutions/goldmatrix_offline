@@ -1,0 +1,60 @@
+/**
+ * Column drag handles: Feather icon-move only; native grab / grabbing cursor.
+ */
+#productSelectionModal .product-modal-group-drag-handle .feather,
+#productSelectionModal #productListTable .product-modal-col-drag-handle:not(.product-modal-col-drag-handle--locked) .feather,
+#productListTablePage .product-modal-group-drag-handle .feather,
+#productListTablePage .product-modal-col-drag-handle:not(.product-modal-col-drag-handle--locked) .feather,
+#productListTable .product-modal-group-drag-handle .feather,
+#productListTable .product-modal-col-drag-handle:not(.product-modal-col-drag-handle--locked) .feather {
+    color: #a68a4a;
+}
+
+.aii-grid-host .tabulator .tabulator-header .aii-col-drag-handle .feather {
+    color: #d4af37;
+}
+
+.aits-grid-host .tabulator .tabulator-header .aits-col-drag-handle .feather {
+    color: #d4af37;
+}
+
+#productSelectionModal .product-modal-group-drag-handle,
+#productSelectionModal #productListTable .product-modal-col-drag-handle:not(.product-modal-col-drag-handle--locked),
+#productListTablePage .product-modal-group-drag-handle,
+#productListTablePage .product-modal-col-drag-handle:not(.product-modal-col-drag-handle--locked),
+#productListTable .product-modal-group-drag-handle,
+#productListTable .product-modal-col-drag-handle:not(.product-modal-col-drag-handle--locked) {
+    cursor: grab;
+}
+
+#productSelectionModal .product-modal-group-drag-handle:active,
+#productSelectionModal #productListTable .product-modal-col-drag-handle:not(.product-modal-col-drag-handle--locked):active,
+#productListTablePage .product-modal-group-drag-handle:active,
+#productListTablePage .product-modal-col-drag-handle:not(.product-modal-col-drag-handle--locked):active,
+#productListTable .product-modal-group-drag-handle:active,
+#productListTable .product-modal-col-drag-handle:not(.product-modal-col-drag-handle--locked):active {
+    cursor: grabbing;
+}
+
+.aii-grid-host .tabulator .tabulator-header .tabulator-col.aii-col-movable-hint .tabulator-col-content,
+.aits-grid-host .tabulator .tabulator-header .tabulator-col.aits-col-movable-hint .tabulator-col-content,
+.aii-grid-host .tabulator .tabulator-header .aii-col-drag-handle,
+.aits-grid-host .tabulator .tabulator-header .aits-col-drag-handle {
+    cursor: grab;
+}
+
+.aii-grid-host .tabulator .tabulator-header .tabulator-col.aii-col-movable-hint .tabulator-col-content:active,
+.aits-grid-host .tabulator .tabulator-header .tabulator-col.aits-col-movable-hint .tabulator-col-content:active,
+.aii-grid-host .tabulator .tabulator-header .aii-col-drag-handle:active,
+.aits-grid-host .tabulator .tabulator-header .aits-col-drag-handle:active {
+    cursor: grabbing;
+}
+
+.aii-grid-host .tabulator .tabulator-header .tabulator-col .tabulator-col-resize-handle,
+.aits-grid-host .tabulator .tabulator-header .tabulator-col .tabulator-col-resize-handle {
+    cursor: col-resize;
+}
+
+#productSelectionModal #productListTable .product-modal-col-drag-handle--locked {
+    cursor: default;
+}

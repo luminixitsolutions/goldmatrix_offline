@@ -1,0 +1,2 @@
+            $row = getRecord("SELECT $colsBase FROM $table $metalWhere ORDER BY id DESC LIMIT 1");
+        } elseif (empty($row)) {

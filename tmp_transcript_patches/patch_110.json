@@ -1,0 +1,5 @@
+{
+    "line": 335,
+    "old": "    function showBarcodeCustomSizeFields() {\n        var v = labelSizeSelect ? (labelSizeSelect.value || '').trim() : '';\n        return v === 'custom' || v === '120x50';\n    }",
+    "new": "    function showBarcodeCustomSizeFields() {\n        var v = labelSizeSelect ? (labelSizeSelect.value || '').trim() : '';\n        return v === 'custom' || v === '120x50' || v === '250x120';\n    }"
+}

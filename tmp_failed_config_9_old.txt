@@ -1,0 +1,18 @@
+    $colsBase .= ", metal_type";
+    $metalFilter = ($metalType !== null && trim((string) $metalType) !== '') ? trim((string) $metalType) : '';
+    $storagePreset = null;
+    if ($labelSizePreset !== null && trim((string) $labelSizePreset) !== '') {
+        $storagePreset = auragold_barcode_label_storage_preset($labelSizePreset, $labelWidthMm, $labelHeightMm);
+    }
+    if ($metalFilter !== '') {
+        $mtEsc = mysqli_real_escape_string($conn, $metalFilter);
+        if ($storagePreset !== null && $storagePreset !== '') {
+            $psEsc = mysqli_real_escape_string($conn, $storagePreset);
+            $metalWhere = ($branchSql !== '' ? $branchSql . ' AND' : ' WHERE') . " metal_type = '$mtEsc' AND label_size_preset = '$psEsc'";
+            $row = getRecord("SELECT $colsBase FROM $table $metalWhere ORDER BY id DESC LIMIT 1");
+        }
+        if (empty($row)) {
+            $metalWhere = ($branchSql !== '' ? $branchSql . ' AND' : ' WHERE') . " metal_type = '$mtEsc'";
+            $row = getRecord("SELECT $colsBase FROM $table $metalWhere ORDER BY updated_at DESC, id DESC LIMIT 1");
+        }
+    } else {

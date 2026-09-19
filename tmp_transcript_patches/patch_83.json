@@ -1,0 +1,5 @@
+{
+    "line": 261,
+    "old": "    var DUAL_STICKER_W_MM = 120;\n    var DUAL_STICKER_H_MM = 50;\n    var DUAL_TAG_GAP_MM = 2;\n    function isDualLabelLayoutPreset(val) {",
+    "new": "    var DUAL_STICKER_W_MM = 120;\n    var DUAL_STICKER_H_MM = 50;\n    var DUAL_TAG_GAP_MM = 2;\n    \/** One barcode print box: 2 cm wide × 2.5 cm high *\/\n    var DUAL_QUADRANT_W_MM = 20;\n    var DUAL_QUADRANT_H_MM = 25;\n    function isDualLabelLayoutPreset(val) {"
+}

@@ -1,0 +1,54 @@
+ * @param string|null $metalType        Display name e.g. Gold, Silver.
+ * @param string|null $labelSizePreset  UI or storage preset (100x18, custom, custom_100x80, …).
+ * @param float|null  $labelWidthMm     Used when preset is custom / 120x50.
+ * @param float|null  $labelHeightMm
+ * @return array|null  Keys: id, label_size_preset, label_width_mm, label_height_mm, font_size,
+ *                     show_product_name, show_price, show_barcode_number, print_copies,
+ *                     barcode_bar_width, barcode_bar_height (when columns exist), metal_type, design_layout
+ */
+function auragold_barcode_label_standard_presets() {
+    return ['100x18', '100x25', '100x48', '100x80', '64x25', '81x12', '120x50', '250x120', 'zebra-zpl'];
+}
+
+/** DB lookup key: one row per metal + label size (custom sizes use custom_WxH). */
+function auragold_barcode_label_storage_preset($preset, $labelWidthMm = null, $labelHeightMm = null) {
+    $p = trim((string) $preset);
+    if ($p === '120x50') {
+        return '120x50';
+    }
+    if ($p !== '' && $p !== 'custom' && in_array($p, auragold_barcode_label_standard_presets(), true)) {
+        return $p;
+    }
+    if (preg_match('/^custom_\d+x\d+$/i', $p)) {
+        return strtolower($p);
+    }
+    $w = max(10, (int) round((float) ($labelWidthMm ?? 100)));
+    $h = max(10, (int) round((float) ($labelHeightMm ?? 18)));
+    return 'custom_' . $w . 'x' . $h;
+}
+
+/** Map storage preset from DB back to Label Size dropdown value. */
+function auragold_barcode_label_ui_preset($storagePreset, $labelWidthMm = null, $labelHeightMm = null) {
+    $p = trim((string) $storagePreset);
+    if (preg_match('/^custom_\d+x\d+$/i', $p)) {
+        return 'custom';
+    }
+    $ui = array_merge(auragold_barcode_label_standard_presets(), ['custom']);
+    if (in_array($p, $ui, true)) {
+        return $p;
+    }
+    if ($p === 'custom' || $p === '') {
+        return 'custom';
+    }
+    $dim = (int) round((float) ($labelWidthMm ?? 100)) . 'x' . (int) round((float) ($labelHeightMm ?? 18));
+    if (in_array($dim, $ui, true)) {
+        return $dim;
+    }
+    return 'custom';
+}
+
+function auragold_barcode_settings_cache_key($metalType, $storagePreset) {
+    return trim((string) $metalType) . '::' . trim((string) $storagePreset);
+}
+
+function getBarcodeSettings($metalType = null, $labelSizePreset = null, $labelWidthMm = null, $labelHeightMm = null) {

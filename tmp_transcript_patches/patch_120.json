@@ -1,0 +1,5 @@
+{
+    "line": 365,
+    "old": "        var dims = getDualTagLayoutPx();\n        shell.style.width = dims.stickerWPx + 'px';",
+    "new": "        var dims = getDualTagLayoutPx();\n        var cfg = dims.cfg;\n        shell.style.width = dims.stickerWPx + 'px';"
+}

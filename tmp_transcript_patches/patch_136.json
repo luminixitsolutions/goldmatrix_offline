@@ -1,0 +1,5 @@
+{
+    "line": 441,
+    "old": "        if (isDualJewelry) {",
+    "new": "        if (isDualJewelry && val === '120x50') {\n            var dualCfgBadge = getDualPresetConfig(val);\n            var boxBadge = (dualCfgBadge.quadW \/ 10) + ' cm × ' + (dualCfgBadge.quadH \/ 10) + ' cm';\n            clearTagBacking(barcodeBox);\n            if (barcodeBox2) clearTagBacking(barcodeBox2);\n            applyMmToWhite(document.getElementById('labelPreview1'), 'Print box ' + boxBadge, dualCfgBadge.quadW, dualCfgBadge.quadH);\n            applyMmToWhite(document.getElementById('labelPreview2'), 'Print box ' + boxBadge, dualCfgBadge.quadW, dualCfgBadge.quadH);\n        } else if (isDualJewelry) {"
+}

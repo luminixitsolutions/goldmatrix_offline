@@ -1,0 +1,828 @@
+/**
+ * Product-opening look for Add Product modal (#productCreationModal).
+ * Scoped so product-opening.php is unaffected.
+ */
+
+#productCreationModal .modal-body {
+    background: #eef2f7;
+}
+
+#productCreationModal .modal-body .sec-title,
+#productCreationModal .modal-body .card-box label,
+#productCreationModal .modal-body .form-group label {
+    color: #1e293b !important;
+}
+
+#productCreationModal .po-product-form-scroll {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 16px;
+    min-height: 100%;
+    box-sizing: border-box;
+}
+
+#productCreationModal .po-modal-right-top {
+    display: grid;
+    grid-template-columns: minmax(0, 1.65fr) minmax(260px, 1fr);
+    gap: 16px;
+    align-items: stretch;
+    min-width: 0;
+}
+
+#productCreationModal .po-section-card {
+    background: #fff;
+    border: none;
+    border-radius: 14px;
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.06), 0 8px 24px rgba(15, 23, 42, 0.07);
+    padding: 16px 18px;
+}
+
+#productCreationModal .po-section-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+#productCreationModal .po-section-head-left {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    min-width: 0;
+}
+
+#productCreationModal .po-section-icon {
+    flex: 0 0 40px;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: #eef2ff;
+    color: #11294b;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#productCreationModal .po-section-icon .feather,
+#productCreationModal .po-section-icon svg {
+    width: 18px;
+    height: 18px;
+}
+
+#productCreationModal .po-section-title {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 800;
+    color: #0f172a;
+    line-height: 1.2;
+}
+
+#productCreationModal .po-section-sub {
+    margin: 4px 0 0;
+    font-size: 0.78rem;
+    color: #64748b;
+    line-height: 1.35;
+}
+
+#productCreationModal .product-details-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+#productCreationModal .product-details-actions .btn-primary {
+    background: #11294b !important;
+    border-color: #11294b !important;
+    border-radius: 8px;
+    font-weight: 700;
+}
+
+#productCreationModal .form-row-custom {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+#productCreationModal .form-row-custom.form-row-product-top,
+#productCreationModal .form-row-custom.form-row-product-second {
+    grid-template-columns: 1fr 1fr;
+}
+
+#productCreationModal .form-row-custom .form-group {
+    margin-bottom: 0;
+}
+
+#productCreationModal .form-row-custom label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #0f172a;
+    margin-bottom: 4px;
+    display: block;
+}
+
+#productCreationModal .form-row-custom .form-control,
+#productCreationModal .form-row-custom select {
+    height: 32px;
+    font-size: 0.8rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    padding: 6px 10px;
+}
+
+#productCreationModal .form-row-custom .form-control:focus,
+#productCreationModal .form-row-custom select:focus {
+    border-color: #11294b;
+    box-shadow: 0 0 0 3px rgba(17, 41, 75, 0.1);
+}
+
+#productCreationModal .select-with-add {
+    position: relative;
+}
+
+#productCreationModal .select-with-add .add-icon {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #c5a864;
+    font-size: 0.9rem;
+    z-index: 2;
+}
+
+#productCreationModal .select-with-add select.form-control {
+    padding-right: 28px;
+}
+
+#productCreationModal .select-with-add-btn {
+    display: flex;
+    align-items: stretch;
+    gap: 6px;
+}
+
+#productCreationModal .select-with-add-btn select.form-control {
+    flex: 1;
+    min-width: 0;
+}
+
+#productCreationModal .select-with-add-btn .po-field-add-btn {
+    flex: 0 0 32px;
+    width: 32px;
+    min-width: 32px;
+    height: 32px;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    background: #fff;
+    color: #11294b;
+    line-height: 1;
+    cursor: pointer;
+}
+
+#productCreationModal .select-with-add-btn .po-field-add-btn:hover {
+    border-color: #11294b;
+    background: #f8fafc;
+}
+
+#productCreationModal .branch-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-items: center;
+    min-height: 32px;
+    padding: 4px;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    background: #fff;
+}
+
+#productCreationModal .branch-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 8px;
+    background: #e0e7ff;
+    color: #4338ca;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+#productCreationModal .branch-tag .remove-tag {
+    cursor: pointer;
+    color: #ef4444;
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 1;
+}
+
+#productCreationModal .add-branch-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border: 1px dashed #cbd5e1;
+    border-radius: 4px;
+    cursor: pointer;
+    color: #64748b;
+}
+
+#productCreationModal .add-branch-btn:hover {
+    border-color: #11294b;
+    color: #11294b;
+}
+
+#productCreationModal .po-toggle-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 8px;
+    padding-top: 14px;
+    border-top: 1px solid #eef2f7;
+}
+
+#productCreationModal .po-toggle-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 10px 12px;
+    border: 1px solid #e8edf4;
+    border-radius: 10px;
+    background: #fafbfc;
+}
+
+#productCreationModal .po-toggle-label strong {
+    display: block;
+    font-size: 0.82rem;
+    color: #0f172a;
+    font-weight: 700;
+}
+
+#productCreationModal .po-toggle-label span {
+    display: block;
+    font-size: 0.72rem;
+    color: #64748b;
+    margin-top: 2px;
+}
+
+#productCreationModal .po-switch {
+    position: relative;
+    display: inline-block;
+    width: 44px;
+    height: 24px;
+    flex-shrink: 0;
+}
+
+#productCreationModal .po-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+    position: absolute;
+}
+
+#productCreationModal .po-switch-slider {
+    position: absolute;
+    cursor: pointer;
+    inset: 0;
+    background: #cbd5e1;
+    border-radius: 999px;
+    transition: 0.2s;
+}
+
+#productCreationModal .po-switch-slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background: #fff;
+    border-radius: 50%;
+    transition: 0.2s;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+}
+
+#productCreationModal .po-switch input:checked + .po-switch-slider {
+    background: #16a34a;
+}
+
+#productCreationModal .po-switch input:checked + .po-switch-slider:before {
+    transform: translateX(20px);
+}
+
+#productCreationModal .po-tax-card {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+}
+
+#productCreationModal .po-tax-card table {
+    margin-bottom: 12px;
+}
+
+#productCreationModal .po-tax-card table thead {
+    display: none;
+}
+
+#productCreationModal .po-tax-card table tbody tr {
+    border-bottom: 1px solid #eef2f7;
+}
+
+#productCreationModal .po-tax-card table td {
+    border: none;
+    padding: 10px 4px;
+    background: transparent;
+    vertical-align: middle;
+}
+
+#productCreationModal .po-tax-card table td:first-child {
+    font-weight: 600;
+    color: #0f172a;
+    font-size: 0.82rem;
+}
+
+#productCreationModal .po-tax-total {
+    margin-top: auto;
+    padding: 14px 16px;
+    border-radius: 10px;
+    background: #11294b;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    font-size: 0.82rem;
+}
+
+#productCreationModal .po-tax-total strong {
+    font-size: 1.05rem;
+    font-weight: 800;
+}
+
+#productCreationModal .po-characteristics-card {
+    clear: both;
+    width: 100%;
+    padding-bottom: 8px;
+}
+
+#productCreationModal .po-pc-step-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #e2e8f0;
+    color: #475569;
+    font-size: 12px;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+#productCreationModal .po-pc-tabs-shell {
+    padding: 0 4px 8px;
+}
+
+#productCreationModal .po-pc-tabs-label {
+    font-size: 12px;
+    color: #64748b;
+    margin: 0 0 10px;
+    font-weight: 500;
+}
+
+#productCreationModal .po-pc-tabs-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 14px;
+}
+
+#productCreationModal .po-pc-tab {
+    position: relative;
+    min-width: 100px;
+    max-width: 130px;
+    min-height: 98px;
+    flex: 1 1 100px;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    background: #fff;
+    padding: 10px 8px 8px;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color 0.2s, box-shadow 0.2s, background 0.2s, transform 0.15s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+}
+
+#productCreationModal .po-pc-tab:hover {
+    border-color: #c5a864;
+    background: #fffdf8;
+    transform: translateY(-1px);
+}
+
+#productCreationModal .po-pc-tab.active {
+    border-color: #c5a864;
+    box-shadow: 0 4px 14px rgba(197, 168, 100, 0.22);
+    background: #fffdf8;
+}
+
+#productCreationModal .po-pc-tab.is-selected {
+    border-color: #c5a864;
+}
+
+#productCreationModal .po-pc-tab-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    height: 44px;
+    margin: 0 auto 6px;
+    border-radius: 8px;
+    background: #f8fafc;
+    overflow: hidden;
+}
+
+#productCreationModal .po-pc-tab-icon img {
+    max-width: 46px;
+    max-height: 40px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    display: block;
+}
+
+#productCreationModal .po-pc-tab-icon.metal-gold { color: #c5a864; background: #fffbeb; }
+#productCreationModal .po-pc-tab-icon.metal-silver { color: #94a3b8; background: #f8fafc; }
+#productCreationModal .po-pc-tab-icon.metal-platinum { color: #64748b; background: #f1f5f9; }
+#productCreationModal .po-pc-tab-icon.metal-diamond { color: #3b82f6; background: #eff6ff; }
+#productCreationModal .po-pc-tab-icon.metal-other { color: #11294b; background: #f8fafc; }
+
+#productCreationModal .po-pc-tab-icon .po-pc-tab-fallback {
+    font-size: 22px;
+    line-height: 1;
+}
+
+#productCreationModal .po-pc-tab-name {
+    display: block;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: #334155;
+    line-height: 1.25;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+#productCreationModal .po-pc-tab-check {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    z-index: 2;
+    margin: 0;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#productCreationModal .po-pc-tab-checkbox {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    margin: 0;
+    cursor: pointer;
+    flex-shrink: 0;
+    border-radius: 50%;
+    border: 2px solid #cbd5e1;
+    background: #fff;
+    position: relative;
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.06);
+    transition: border-color 0.15s, background 0.15s, box-shadow 0.15s;
+}
+
+#productCreationModal .po-pc-tab-checkbox:hover {
+    border-color: #c5a864;
+}
+
+#productCreationModal .po-pc-tab-checkbox:checked {
+    border-color: #c5a864;
+    background: #c5a864;
+    box-shadow: 0 1px 4px rgba(197, 168, 100, 0.35);
+}
+
+#productCreationModal .po-pc-tab-checkbox:checked::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 46%;
+    width: 5px;
+    height: 9px;
+    border: solid #11294b;
+    border-width: 0 2px 2px 0;
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+
+#productCreationModal .po-pc-details-box {
+    background: #fff;
+    border: 1px solid #e8dcc4;
+    border-radius: 14px;
+    box-shadow: 0 2px 14px rgba(17, 41, 75, 0.05);
+    overflow: hidden;
+    margin-top: 4px;
+}
+
+#productCreationModal .po-pc-table-host.pc-tabs-mode .pc-scroll {
+    overflow: visible !important;
+    min-height: 0;
+    max-height: none;
+    padding-bottom: 12px;
+}
+
+#productCreationModal .po-pc-table-host.pc-tabs-mode .pc-table thead {
+    display: none;
+}
+
+#productCreationModal .po-pc-table-host.pc-tabs-mode .pc-table,
+#productCreationModal .po-pc-table-host.pc-tabs-mode .pc-table tbody {
+    display: block;
+    width: 100%;
+}
+
+#productCreationModal .po-pc-table-host.pc-tabs-mode .pc-table tbody tr {
+    display: none;
+}
+
+#productCreationModal .po-pc-table-host.pc-tabs-mode .pc-table tbody tr.po-pc-row-active {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px 24px;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    padding: 0 0 4px;
+    margin: 0;
+    box-shadow: none;
+    overflow: visible;
+}
+
+#productCreationModal .po-pc-table-host.pc-tabs-mode .pc-table tbody tr.po-pc-row-active .po-pc-detail-title {
+    margin: 16px 20px 0;
+    padding: 0 20px 10px;
+    border-bottom: 1px solid #f1e6cf;
+}
+
+#productCreationModal .po-pc-table-host.pc-tabs-mode .pc-table tbody tr.po-pc-row-active .po-pc-metal-toggle {
+    display: none !important;
+}
+
+#productCreationModal .po-pc-table-host.pc-tabs-mode .pc-table tbody tr.po-pc-row-active td {
+    display: block;
+    border: none !important;
+    padding: 0;
+    width: auto;
+    background: transparent !important;
+    text-align: left;
+}
+
+#productCreationModal .po-pc-table-host.pc-tabs-mode .pc-table tbody tr.po-pc-row-active td.po-pc-field-primary,
+#productCreationModal .po-pc-table-host.pc-tabs-mode .pc-table tbody tr.po-pc-row-active td.po-pc-extra-field {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+#productCreationModal .po-pc-table-host.pc-tabs-mode .pc-table tbody tr.po-pc-row-active td[data-col="check"],
+#productCreationModal .po-pc-table-host.pc-tabs-mode .pc-table tbody tr.po-pc-row-active td[data-col="metal"],
+#productCreationModal .po-pc-table-host.pc-tabs-mode .pc-table tbody tr.po-pc-row-active td.pc-col-always-hidden,
+#productCreationModal .po-pc-table-host.pc-tabs-mode .pc-table tbody tr.po-pc-row-active td[style*="display: none"],
+#productCreationModal .po-pc-table-host.pc-tabs-mode .pc-table tbody tr.po-pc-row-active td.d-none {
+    display: none !important;
+}
+
+#productCreationModal .po-pc-table-host.pc-tabs-mode .pc-table tbody tr.po-pc-row-active td[data-col="serialized"],
+#productCreationModal .po-pc-table-host.pc-tabs-mode .pc-table tbody tr.po-pc-row-active td[data-col="purity-purchase"] {
+    grid-column: 1 / -1;
+}
+
+#productCreationModal .po-pc-table-host.pc-tabs-mode .pc-table tbody tr.po-pc-row-active.po-pc-is-diamond-metal td[data-col="diamond"] {
+    grid-column: 1 / -1;
+}
+
+#productCreationModal .po-pc-table-host.pc-tabs-mode .pc-table tbody tr.po-pc-row-active:not(.po-pc-is-diamond-metal) td[data-col="diamond"] {
+    display: none !important;
+}
+
+#productCreationModal .po-pc-detail-title {
+    grid-column: 1 / -1;
+    margin: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+    font-size: 15px;
+    font-weight: 700;
+    color: #b8860b;
+}
+
+#productCreationModal .po-pc-field-box {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    padding: 0;
+    box-shadow: none;
+}
+
+#productCreationModal .po-pc-field-label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    color: #334155;
+    margin-bottom: 6px;
+    text-align: left;
+    line-height: 1.3;
+}
+
+#productCreationModal .po-pc-field-label .req {
+    color: #dc2626;
+    margin-left: 1px;
+}
+
+#productCreationModal .po-pc-field-hint {
+    display: block;
+    font-size: 11px;
+    color: #94a3b8;
+    margin-top: 5px;
+    line-height: 1.35;
+    text-align: left;
+}
+
+#productCreationModal .po-pc-table-host.pc-tabs-mode .pc-table tbody tr.po-pc-row-active .form-control-sm,
+#productCreationModal .po-pc-table-host.pc-tabs-mode .pc-table tbody tr.po-pc-row-active select.form-control-sm {
+    height: 40px;
+    font-size: 13px;
+    border-radius: 8px;
+    border: 1px solid #cbd5e1;
+    background: #fff;
+    width: 100%;
+    min-width: 0;
+    padding: 8px 12px;
+    text-align: left;
+    box-shadow: none;
+}
+
+#productCreationModal .po-pc-table-host.pc-tabs-mode .pc-table tbody tr.po-pc-row-active .form-control-sm:focus,
+#productCreationModal .po-pc-table-host.pc-tabs-mode .pc-table tbody tr.po-pc-row-active select.form-control-sm:focus {
+    border-color: #c5a864;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(197, 168, 100, 0.15);
+}
+
+#productCreationModal .po-pc-table-host.pc-tabs-mode .pc-row-drag-handle {
+    display: none;
+}
+
+#productCreationModal .pc-col-drag-handle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+    margin-right: 6px;
+    padding: 1px 2px;
+    color: #c9a227;
+    cursor: grab;
+    flex-shrink: 0;
+    line-height: 1;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+#productCreationModal .pc-col-drag-handle:active {
+    cursor: grabbing;
+}
+
+#productCreationModal .pc-col-drag-handle .feather,
+#productCreationModal .pc-col-drag-handle svg {
+    width: 14px;
+    height: 14px;
+}
+
+#productCreationModal .columns-dropdown {
+    position: absolute;
+    right: 0;
+    top: 100%;
+    margin-top: 8px;
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+    min-width: 250px;
+    max-width: 300px;
+    display: none;
+}
+
+#productCreationModal .columns-dropdown.show {
+    display: block;
+}
+
+#productCreationModal .columns-dropdown-header {
+    padding: 12px;
+    border-bottom: 1px solid #e2e8f0;
+    font-weight: 600;
+    color: #0f172a;
+}
+
+#productCreationModal .columns-dropdown-search {
+    padding: 8px 12px;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+#productCreationModal .columns-dropdown-search input {
+    width: 100%;
+    padding: 6px 8px;
+    border: 1px solid #e2e8f0;
+    border-radius: 4px;
+    font-size: 0.8rem;
+}
+
+#productCreationModal .columns-dropdown-list {
+    max-height: 300px;
+    overflow-y: auto;
+    padding: 8px;
+}
+
+#productCreationModal .columns-dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 4px;
+    font-size: 0.8rem;
+}
+
+#productCreationModal .gear-icon {
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: #c5a864;
+}
+
+@media (max-width: 991.98px) {
+    #productCreationModal .po-modal-right-top {
+        grid-template-columns: 1fr;
+    }
+
+    #productCreationModal .po-toggle-row {
+        grid-template-columns: 1fr;
+    }
+
+    #productCreationModal .form-row-custom.form-row-product-top,
+    #productCreationModal .form-row-custom.form-row-product-second,
+    #productCreationModal .form-row-custom {
+        grid-template-columns: 1fr;
+    }
+
+    #productCreationModal .po-section-head {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    #productCreationModal .product-details-actions {
+        width: 100%;
+        justify-content: stretch;
+    }
+
+    #productCreationModal .product-details-actions .btn {
+        flex: 1 1 auto;
+    }
+
+    #productCreationModal .po-pc-table-host.pc-tabs-mode .pc-table tbody tr.po-pc-row-active {
+        grid-template-columns: 1fr;
+    }
+
+    #productCreationModal .po-pc-tabs-nav {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: 4px;
+    }
+
+    #productCreationModal .po-pc-tab {
+        flex: 0 0 100px;
+    }
+}

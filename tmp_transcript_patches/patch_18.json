@@ -1,0 +1,5 @@
+{
+    "line": 50,
+    "old": "            var labelSizeEl = document.getElementById('barcodeLabelSize');\n            if (labelSizeEl) {\n                var preset = snap.label_size_preset || '100x18';\n                labelSizeEl.value = preset;\n                labelSizeEl.setAttribute('data-saved-preset', preset);\n            }",
+    "new": "            var labelSizeEl = document.getElementById('barcodeLabelSize');\n            if (labelSizeEl) {\n                var presetUi = snap.label_size_ui_preset || snap.label_size_preset || '100x18';\n                if (presetUi.indexOf('custom_') === 0) presetUi = 'custom';\n                labelSizeEl.value = presetUi;\n                labelSizeEl.setAttribute('data-saved-preset', presetUi);\n                currentBarcodeLabelStorageKey = snap.label_size_storage_preset || snap.label_size_preset || barcodeLabelStoragePreset(presetUi, snap.label_width_mm, snap.label_height_mm);\n            }"
+}

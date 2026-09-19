@@ -1,0 +1,35 @@
+<?php
+/**
+ * Manufacturing queue full table — column definitions (manufacturing-process.php + API field keys).
+ */
+return [
+    ['key' => 'queue_no', 'label' => 'Queue No'],
+    ['key' => 'comment', 'label' => 'Comment'],
+    ['key' => 'product_name', 'label' => 'Product Name'],
+    ['key' => 'active', 'label' => 'active'],
+    ['key' => 'image_urls', 'label' => 'imageUrls'],
+    ['key' => 'against_queue', 'label' => 'Against Queue'],
+    ['key' => 'against_invoice', 'label' => 'Against Invoice'],
+    ['key' => 'metal', 'label' => 'Metal'],
+    ['key' => 'description', 'label' => 'Description'],
+    ['key' => 'dust_wastage_wt', 'label' => 'Dust / Wastage Wt'],
+    ['key' => 'loss_wt', 'label' => 'Loss Wt'],
+    ['key' => 'profit_wt', 'label' => 'Profit Wt'],
+    ['key' => 'tag_no', 'label' => 'Tag No.'],
+    ['key' => 'total_wt', 'label' => 'Total Wt'],
+    ['key' => 'metal_wt', 'label' => 'Metal Wt'],
+    ['key' => 'diamond_wt', 'label' => 'Diamond Wt'],
+    ['key' => 'purity_wt', 'label' => 'Purity Wt'],
+    ['key' => 'carat_name', 'label' => 'Carat Name'],
+    ['key' => 'total_quantity', 'label' => 'Total Quantity'],
+    ['key' => 'date_time', 'label' => 'Date & Time'],
+    ['key' => 'branch_name', 'label' => 'Branch Name'],
+    ['key' => 'design_no', 'label' => 'DesignNo'],
+    ['key' => 'department_name', 'label' => 'Department Name'],
+    ['key' => 'user_name', 'label' => 'User Name'],
+    ['key' => 'status', 'label' => 'Status'],
+    ['key' => 'issue_wt', 'label' => 'Issue Wt'],
+    ['key' => 'receive_wt', 'label' => 'Receive Wt'],
+    ['key' => 'balance_wt', 'label' => 'Balance Wt'],
+    ['key' => 'action', 'label' => 'action'],
+];

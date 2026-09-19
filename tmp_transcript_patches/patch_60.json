@@ -1,0 +1,5 @@
+{
+    "line": 183,
+    "old": "    function getBarcodeTargetDisplayWidthPx(wrap, canvasEl, naturalW) {\n        var maxW = getBarcodeMaxDisplayWidthPx(canvasEl);",
+    "new": "    function getBarcodeTargetDisplayWidthPx(wrap, canvasEl, naturalW) {\n        var maxW = getBarcodeMaxDisplayWidthPx(canvasEl, wrap);"
+}

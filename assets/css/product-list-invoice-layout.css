@@ -1,0 +1,401 @@
+/**
+ * Product List "Show/Hide columns" dropdown: stacking + overflow.
+ * Loaded from includes/product-list-table.php after page inline <style> so rules win.
+ *
+ * Fixes: dropdown clipped by product-list-card overflow, and covered by payment card
+ * or right summary column (paint order / sticky sidebar).
+ */
+.invoice-content-row > .col-lg-8 {
+    position: relative;
+    z-index: 2;
+}
+
+/* Summary / previous-balance column paints after col-lg-8; keep it under flyouts from the main column */
+.invoice-content-row > .col-lg-4 {
+    position: relative;
+    z-index: 1;
+}
+
+/* Do not clip the absolutely positioned settings dropdown */
+.invoice-content-row .product-list-card {
+    position: relative;
+    z-index: 25;
+    overflow: visible !important;
+}
+
+.invoice-content-row .product-list-card-body {
+    overflow: visible !important;
+}
+
+/* Header row stacks above sticky table cells (z-index ~10) inside the grid */
+.invoice-content-row .product-list-card .table-header-wrapper {
+    position: relative;
+    z-index: 100;
+}
+
+.invoice-content-row .product-list-card .table-settings-wrapper {
+    position: relative;
+    z-index: 101;
+}
+
+.invoice-content-row .product-list-card .table-settings-dropdown {
+    z-index: 102;
+}
+
+/* Pages without invoice-content-row but using the shared product list card */
+.product-list-card:has(#tableSettingsDropdown) {
+    position: relative;
+    z-index: 25;
+    overflow: visible !important;
+}
+
+.product-list-card-body:has(.table-settings-wrapper) {
+    overflow: visible !important;
+}
+
+.product-list-card:has(#tableSettingsDropdown) .table-header-wrapper {
+    position: relative;
+    z-index: 100;
+}
+
+.product-list-card:has(#tableSettingsDropdown) .table-settings-wrapper {
+    position: relative;
+    z-index: 101;
+}
+
+.product-list-card:has(#tableSettingsDropdown) .table-settings-dropdown {
+    z-index: 102;
+}
+
+/* --- Product list column picker (match reference: cream list, Columns header, search, blue checks) --- */
+.product-list-card .table-settings-dropdown.pl-column-picker,
+.table-settings-wrapper .table-settings-dropdown.pl-column-picker {
+    position: absolute;
+    right: 0;
+    top: 100%;
+    margin-top: 0.5rem;
+    min-width: 260px;
+    max-width: 320px;
+    max-height: min(480px, 78vh);
+    padding: 0;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    box-shadow: 0 10px 28px rgba(17, 41, 75, 0.14), 0 4px 10px rgba(0, 0, 0, 0.06);
+    overflow: hidden;
+    z-index: 10001;
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.table-settings-dropdown.pl-column-picker.show {
+    display: flex;
+}
+
+.pl-column-picker .table-settings-dropdown-head {
+    flex-shrink: 0;
+    padding: 0.65rem 0.85rem 0.5rem 0.85rem;
+    background: #ffffff;
+    border-radius: 12px 12px 0 0;
+}
+
+.pl-column-picker .pl-column-picker-title-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.45rem;
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.pl-column-picker .pl-column-picker-title-main {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    flex: 1;
+    min-width: 0;
+}
+
+.pl-column-picker .pl-column-picker-mini-btn {
+    flex-shrink: 0;
+    width: 1.45rem;
+    height: 1.45rem;
+    padding: 0;
+    margin: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.58rem;
+    font-weight: 700;
+    line-height: 1;
+    color: #11294b;
+    background: #ffffff;
+    border: 1px solid #94a3b8;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.pl-column-picker .pl-column-picker-mini-btn:hover {
+    background: #f8fafc;
+    border-color: #64748b;
+    color: #0f172a;
+}
+
+.pl-column-picker .pl-column-picker-mini-btn:active {
+    background: #e2e8f0;
+}
+
+.pl-column-picker .pl-column-picker-title-icon {
+    color: #c5a864;
+    font-size: 0.88rem;
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+    margin-left: 0.1rem;
+}
+
+.pl-column-picker .pl-column-picker-title-text {
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: #11294b;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+}
+
+.pl-column-picker .pl-column-picker-close {
+    flex-shrink: 0;
+    border: none;
+    background: transparent;
+    color: #94a3b8;
+    font-size: 1.1rem;
+    line-height: 1;
+    padding: 0.1rem 0.35rem;
+    margin: 0;
+    cursor: pointer;
+    border-radius: 6px;
+    line-height: 1;
+}
+
+.pl-column-picker .pl-column-picker-close:hover {
+    color: #475569;
+    background: #f1f5f9;
+}
+
+.pl-column-picker .table-settings-search {
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+
+/* Column search uses global #tableSettingsSearch rules (end of file); inputs use .pl-column-picker-search, not .form-control */
+
+.pl-column-picker .table-settings-dropdown-body {
+    overflow-y: auto;
+    overflow-x: hidden;
+    flex: 1 1 auto;
+    min-height: 0;
+    max-height: 340px;
+    padding: 0.5rem 0.85rem 0.85rem 0.85rem;
+    background: #fff9f0;
+    border-radius: 0 0 12px 12px;
+}
+
+.pl-column-picker .table-settings-dropdown-body::-webkit-scrollbar {
+    width: 8px;
+}
+
+.pl-column-picker .table-settings-dropdown-body::-webkit-scrollbar-track {
+    background: #f5edd8;
+    border-radius: 4px;
+}
+
+.pl-column-picker .table-settings-dropdown-body::-webkit-scrollbar-thumb {
+    background: #c4b896;
+    border-radius: 4px;
+}
+
+.pl-column-picker .table-settings-dropdown-body::-webkit-scrollbar-thumb:hover {
+    background: #a89870;
+}
+
+.pl-column-picker .table-settings-section-title.table-settings-group-header {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.35rem !important;
+    font-weight: 700 !important;
+    font-size: 0.625rem !important;
+    line-height: 1.3 !important;
+    color: #64748b !important;
+    margin: 0.45rem 0 0.15rem 0 !important;
+    padding-top: 0.35rem !important;
+    border-top: 1px solid #e8dfc4 !important;
+}
+
+.pl-column-picker .table-settings-group-title-label {
+    margin: 0 !important;
+    cursor: pointer !important;
+    flex: 1 !important;
+    font-weight: 700 !important;
+    font-size: inherit !important;
+    color: inherit !important;
+}
+
+.pl-column-picker .table-settings-dropdown-body > .table-settings-section-title.table-settings-group-header:first-child {
+    border-top: none !important;
+    padding-top: 0.15rem !important;
+    margin-top: 0 !important;
+}
+
+/* Group header checkbox: same compact style as column rows */
+.table-settings-dropdown .table-settings-group-checkbox {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 0.72rem;
+    height: 0.72rem;
+    margin: 0 0.1rem 0 0;
+    border: 2px solid #94a3b8;
+    border-radius: 2px;
+    background: #ffffff;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: background 0.12s ease, border-color 0.12s ease;
+}
+
+.table-settings-dropdown .table-settings-group-checkbox:checked {
+    background-color: #2563eb;
+    border-color: #2563eb;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' d='M2.5 6l2.5 2.5L9.5 3.5'/%3E%3C/svg%3E");
+    background-size: 7px 7px;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.table-settings-dropdown .table-settings-group-checkbox:indeterminate {
+    background-color: #64748b;
+    border-color: #64748b;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' d='M3 6h6'/%3E%3C/svg%3E");
+    background-size: 7px 7px;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.table-settings-dropdown .table-settings-group-checkbox:hover {
+    border-color: #64748b;
+}
+
+/* Column list rows: all pickers (main table + product modal) use .table-settings-dropdown */
+.table-settings-dropdown .table-settings-item {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    border-radius: 4px;
+    padding: 0.08rem 0.08rem;
+    transition: background 0.12s ease;
+}
+
+.table-settings-dropdown .table-settings-item:hover {
+    background: rgba(17, 41, 75, 0.06);
+    padding-left: 0.28rem;
+}
+
+.table-settings-dropdown .table-settings-item label {
+    margin: 0;
+    cursor: pointer;
+    font-size: 0.625rem;
+    line-height: 1.25;
+    color: #11294b;
+    font-weight: 500;
+    flex: 1;
+}
+
+.table-settings-dropdown .table-settings-group-item label {
+    font-size: 0.625rem;
+    line-height: 1.25;
+}
+
+.table-settings-dropdown .table-settings-item input[type="checkbox"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 0.72rem;
+    height: 0.72rem;
+    margin-right: 0.4rem;
+    border: 2px solid #94a3b8;
+    border-radius: 2px;
+    background: #ffffff;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: background 0.12s ease, border-color 0.12s ease;
+}
+
+.table-settings-dropdown .table-settings-item input[type="checkbox"]:checked {
+    background-color: #2563eb;
+    border-color: #2563eb;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' d='M2.5 6l2.5 2.5L9.5 3.5'/%3E%3C/svg%3E");
+    background-size: 7px 7px;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.table-settings-dropdown .table-settings-item input[type="checkbox"]:hover {
+    border-color: #64748b;
+}
+
+/*
+ * Bootstrap Material .form-control uses background: transparent and border: 0 — column search looked
+ * invisible until hover/focus. These rules win without using .form-control on the search input.
+ */
+#tableSettingsSearch,
+input.pl-column-picker-search,
+.table-settings-dropdown .table-settings-search input[type="text"] {
+    display: block !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    min-height: 2.35rem !important;
+    padding: 0.45rem 0.75rem !important;
+    font-size: 0.875rem !important;
+    line-height: 1.4 !important;
+    font-weight: 400 !important;
+    color: #1e293b !important;
+    -webkit-text-fill-color: #1e293b !important;
+    background-color: #ffffff !important;
+    background-image: none !important;
+    border: 1px solid #64748b !important;
+    border-radius: 8px !important;
+    box-shadow: inset 0 1px 2px rgba(15, 23, 42, 0.06) !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+#tableSettingsSearch:focus,
+input.pl-column-picker-search:focus,
+.table-settings-dropdown .table-settings-search input[type="text"]:focus {
+    outline: none !important;
+    color: #1e293b !important;
+    -webkit-text-fill-color: #1e293b !important;
+    background-color: #ffffff !important;
+    border-color: #c5a864 !important;
+    box-shadow: 0 0 0 3px rgba(197, 168, 100, 0.2) !important;
+}
+
+#tableSettingsSearch::placeholder,
+input.pl-column-picker-search::placeholder,
+.table-settings-dropdown .table-settings-search input[type="text"]::placeholder {
+    color: #64748b !important;
+    opacity: 1 !important;
+}
+
+/* Pill search inside column picker only — compact height */
+.pl-column-picker #tableSettingsSearch,
+.pl-column-picker input.pl-column-picker-search,
+.pl-column-picker .table-settings-search input[type="text"] {
+    min-height: 1.65rem !important;
+    padding: 0.22rem 0.55rem !important;
+    font-size: 0.6875rem !important;
+    line-height: 1.35 !important;
+    border-radius: 999px !important;
+    border-color: #cbd5e1 !important;
+}

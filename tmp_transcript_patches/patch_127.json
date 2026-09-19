@@ -1,0 +1,5 @@
+{
+    "line": 431,
+    "old": "            if (vZone === 'bottom') {\n                wrap.style.top = Math.max(mid + 2, canvasEl.clientHeight - h - pad) + 'px';\n            } else if (vZone === 'top') {",
+    "new": "            if (vZone === 'bottom' || vZone === 'below-fold') {\n                wrap.style.top = Math.max(mid, canvasEl.clientHeight - h - pad) + 'px';\n            } else if (vZone === 'top') {"
+}

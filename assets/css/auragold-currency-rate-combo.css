@@ -1,0 +1,38 @@
+/* Currency + rate combined control (shared voucher FX UI) */
+.pi-currency-rate-combo {
+    display: flex;
+    align-items: stretch;
+    width: 100%;
+    border: 1px solid #ced4da;
+    border-radius: 0.2rem;
+    background: #fff;
+    overflow: hidden;
+}
+.pi-currency-rate-combo:focus-within {
+    border-color: #80bdff;
+    box-shadow: 0 0 0 0.15rem rgba(0, 123, 255, 0.2);
+}
+.pi-currency-rate-combo #currency,
+.pi-currency-rate-combo select.auragold-currency-select {
+    flex: 1 1 auto;
+    min-width: 0;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    background: transparent;
+}
+.pi-currency-rate-combo #currencyRate,
+.pi-currency-rate-combo input.auragold-currency-rate {
+    flex: 0 0 4.5rem;
+    width: 4.5rem;
+    max-width: 4.5rem;
+    border: none !important;
+    border-left: 1px solid #ced4da !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    text-align: right;
+    padding-left: 0.35rem;
+    padding-right: 0.45rem;
+    background: #f8fafc;
+    font-variant-numeric: tabular-nums;
+}

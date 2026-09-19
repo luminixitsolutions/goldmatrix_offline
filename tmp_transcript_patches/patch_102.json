@@ -1,0 +1,5 @@
+{
+    "line": 305,
+    "old": "        if (labelSizeSelect) {\n            var savedPreset = labelSizeSelect.getAttribute('data-saved-preset');\n            if (savedPreset) {\n                labelSizeSelect.value = savedPreset;\n            }",
+    "new": "        if (labelSizeSelect) {\n            var savedPreset = labelSizeSelect.getAttribute('data-saved-preset');\n            var currentPreset = (labelSizeSelect.value || '').trim();\n            if (savedPreset && (!currentPreset || currentPreset === savedPreset)) {\n                if (labelSizeSelect.querySelector('option[value=\"' + savedPreset + '\"]')) {\n                    labelSizeSelect.value = savedPreset;\n                }\n            }"
+}

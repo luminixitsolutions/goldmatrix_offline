@@ -1,0 +1,5 @@
+{
+    "line": 335,
+    "old": "        if (val === '120x50') {\n            labelWidthMm = 120;\n            labelHeightMm = 50;\n            if (cw) cw.value = 120;\n            if (ch) ch.value = 50;\n        } else if (val === 'custom') {",
+    "new": "        if (val === '120x50') {\n            labelWidthMm = 120;\n            labelHeightMm = 50;\n            if (cw) cw.value = 120;\n            if (ch) ch.value = 50;\n        } else if (val === '250x120') {\n            labelWidthMm = 250;\n            labelHeightMm = 120;\n            if (cw) cw.value = 250;\n            if (ch) ch.value = 120;\n        } else if (val === 'custom') {"
+}

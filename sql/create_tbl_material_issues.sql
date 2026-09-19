@@ -1,0 +1,56 @@
+-- Material Issue master and items (against Sale Order). Number from Bill Series (voucher type "Material Issue").
+-- Run after tbl_voucher_types + tbl_bill_series are set up for Material Issue.
+
+CREATE TABLE IF NOT EXISTS `tbl_material_issues` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `material_issue_no` varchar(50) NOT NULL DEFAULT '',
+  `sale_order_id` int(11) DEFAULT NULL,
+  `sale_order_no` varchar(50) NOT NULL DEFAULT '',
+  `customer_name` varchar(255) DEFAULT NULL,
+  `department_id` int(11) DEFAULT NULL,
+  `order_date` date DEFAULT NULL,
+  `due_date` date DEFAULT NULL,
+  `grand_total` decimal(15,2) DEFAULT 0.00,
+  `status` varchar(30) DEFAULT 'draft',
+  `priority` varchar(30) DEFAULT 'Medium',
+  `department_user_id` int(11) DEFAULT NULL,
+  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `sale_order_id` (`sale_order_id`),
+  KEY `material_issue_no` (`material_issue_no`),
+  KEY `status` (`status`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS `tbl_material_issue_items` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `material_issue_id` int(11) NOT NULL,
+  `product_id` int(11) DEFAULT NULL,
+  `product_characteristic_id` int(11) DEFAULT NULL,
+  `barcode` varchar(100) DEFAULT NULL,
+  `product_name` varchar(255) DEFAULT NULL,
+  `design_no` varchar(100) DEFAULT NULL,
+  `carat` varchar(50) DEFAULT NULL,
+  `quantity` decimal(10,2) DEFAULT 1.00,
+  `gross_weight` decimal(10,3) DEFAULT 0.000,
+  `less_weight` decimal(10,3) DEFAULT 0.000,
+  `purity` decimal(10,2) DEFAULT 0.00,
+  `purity_weight` decimal(10,3) DEFAULT 0.000,
+  `requested_purity` decimal(12,4) DEFAULT NULL,
+  `requested_wt` decimal(12,4) DEFAULT NULL,
+  `alloy_wt` decimal(12,4) DEFAULT NULL,
+  `final_weight` decimal(10,3) DEFAULT 0.000,
+  `net_weight` decimal(10,3) DEFAULT 0.000,
+  `pure_weight` decimal(10,3) DEFAULT 0.000,
+  `rate` decimal(15,2) DEFAULT 0.00,
+  `making_amount` decimal(15,2) DEFAULT 0.00,
+  `amount` decimal(15,2) DEFAULT 0.00,
+  `tax_amount` decimal(15,2) DEFAULT 0.00,
+  `net_amount` decimal(15,2) DEFAULT 0.00,
+  `net_amt_with_tax` decimal(15,2) DEFAULT 0.00,
+  `status` tinyint(1) DEFAULT 1,
+  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `material_issue_id` (`material_issue_id`),
+  KEY `product_id` (`product_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

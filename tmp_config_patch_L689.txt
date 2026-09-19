@@ -1,0 +1,19 @@
+/** Default geometry for 82×38 mm two-box sticker (mm). Diagonal: box1 lower-left, box2 upper-right. */
+function auragold_82x38_2box_defaults(): array {
+    return [
+        'sticker_w'                => 82.0,
+        'sticker_h'                => 38.0,
+        'box_width_mm'             => 22.0,
+        'box_height_mm'            => 16.0,
+        'box1_left_mm'             => 2.0,
+        'box1_top_mm'              => 13.0,
+        'box2_right_mm'            => 2.0,
+        'box2_top_mm'              => 2.0,
+        'barcode_width_mm'         => 18.0,
+        'barcode_height_mm'        => 7.0,
+        'barcode_left_mm'          => 1.0,
+        'barcode_top_mm'           => 1.0,
+        'barcode_no_font_size'     => 7.0,
+        'barcode_no_margin_top_mm' => 1.0,
+    ];
+}

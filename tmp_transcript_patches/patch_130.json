@@ -1,0 +1,5 @@
+{
+    "line": 440,
+    "old": "                    <\/div>\n                    <\/div>\n                <\/div>\n            <\/div>\n        <\/div>\n\n        <!-- Right sidebar: Toolbox + Properties -->",
+    "new": "                    <\/div>\n                        <\/div>\n                    <\/div>\n                <\/div>\n            <\/div>\n        <\/div>\n\n        <!-- Right sidebar: Toolbox + Properties -->"
+}

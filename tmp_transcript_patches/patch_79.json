@@ -1,0 +1,5 @@
+{
+    "line": 259,
+    "old": "                var barH = clampMmGlobal(hPx1 * pxToMmY1, labelH);",
+    "new": "                var barH = clampMmGlobal(hPx1 * pxToMmY1, labelHSave);"
+}

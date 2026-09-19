@@ -1,0 +1,982 @@
+[
+    {
+        "idx": 0,
+        "line": 15,
+        "old_len": 70,
+        "new_len": 613,
+        "old_preview": "$barcode_settings = getBarcodeSettings(); $bs = $barcode_settings ?: ["
+    },
+    {
+        "idx": 1,
+        "line": 19,
+        "old_len": 464,
+        "new_len": 9933,
+        "old_preview": "    var fieldsByCategory = {         gold: document.getElementById('toolboxFieldsGold'),         sil"
+    },
+    {
+        "idx": 2,
+        "line": 19,
+        "old_len": 949,
+        "new_len": 1556,
+        "old_preview": "    if (document.readyState === 'loading') {         document.addEventListener('DOMContentLoaded', i"
+    },
+    {
+        "idx": 3,
+        "line": 19,
+        "old_len": 190,
+        "new_len": 367,
+        "old_preview": "        setTimeout(function() {         flushPendingCanvasPropsToDom();         var payload = buildB"
+    },
+    {
+        "idx": 4,
+        "line": 19,
+        "old_len": 379,
+        "new_len": 499,
+        "old_preview": "                    if (data.success) {                         if (labelSizeSelect) {              "
+    },
+    {
+        "idx": 5,
+        "line": 37,
+        "old_len": 329,
+        "new_len": 698,
+        "old_preview": "$barcode_settings_latest = getBarcodeSettings(); $bs_metal_initial = isset($barcode_settings_latest["
+    },
+    {
+        "idx": 6,
+        "line": 37,
+        "old_len": 478,
+        "new_len": 930,
+        "old_preview": "\/** Presets shown in Label Size dropdown \u2014 keep in sync with ajax\/save-barcode-settings.php $valid"
+    },
+    {
+        "idx": 7,
+        "line": 38,
+        "old_len": 922,
+        "new_len": 1504,
+        "old_preview": "                        <select id=\"barcodeLabelSize\" data-saved-preset=\"<?php echo htmlspecialchars"
+    },
+    {
+        "idx": 8,
+        "line": 38,
+        "old_len": 76,
+        "new_len": 120,
+        "old_preview": "$bs_metal = isset($bs['metal_type']) ? trim((string)$bs['metal_type']) : '';"
+    },
+    {
+        "idx": 9,
+        "line": 38,
+        "old_len": 243,
+        "new_len": 718,
+        "old_preview": "                        currentBarcodeMetalKey = payload.metal_type;                         barcode"
+    },
+    {
+        "idx": 10,
+        "line": 38,
+        "old_len": 391,
+        "new_len": 493,
+        "old_preview": "    function onBarcodeMetalTypeChange() {         var metalSelectEl = document.getElementById('barco"
+    },
+    {
+        "idx": 11,
+        "line": 38,
+        "old_len": 282,
+        "new_len": 784,
+        "old_preview": "    function syncToolboxToMetalDropdownOnLoad() {         var ms = document.getElementById('barcodeM"
+    },
+    {
+        "idx": 12,
+        "line": 39,
+        "old_len": 301,
+        "new_len": 111,
+        "old_preview": "        if (metal) {             activateToolboxCategory(metalDisplayToToolboxCategory(metal));     "
+    },
+    {
+        "idx": 13,
+        "line": 40,
+        "old_len": 515,
+        "new_len": 694,
+        "old_preview": "    function initBarcodeDesignerLayoutFromSaved() {         updatePropertiesPanelForCodeType();     "
+    },
+    {
+        "idx": 14,
+        "line": 49,
+        "old_len": 953,
+        "new_len": 905,
+        "old_preview": "\/** Metal to open after save\/reload (?barcode_metal=Gold) \u2014 avoids loading the wrong metal's layou"
+    },
+    {
+        "idx": 15,
+        "line": 49,
+        "old_len": 705,
+        "new_len": 774,
+        "old_preview": "$bs_label_preset_saved = trim((string)($bs['label_size_preset'] ?? '100x18')); if ($bs_label_preset_"
+    },
+    {
+        "idx": 16,
+        "line": 49,
+        "old_len": 292,
+        "new_len": 3980,
+        "old_preview": "    \/** Per-metal saved layouts (from DB); updated on Save and when switching Metal Type. *\/     var"
+    },
+    {
+        "idx": 17,
+        "line": 50,
+        "old_len": 306,
+        "new_len": 620,
+        "old_preview": "        return {             metal_type: currentBarcodeMetalKey,             label_size_preset: labe"
+    },
+    {
+        "idx": 18,
+        "line": 50,
+        "old_len": 299,
+        "new_len": 598,
+        "old_preview": "            var labelSizeEl = document.getElementById('barcodeLabelSize');             if (labelSize"
+    },
+    {
+        "idx": 19,
+        "line": 50,
+        "old_len": 1409,
+        "new_len": 621,
+        "old_preview": "    function onBarcodeMetalTypeChange() {         var metalSelectEl = document.getElementById('barco"
+    },
+    {
+        "idx": 20,
+        "line": 50,
+        "old_len": 1143,
+        "new_len": 1198,
+        "old_preview": "    if (labelSizeSelect) {         labelSizeSelect.addEventListener('change', function() {          "
+    },
+    {
+        "idx": 21,
+        "line": 50,
+        "old_len": 718,
+        "new_len": 1315,
+        "old_preview": "                        currentBarcodeMetalKey = payload.metal_type;                         barcode"
+    },
+    {
+        "idx": 22,
+        "line": 52,
+        "old_len": 181,
+        "new_len": 479,
+        "old_preview": "    var currentBarcodeMetalKey = <?php echo json_encode($bs_metal); ?> || '';     var currentBarcode"
+    },
+    {
+        "idx": 23,
+        "line": 52,
+        "old_len": 2070,
+        "new_len": 3364,
+        "old_preview": "    function stashCurrentBarcodeSettingsToCache() {         var key = getCurrentBarcodeCacheKey();  "
+    },
+    {
+        "idx": 24,
+        "line": 52,
+        "old_len": 176,
+        "new_len": 360,
+        "old_preview": "        if (!payload.metal_type) {             resetSaveButton();             alert('Please select a"
+    },
+    {
+        "idx": 25,
+        "line": 60,
+        "old_len": 568,
+        "new_len": 2025,
+        "old_preview": "    function getCurrentLabelPresetUi() {         var el = document.getElementById('barcodeLabelSize'"
+    },
+    {
+        "idx": 26,
+        "line": 60,
+        "old_len": 156,
+        "new_len": 355,
+        "old_preview": "        if (!snap) {             persistedLayoutBarcode = '{}';             persistedLayoutQr = '{}'"
+    },
+    {
+        "idx": 27,
+        "line": 60,
+        "old_len": 621,
+        "new_len": 1067,
+        "old_preview": "    function onBarcodeMetalTypeChange() {         var metalSelectEl = document.getElementById('barco"
+    },
+    {
+        "idx": 28,
+        "line": 60,
+        "old_len": 415,
+        "new_len": 761,
+        "old_preview": "    if (customW) {         customW.addEventListener('change', function() {             if (showBarco"
+    },
+    {
+        "idx": 29,
+        "line": 70,
+        "old_len": 145,
+        "new_len": 587,
+        "old_preview": ".barcode-print-wrap .barcode-stripes {     display: block;     box-sizing: border-box;     width: 10"
+    },
+    {
+        "idx": 30,
+        "line": 70,
+        "old_len": 802,
+        "new_len": 1599,
+        "old_preview": "                    <div class=\"prop-row prop-row-cols prop-row-barcode-bar\" id=\"propRowBarcodeBar\">"
+    },
+    {
+        "idx": 31,
+        "line": 70,
+        "old_len": 288,
+        "new_len": 280,
+        "old_preview": "                    <small class=\"prop-hint prop-hint-barcode\" id=\"propHintBarcode\" style=\"margin-to"
+    },
+    {
+        "idx": 32,
+        "line": 71,
+        "old_len": 37,
+        "new_len": 5240,
+        "old_preview": "    function getBarcodeBarOptions() {"
+    },
+    {
+        "idx": 33,
+        "line": 71,
+        "old_len": 311,
+        "new_len": 329,
+        "old_preview": "        var minBarH = isShortLabel ? 8 : 10;         var barH = (isNaN(h) || h < minBarH) ? (isShort"
+    },
+    {
+        "idx": 34,
+        "line": 71,
+        "old_len": 2557,
+        "new_len": 2269,
+        "old_preview": "        [stripes1, stripes2].forEach(function(stripesEl, idx) {             if (!stripesEl) return; "
+    },
+    {
+        "idx": 35,
+        "line": 72,
+        "old_len": 1997,
+        "new_len": 1541,
+        "old_preview": "                    if (it.type === 'barcode_image') {                         if (barcodePrintWrap)"
+    },
+    {
+        "idx": 36,
+        "line": 75,
+        "old_len": 1735,
+        "new_len": 1341,
+        "old_preview": "                    if (it.type === 'barcode_image') {                         if (barcodePrintWrap2"
+    },
+    {
+        "idx": 37,
+        "line": 75,
+        "old_len": 437,
+        "new_len": 1502,
+        "old_preview": "    document.getElementById('btnBarcodeDecrease').addEventListener('click', function() {         bum"
+    },
+    {
+        "idx": 38,
+        "line": 75,
+        "old_len": 163,
+        "new_len": 925,
+        "old_preview": "    if (propBarHeight) {         propBarHeight.addEventListener('change', onBarSizeChange);         "
+    },
+    {
+        "idx": 39,
+        "line": 75,
+        "old_len": 401,
+        "new_len": 433,
+        "old_preview": "    (function initBarcode1Drag() {         var barcodeBox = barcode1El;         var canvas = labelCa"
+    },
+    {
+        "idx": 40,
+        "line": 75,
+        "old_len": 77,
+        "new_len": 173,
+        "old_preview": "            offsetX = e.offsetX;             offsetY = e.offsetY;         });"
+    },
+    {
+        "idx": 41,
+        "line": 77,
+        "old_len": 1666,
+        "new_len": 1890,
+        "old_preview": "        barcodeBox.addEventListener('mousedown', function(e) {             if (e.target.closest('.ba"
+    },
+    {
+        "idx": 42,
+        "line": 78,
+        "old_len": 87,
+        "new_len": 238,
+        "old_preview": "        if (bt1) bt1.textContent = code;         if (bt2) bt2.textContent = code;     }"
+    },
+    {
+        "idx": 43,
+        "line": 90,
+        "old_len": 620,
+        "new_len": 625,
+        "old_preview": "    function getLabelMmFromPresetUi(preset, cwVal, chVal) {         preset = String(preset || '100x1"
+    },
+    {
+        "idx": 44,
+        "line": 90,
+        "old_len": 818,
+        "new_len": 1014,
+        "old_preview": "    function syncLabelMmFromPreset(val) {         if (!val) return;         if (val === 'custom' || "
+    },
+    {
+        "idx": 45,
+        "line": 116,
+        "old_len": 205,
+        "new_len": 543,
+        "old_preview": ".barcode-default-inner.barcode-tag-jewelry .barcode-default-handle {     width: 10px;     min-width:"
+    },
+    {
+        "idx": 46,
+        "line": 116,
+        "old_len": 146,
+        "new_len": 167,
+        "old_preview": "                                            <div class=\"barcode-label-center-guide\" aria-hidden=\"tru"
+    },
+    {
+        "idx": 47,
+        "line": 116,
+        "old_len": 258,
+        "new_len": 224,
+        "old_preview": "                                                <div class=\"barcode-text\" id=\"barcodeText2\"><?php ec"
+    },
+    {
+        "idx": 48,
+        "line": 116,
+        "old_len": 1065,
+        "new_len": 1913,
+        "old_preview": "    function positionDefaultBarcodesInEachLabel() {         var bc1 = document.getElementById('barco"
+    },
+    {
+        "idx": 49,
+        "line": 129,
+        "old_len": 1913,
+        "new_len": 1728,
+        "old_preview": "    function positionDefaultBarcodesInEachLabel() {         var bc1 = document.getElementById('barco"
+    },
+    {
+        "idx": 50,
+        "line": 141,
+        "old_len": 1025,
+        "new_len": 735,
+        "old_preview": "        function placeInTag(wrap, canvasEl, halfZone) {             if (!wrap || !canvasEl) return; "
+    },
+    {
+        "idx": 51,
+        "line": 148,
+        "old_len": 735,
+        "new_len": 973,
+        "old_preview": "        function placeInTag(wrap, canvasEl) {             if (!wrap || !canvasEl) return;           "
+    },
+    {
+        "idx": 52,
+        "line": 153,
+        "old_len": 208,
+        "new_len": 153,
+        "old_preview": "            if (isDual120) {                 wrap.style.top = Math.max(pad, Math.round((canvasEl.cli"
+    },
+    {
+        "idx": 53,
+        "line": 159,
+        "old_len": 918,
+        "new_len": 1237,
+        "old_preview": "        function placeInTag(wrap, canvasEl, hAlign) {             if (!wrap || !canvasEl) return;   "
+    },
+    {
+        "idx": 54,
+        "line": 174,
+        "old_len": 2025,
+        "new_len": 2806,
+        "old_preview": "    function getBarcodeTargetDisplayWidthPx(wrap, canvasEl, naturalW) {         var cw = (canvasEl &"
+    },
+    {
+        "idx": 55,
+        "line": 174,
+        "old_len": 890,
+        "new_len": 925,
+        "old_preview": "        document.addEventListener('mousemove', function(e) {             if (!resizing) return;     "
+    },
+    {
+        "idx": 56,
+        "line": 174,
+        "old_len": 841,
+        "new_len": 823,
+        "old_preview": "    function bumpPropBarcodeDisplayWidth(delta) {         var wrap = getActiveBarcodePrintWrap() || "
+    },
+    {
+        "idx": 57,
+        "line": 178,
+        "old_len": 431,
+        "new_len": 552,
+        "old_preview": "\/* JsBarcode SVG: keep line thickness \u2014 scale height only, never stretch width (stretched width = "
+    },
+    {
+        "idx": 58,
+        "line": 178,
+        "old_len": 562,
+        "new_len": 669,
+        "old_preview": "        if (svg && naturalW > 0 && Math.abs(targetW - naturalW) > 0.5) {             var scale = tar"
+    },
+    {
+        "idx": 59,
+        "line": 183,
+        "old_len": 873,
+        "new_len": 461,
+        "old_preview": "    function getBarcodeMaxDisplayWidthPx(canvasEl) {         var cw = (canvasEl && canvasEl.clientWi"
+    },
+    {
+        "idx": 60,
+        "line": 183,
+        "old_len": 129,
+        "new_len": 135,
+        "old_preview": "    function getBarcodeTargetDisplayWidthPx(wrap, canvasEl, naturalW) {         var maxW = getBarcod"
+    },
+    {
+        "idx": 61,
+        "line": 183,
+        "old_len": 261,
+        "new_len": 140,
+        "old_preview": "            svg.style.width = 'auto';             svg.style.height = '100%';         }         var c"
+    },
+    {
+        "idx": 62,
+        "line": 183,
+        "old_len": 1398,
+        "new_len": 1596,
+        "old_preview": "        var resizing = false;         var startX = 0;         var startW = 0;         handle.addEven"
+    },
+    {
+        "idx": 63,
+        "line": 183,
+        "old_len": 186,
+        "new_len": 192,
+        "old_preview": "        var canvasEl = wrap ? wrap.closest('.barcode-label-canvas') : (labelCanvas1 || document.getE"
+    },
+    {
+        "idx": 64,
+        "line": 206,
+        "old_len": 122,
+        "new_len": 941,
+        "old_preview": "    function clampMmGlobal(val, maxVal) {         return Math.max(0, Math.min(maxVal, Math.round(val"
+    },
+    {
+        "idx": 65,
+        "line": 206,
+        "old_len": 391,
+        "new_len": 513,
+        "old_preview": "                } else {                     wPx1 = barcodeStripes1.offsetWidth || 90;              "
+    },
+    {
+        "idx": 66,
+        "line": 206,
+        "old_len": 482,
+        "new_len": 539,
+        "old_preview": "                } else {                     wPx2 = barcodeStripes2.offsetWidth || 90;              "
+    },
+    {
+        "idx": 67,
+        "line": 223,
+        "old_len": 238,
+        "new_len": 316,
+        "old_preview": "        if (bt1) bt1.textContent = code;         if (bt2) bt2.textContent = code;         if (barcod"
+    },
+    {
+        "idx": 68,
+        "line": 223,
+        "old_len": 538,
+        "new_len": 619,
+        "old_preview": "    function toggleBarcodeNumber() {         var chk = document.getElementById('barcodeShowBarcodeNo"
+    },
+    {
+        "idx": 69,
+        "line": 223,
+        "old_len": 110,
+        "new_len": 141,
+        "old_preview": "            bn.checked = !!persistedShowBarcodeNoQr;         }     }      function buildBarcodeFormP"
+    },
+    {
+        "idx": 70,
+        "line": 244,
+        "old_len": 231,
+        "new_len": 275,
+        "old_preview": "                designItems.push({                     type: 'barcode_image',                     le"
+    },
+    {
+        "idx": 71,
+        "line": 244,
+        "old_len": 318,
+        "new_len": 400,
+        "old_preview": "                designItems2.push({                     type: 'barcode_image',                     l"
+    },
+    {
+        "idx": 72,
+        "line": 259,
+        "old_len": 142,
+        "new_len": 458,
+        "old_preview": ".barcode-default-white.barcode-print-area-mm {     flex: 0 0 auto;     outline: 2px dashed rgba(34, "
+    },
+    {
+        "idx": 73,
+        "line": 259,
+        "old_len": 198,
+        "new_len": 507,
+        "old_preview": "    var DUAL_STICKER_W_MM = 120;     var DUAL_STICKER_H_MM = 50;     var DUAL_TAG_GAP_MM = 2;     fu"
+    },
+    {
+        "idx": 74,
+        "line": 259,
+        "old_len": 107,
+        "new_len": 85,
+        "old_preview": "        var whiteWMm = Math.max(18, tagOuterWMm - 6 - 5 - 2);         var whiteHMm = DUAL_STICKER_H_"
+    },
+    {
+        "idx": 75,
+        "line": 259,
+        "old_len": 1312,
+        "new_len": 1885,
+        "old_preview": "        function applyMmToWhite(whiteEl, printTitle) {             if (!whiteEl) return;            "
+    },
+    {
+        "idx": 76,
+        "line": 259,
+        "old_len": 724,
+        "new_len": 816,
+        "old_preview": "            var labelHalfMm = isDualRestore ? getDualHalfLabelWidthMm() : (labelWidthMm || 100);    "
+    },
+    {
+        "idx": 77,
+        "line": 259,
+        "old_len": 109,
+        "new_len": 99,
+        "old_preview": "                var mmToPxX2 = cw2 \/ labelHalfMm;                 var mmToPxY2 = ch2 \/ (labelHeightM"
+    },
+    {
+        "idx": 78,
+        "line": 259,
+        "old_len": 470,
+        "new_len": 555,
+        "old_preview": "        var dualSaveHalf = isDualLabelLayoutPreset();         var labelWHalf = dualSaveHalf ? getDua"
+    },
+    {
+        "idx": 79,
+        "line": 259,
+        "old_len": 66,
+        "new_len": 70,
+        "old_preview": "                var barH = clampMmGlobal(hPx1 * pxToMmY1, labelH);"
+    },
+    {
+        "idx": 80,
+        "line": 259,
+        "old_len": 97,
+        "new_len": 101,
+        "old_preview": "            var pxToMmX2 = labelWHalf \/ contentW2;             var pxToMmY2 = labelH \/ contentH2;"
+    },
+    {
+        "idx": 81,
+        "line": 259,
+        "old_len": 168,
+        "new_len": 172,
+        "old_preview": "                    height: clampMmGlobal(hPx2 * pxToMmY2, labelH),                     display_widt"
+    },
+    {
+        "idx": 82,
+        "line": 259,
+        "old_len": 245,
+        "new_len": 407,
+        "old_preview": "        if (isDualLabelLayoutPreset()) {             layoutPayload.double_barcode_120x50 = true;    "
+    },
+    {
+        "idx": 83,
+        "line": 261,
+        "old_len": 137,
+        "new_len": 262,
+        "old_preview": "    var DUAL_STICKER_W_MM = 120;     var DUAL_STICKER_H_MM = 50;     var DUAL_TAG_GAP_MM = 2;     fu"
+    },
+    {
+        "idx": 84,
+        "line": 261,
+        "old_len": 146,
+        "new_len": 315,
+        "old_preview": "    function getDualHalfLabelWidthMm() {         return (DUAL_STICKER_W_MM - DUAL_TAG_GAP_MM) \/ 2;  "
+    },
+    {
+        "idx": 85,
+        "line": 262,
+        "old_len": 83,
+        "new_len": 196,
+        "old_preview": "            var wMm = boxWMm || whiteWMm;             var hMm = boxHMm || whiteHMm;"
+    },
+    {
+        "idx": 86,
+        "line": 263,
+        "old_len": 384,
+        "new_len": 363,
+        "old_preview": "            var wMm = boxWMm != null ? boxWMm : (typeof wMm !== 'undefined' ? wMm : displayWMm);    "
+    },
+    {
+        "idx": 87,
+        "line": 263,
+        "old_len": 76,
+        "new_len": 86,
+        "old_preview": "            badge.textContent = (wMm \/ 10) + ' cm \u00d7 ' + (hMm \/ 10) + ' cm';"
+    },
+    {
+        "idx": 88,
+        "line": 277,
+        "old_len": 749,
+        "new_len": 912,
+        "old_preview": "    function ensureDualBarcodesRendered() {         if (!isDualLabelLayoutPreset()) return;         "
+    },
+    {
+        "idx": 89,
+        "line": 277,
+        "old_len": 51,
+        "new_len": 1579,
+        "old_preview": "        applyBarcodeBarPropsFromParsed(data);     }"
+    },
+    {
+        "idx": 90,
+        "line": 282,
+        "old_len": 149,
+        "new_len": 157,
+        "old_preview": "                barcode2LeftMm = clampMmGlobal(leftPx2 * pxToMmX2, labelW);                 barcode2"
+    },
+    {
+        "idx": 91,
+        "line": 282,
+        "old_len": 135,
+        "new_len": 143,
+        "old_preview": "                var leftMm = clampMmGlobal(left * pxToMmX2, labelW);                 var topMm = cla"
+    },
+    {
+        "idx": 92,
+        "line": 282,
+        "old_len": 1184,
+        "new_len": 1012,
+        "old_preview": "            if (!Array.isArray(parsed) && parsed.barcode2_top != null && parsed.barcode2_left != nul"
+    },
+    {
+        "idx": 93,
+        "line": 282,
+        "old_len": 383,
+        "new_len": 752,
+        "old_preview": "            setTimeout(function() {                 refreshCodeGraphicAfterLayoutRestore();         "
+    },
+    {
+        "idx": 94,
+        "line": 282,
+        "old_len": 403,
+        "new_len": 998,
+        "old_preview": "            if (isDualLabelLayoutPreset()) {                 setTimeout(function() {                "
+    },
+    {
+        "idx": 95,
+        "line": 282,
+        "old_len": 433,
+        "new_len": 957,
+        "old_preview": "    function scheduleBarcodeRenderAfterDomReady() {         function run() {             setTimeout("
+    },
+    {
+        "idx": 96,
+        "line": 304,
+        "old_len": 427,
+        "new_len": 1338,
+        "old_preview": "$bs_metal = $bs_load_metal !== '' ? $bs_load_metal : (isset($bs['metal_type']) ? trim((string) $bs['"
+    },
+    {
+        "idx": 97,
+        "line": 304,
+        "old_len": 3631,
+        "new_len": 6093,
+        "old_preview": "    function applyMetalSettingsSnapshot(snap) {         document.querySelectorAll('.canvas-dropped-i"
+    },
+    {
+        "idx": 98,
+        "line": 305,
+        "old_len": 451,
+        "new_len": 408,
+        "old_preview": "    function applyRequestedLabelPresetUi(requestedLp) {         if (!requestedLp) requestedLp = getC"
+    },
+    {
+        "idx": 99,
+        "line": 305,
+        "old_len": 552,
+        "new_len": 1080,
+        "old_preview": "    function finishLoadBarcodeSnapshot(snap, metal, presetUi, w, h) {         if (snap) {           "
+    },
+    {
+        "idx": 100,
+        "line": 305,
+        "old_len": 136,
+        "new_len": 177,
+        "old_preview": "    function onBarcodeLabelSizeChange() {         var lp = getCurrentLabelPresetUi();         resize"
+    },
+    {
+        "idx": 101,
+        "line": 305,
+        "old_len": 494,
+        "new_len": 566,
+        "old_preview": "        if (!val) {             var savedPreset = labelSizeSelect ? (labelSizeSelect.getAttribute('d"
+    },
+    {
+        "idx": 102,
+        "line": 305,
+        "old_len": 209,
+        "new_len": 446,
+        "old_preview": "        if (labelSizeSelect) {             var savedPreset = labelSizeSelect.getAttribute('data-save"
+    },
+    {
+        "idx": 103,
+        "line": 335,
+        "old_len": 1670,
+        "new_len": 2095,
+        "old_preview": "    \/** 120\u00d750 only: two jewelry tags side-by-side on one physical sticker. *\/     var DUAL_LABEL_S"
+    },
+    {
+        "idx": 104,
+        "line": 335,
+        "old_len": 46,
+        "new_len": 40,
+        "old_preview": "        var dims = get120x50DualTagLayoutPx();"
+    },
+    {
+        "idx": 105,
+        "line": 335,
+        "old_len": 683,
+        "new_len": 971,
+        "old_preview": "        if (isDual) {             if (canvasEl) canvasEl.classList.add('dual-barcode-layout');      "
+    },
+    {
+        "idx": 106,
+        "line": 335,
+        "old_len": 205,
+        "new_len": 382,
+        "old_preview": "        if (val === '120x50') {             labelWidthMm = 120;             labelHeightMm = 50;     "
+    },
+    {
+        "idx": 107,
+        "line": 335,
+        "old_len": 393,
+        "new_len": 504,
+        "old_preview": "        var is120x50Dual = (val === '120x50');         if (is120x50Dual) {             stripW = 18; "
+    },
+    {
+        "idx": 108,
+        "line": 335,
+        "old_len": 760,
+        "new_len": 986,
+        "old_preview": "        if (is120x50Dual) {             var tagTitle = '120\u00d750 mm sticker \u00b7 print box 2 cm \u00d7 2.5 "
+    },
+    {
+        "idx": 109,
+        "line": 335,
+        "old_len": 245,
+        "new_len": 45,
+        "old_preview": "                 if (barcodeBox2 && isDualLabelLayoutPreset(val) && !is120x50Dual) {             siz"
+    },
+    {
+        "idx": 110,
+        "line": 335,
+        "old_len": 176,
+        "new_len": 195,
+        "old_preview": "    function showBarcodeCustomSizeFields() {         var v = labelSizeSelect ? (labelSizeSelect.valu"
+    },
+    {
+        "idx": 111,
+        "line": 335,
+        "old_len": 408,
+        "new_len": 608,
+        "old_preview": "        if (!currentBarcodeMetalKey) {             document.querySelectorAll('.canvas-dropped-item')"
+    },
+    {
+        "idx": 112,
+        "line": 335,
+        "old_len": 331,
+        "new_len": 802,
+        "old_preview": "        setTimeout(function() {             if (typeof restoreSavedLayout === 'function') restoreSav"
+    },
+    {
+        "idx": 113,
+        "line": 335,
+        "old_len": 407,
+        "new_len": 545,
+        "old_preview": "        if (isDualLabelLayoutPreset()) {             layoutPayload.double_barcode_120x50 = true;    "
+    },
+    {
+        "idx": 114,
+        "line": 336,
+        "old_len": 76,
+        "new_len": 87,
+        "old_preview": "                        <!-- Label 2 (Right) - 120\u00d750 dual sticker only -->"
+    },
+    {
+        "idx": 115,
+        "line": 338,
+        "old_len": 182,
+        "new_len": 259,
+        "old_preview": "        if (val === 'custom' || val === '120x50') {             wMm = labelWidthMm || (val === '120x"
+    },
+    {
+        "idx": 116,
+        "line": 362,
+        "old_len": 21,
+        "new_len": 29,
+        "old_preview": "    var MM_TO_PX = 3;"
+    },
+    {
+        "idx": 117,
+        "line": 362,
+        "old_len": 222,
+        "new_len": 1031,
+        "old_preview": "        shell.style.width = dims.stickerWPx + 'px';         shell.style.height = dims.stickerHPx + '"
+    },
+    {
+        "idx": 118,
+        "line": 363,
+        "old_len": 263,
+        "new_len": 1100,
+        "old_preview": "        var dims = getDualTagLayoutPx();         shell.style.width = dims.stickerWPx + 'px';        "
+    },
+    {
+        "idx": 119,
+        "line": 363,
+        "old_len": 215,
+        "new_len": 466,
+        "old_preview": ".dual-barcode-layout .barcode-dual-sticker-shell {     display: flex;     flex-direction: row;     a"
+    },
+    {
+        "idx": 120,
+        "line": 365,
+        "old_len": 92,
+        "new_len": 120,
+        "old_preview": "        var dims = getDualTagLayoutPx();         shell.style.width = dims.stickerWPx + 'px';"
+    },
+    {
+        "idx": 121,
+        "line": 365,
+        "old_len": 244,
+        "new_len": 529,
+        "old_preview": "        if (!isDualLabelLayoutPreset() || !shell) {             canvasEl.style.minHeight = '';      "
+    },
+    {
+        "idx": 122,
+        "line": 366,
+        "old_len": 253,
+        "new_len": 1039,
+        "old_preview": "        outerBadge.textContent = 'Outer sticker: ' + cfg.stickerW + ' mm \u00d7 ' + cfg.stickerH + ' mm "
+    },
+    {
+        "idx": 123,
+        "line": 413,
+        "old_len": 36,
+        "new_len": 36,
+        "old_preview": "        var pad = isDual120 ? 4 : 6;"
+    },
+    {
+        "idx": 124,
+        "line": 425,
+        "old_len": 148,
+        "new_len": 769,
+        "old_preview": "        var isDual120 = isDualLabelLayoutPreset();         var pad = isDual120 ? 0 : 6;         func"
+    },
+    {
+        "idx": 125,
+        "line": 425,
+        "old_len": 224,
+        "new_len": 228,
+        "old_preview": "        \/\/ Left preview tag = bottom-left on sticker; right preview tag = top-right on sticker      "
+    },
+    {
+        "idx": 126,
+        "line": 431,
+        "old_len": 1071,
+        "new_len": 1320,
+        "old_preview": "        function placeInTagCentered(wrap, canvasEl) {             if (!wrap || !canvasEl) return;   "
+    },
+    {
+        "idx": 127,
+        "line": 431,
+        "old_len": 171,
+        "new_len": 193,
+        "old_preview": "            if (vZone === 'bottom') {                 wrap.style.top = Math.max(mid + 2, canvasEl.cl"
+    },
+    {
+        "idx": 128,
+        "line": 431,
+        "old_len": 123,
+        "new_len": 141,
+        "old_preview": "        if (isDual120) {             placeInTagCentered(bc1, c1);             placeInTagCentered(bc2"
+    },
+    {
+        "idx": 129,
+        "line": 440,
+        "old_len": 223,
+        "new_len": 621,
+        "old_preview": "                    <div class=\"barcode-dual-sticker-shell\" id=\"barcodeDualStickerShell\" aria-label="
+    },
+    {
+        "idx": 130,
+        "line": 440,
+        "old_len": 164,
+        "new_len": 195,
+        "old_preview": "                    <\/div>                     <\/div>                 <\/div>             <\/div>     "
+    },
+    {
+        "idx": 131,
+        "line": 440,
+        "old_len": 297,
+        "new_len": 3420,
+        "old_preview": ".barcode-dual-outer-size-badge {     position: absolute;     left: 50%;     top: 6px;     transform:"
+    },
+    {
+        "idx": 132,
+        "line": 441,
+        "old_len": 119,
+        "new_len": 3743,
+        "old_preview": "    var DUAL_LABEL_SIZES = ['120x50', '250x120'];     var DUAL_TAG_GAP_MM = 2;      function getDual"
+    },
+    {
+        "idx": 133,
+        "line": 441,
+        "old_len": 570,
+        "new_len": 1926,
+        "old_preview": "        if (!isDualLabelLayoutPreset() || !shell) {             canvasEl.style.minHeight = '';      "
+    },
+    {
+        "idx": 134,
+        "line": 441,
+        "old_len": 94,
+        "new_len": 318,
+        "old_preview": "        if (isDual) {             if (canvasEl) canvasEl.classList.add('dual-barcode-layout');"
+    },
+    {
+        "idx": 135,
+        "line": 441,
+        "old_len": 149,
+        "new_len": 180,
+        "old_preview": "        } else {             if (canvasEl) canvasEl.style.minHeight = '';             if (canvasEl) "
+    },
+    {
+        "idx": 136,
+        "line": 441,
+        "old_len": 28,
+        "new_len": 613,
+        "old_preview": "        if (isDualJewelry) {"
+    },
+    {
+        "idx": 137,
+        "line": 444,
+        "old_len": 888,
+        "new_len": 1468,
+        "old_preview": "            badge.textContent = (badgeWMm \/ 10) + ' cm \u00d7 ' + (badgeHMm \/ 10) + ' cm';         }    "
+    },
+    {
+        "idx": 138,
+        "line": 447,
+        "old_len": 178,
+        "new_len": 394,
+        "old_preview": ".dual-barcode-layout.barcode-dual-unified-120x50 .barcode-label-canvas {     width: 100% !important;"
+    },
+    {
+        "idx": 139,
+        "line": 450,
+        "old_len": 356,
+        "new_len": 327,
+        "old_preview": ".barcode-dual-outer-frame {     display: none;     position: relative;     box-sizing: border-box;  "
+    }
+]

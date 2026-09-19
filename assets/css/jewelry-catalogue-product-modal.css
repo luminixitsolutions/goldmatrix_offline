@@ -1,0 +1,176 @@
+/* Product selection modal on jewellery catalogue create (aligned with sale invoice) */
+
+#productSelectionModal .product-category-tabs {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 0.5rem;
+    flex-wrap: wrap;
+}
+
+#productSelectionModal .category-tab-btn {
+    padding: 0.5rem 1.25rem;
+    border: none;
+    background: #f8f6f1;
+    color: #11294b;
+    font-weight: 600;
+    font-size: 13px;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+    border-bottom: 3px solid #a68a4a;
+    white-space: nowrap;
+}
+
+#productSelectionModal .category-tab-btn:hover {
+    color: #11294b;
+    background: rgba(17, 41, 75, 0.06);
+}
+
+#productSelectionModal .category-tab-btn.active {
+    color: #11294b;
+    background: #c5a864;
+    border-bottom-color: #a8842f;
+    box-shadow: 0 2px 4px rgba(197, 168, 100, 0.35);
+}
+
+#productSelectionModal .modal-dialog {
+    width: 95% !important;
+    max-width: 95% !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+#productSelectionModal .modal-content {
+    border-radius: 10px;
+    border: none;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    max-height: 95vh !important;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+#productSelectionModal .modal-body {
+    flex: 1 1 auto !important;
+    min-height: 0 !important;
+    overflow-y: auto !important;
+    overflow-x: auto !important;
+    max-height: calc(95vh - 120px) !important;
+    padding: 1rem 1.5rem 10px 1.5rem !important;
+}
+
+#productSelectionModal .form-group label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #000;
+    margin-bottom: 0.25rem;
+}
+
+#productSelectionModal .form-control-sm {
+    font-size: 0.75rem;
+    padding: 0.35rem 0.5rem;
+}
+
+#productSelectionModal .table-responsive,
+#productSelectionModal #productListTableScrollWrapper {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    max-height: min(420px, 45vh) !important;
+    overflow-x: auto !important;
+    overflow-y: auto !important;
+}
+
+#productSelectionModal #productListTableOuter {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+}
+
+#productSelectionModal.product-modal-metal-tab #productListTableScrollWrapper,
+#productSelectionModal.product-modal-metal-tab .table-responsive {
+    max-height: 280px !important;
+}
+
+#productSelectionModal #productListTable {
+    width: max-content !important;
+    min-width: 100% !important;
+    table-layout: auto !important;
+    border-collapse: collapse;
+}
+
+#productSelectionModal #productListTable th,
+#productSelectionModal #productListTable td {
+    white-space: nowrap;
+    padding: 0.45rem 0.4rem;
+    vertical-align: middle;
+    font-size: 0.75rem;
+}
+
+#productSelectionModal #productListTable thead th {
+    background: #11294b;
+    color: #fff;
+    font-weight: 600;
+}
+
+#productSelectionModal #productListTable tbody tr.product-row:nth-child(even) td {
+    background: #fafbfc;
+}
+
+#productSelectionModal #productListTable th.hidden,
+#productSelectionModal #productListTable td.hidden {
+    width: 0 !important;
+    min-width: 0 !important;
+    max-width: 0 !important;
+    padding: 0 !important;
+    border-width: 0 !important;
+    overflow: hidden !important;
+    visibility: collapse !important;
+}
+
+#productSelectionModal #productListTable td input.form-control-sm,
+#productSelectionModal #productListTable td select.form-control-sm {
+    min-width: 72px;
+    max-width: 140px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+#productSelectionModal #productListTable td[data-column="checkbox"] {
+    min-width: 44px;
+    text-align: center;
+}
+
+#productSelectionModal #productListTable td[data-column="photo"] {
+    min-width: 70px;
+}
+
+#productSelectionModal #productListTable td[data-column="actions"] {
+    min-width: 72px;
+    text-align: center;
+}
+
+#productSelectionModal #productListTable td[data-column="product"] input.form-control-sm {
+    cursor: pointer;
+    background-color: #fffbeb;
+}
+
+#productSelectionModal .product-modal-th-inner .feather.icon-plus {
+    cursor: pointer;
+    color: #c5a864;
+}
+
+#productSelectionModal .product-modal-th-inner .feather.icon-plus:hover {
+    color: #a8842f;
+}
+
+#productSelectionModal .product-selection-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 8px;
+}

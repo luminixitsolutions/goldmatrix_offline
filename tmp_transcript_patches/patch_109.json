@@ -1,0 +1,5 @@
+{
+    "line": 335,
+    "old": "        \n        if (barcodeBox2 && isDualLabelLayoutPreset(val) && !is120x50Dual) {\n            sizeTagBackingBox(barcodeBox2);\n            applyMmToWhite(document.getElementById('labelPreview2'));\n        }\n        applyDualBarcodeLayout(val);",
+    "new": "        \n        applyDualBarcodeLayout(val);"
+}

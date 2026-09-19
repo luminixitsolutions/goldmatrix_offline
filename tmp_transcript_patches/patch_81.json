@@ -1,0 +1,5 @@
+{
+    "line": 259,
+    "old": "                    height: clampMmGlobal(hPx2 * pxToMmY2, labelH),\n                    display_width_mm: clampMmGlobal(wPx2 * pxToMmX2, labelWHalf)\n                });",
+    "new": "                    height: clampMmGlobal(hPx2 * pxToMmY2, labelHSave),\n                    display_width_mm: clampMmGlobal(wPx2 * pxToMmX2, labelWHalf)\n                });"
+}

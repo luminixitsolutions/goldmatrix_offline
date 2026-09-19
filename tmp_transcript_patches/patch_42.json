@@ -1,0 +1,5 @@
+{
+    "line": 78,
+    "old": "        if (bt1) bt1.textContent = code;\n        if (bt2) bt2.textContent = code;\n    }",
+    "new": "        if (bt1) bt1.textContent = code;\n        if (bt2) bt2.textContent = code;\n        if (barcode1El && !document.querySelector('.barcode-print-wrap.barcode-selected')) {\n            selectBarcodePrintWrap(barcode1El);\n        }\n    }"
+}

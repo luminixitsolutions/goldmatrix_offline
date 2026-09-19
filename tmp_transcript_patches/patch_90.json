@@ -1,0 +1,5 @@
+{
+    "line": 282,
+    "old": "                barcode2LeftMm = clampMmGlobal(leftPx2 * pxToMmX2, labelW);\n                barcode2TopMm = clampMmGlobal(topPx2 * pxToMmY2, labelH);",
+    "new": "                barcode2LeftMm = clampMmGlobal(leftPx2 * pxToMmX2, labelWHalf);\n                barcode2TopMm = clampMmGlobal(topPx2 * pxToMmY2, labelHSave);"
+}

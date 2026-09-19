@@ -1,0 +1,5 @@
+{
+    "line": 431,
+    "old": "        if (isDual120) {\n            placeInTagCentered(bc1, c1);\n            placeInTagCentered(bc2, c2);\n        } else {",
+    "new": "        if (isDual120) {\n            placeInTagBelowFoldCentered(bc1, c1);\n            placeInTagBelowFoldCentered(bc2, c2);\n        } else {"
+}

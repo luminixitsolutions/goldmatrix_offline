@@ -1,0 +1,5 @@
+{
+    "line": 75,
+    "old": "    if (propBarHeight) {\n        propBarHeight.addEventListener('change', onBarSizeChange);\n        propBarHeight.addEventListener('input', onBarSizeChange);\n    }",
+    "new": "    if (propBarHeight) {\n        propBarHeight.addEventListener('change', onBarSizeChange);\n        propBarHeight.addEventListener('input', onBarSizeChange);\n    }\n    var propBarcodeDisplayWidth = document.getElementById('propBarcodeDisplayWidth');\n    if (propBarcodeDisplayWidth) {\n        function onBarcodeDisplayWidthChange() {\n            var wrap = getActiveBarcodePrintWrap() || document.getElementById('barcode1');\n            var val = parseInt(propBarcodeDisplayWidth.value, 10);\n            if (wrap && val > 0) {\n                wrap.setAttribute('data-display-width', String(val));\n            } else if (wrap) {\n                wrap.removeAttribute('data-display-width');\n            }\n            onBarSizeChange();\n        }\n        propBarcodeDisplayWidth.addEventListener('change', onBarcodeDisplayWidthChange);\n        propBarcodeDisplayWidth.addEventListener('input', onBarcodeDisplayWidthChange);\n    }"
+}

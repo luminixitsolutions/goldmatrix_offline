@@ -1,0 +1,234 @@
+/**
+ * Financial Statement submenu pages — mobile/tablet only (≤991.98px).
+ * Loaded when $DASHBOARD_FS_PAGE is set (body.fs-page). Desktop unchanged.
+ */
+@media (max-width: 991.98px) {
+    body.fs-page .layout-content {
+        overflow-x: hidden;
+    }
+    body.fs-page .container-fluid > .row > .col-12 {
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+    }
+
+    /* —— Shared toolbars (trial balance, tax return, cash/fund flow, etc.) —— */
+    body.fs-page .tb-toolbar-header,
+    body.fs-page .bs-toolbar-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.75rem;
+    }
+    body.fs-page .tb-toolbar-actions,
+    body.fs-page .bs-toolbar-actions {
+        width: 100%;
+        flex-direction: column;
+        align-items: stretch;
+    }
+    body.fs-page form.tb-toolbar,
+    body.fs-page form.bs-toolbar,
+    body.fs-page .tb-toolbar.d-flex,
+    body.fs-page .bs-toolbar.d-flex {
+        width: 100%;
+        flex-direction: column;
+        align-items: stretch;
+    }
+    body.fs-page .tb-toolbar .input-group,
+    body.fs-page .bs-toolbar .input-group,
+    body.fs-page .tb-toolbar .form-control.tb-date-range,
+    body.fs-page .bs-toolbar .form-control.bs-date-range,
+    body.fs-page .pl-toolbar .form-control.pl-date-range {
+        max-width: 100% !important;
+        width: 100% !important;
+    }
+    body.fs-page .tb-wrap > .d-flex.align-items-center.justify-content-between {
+        flex-direction: column;
+        align-items: stretch !important;
+    }
+    body.fs-page .tb-wrap > .d-flex.align-items-center.justify-content-between .tb-toolbar {
+        width: 100%;
+    }
+
+    /* —— Tables: horizontal scroll, visible headers —— */
+    body.fs-page .tb-table-wrap,
+    body.fs-page .bs-panel {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    body.fs-page .tb-table-wrap .table-responsive,
+    body.fs-page .bs-panel .table-responsive {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    body.fs-page .tb-table-wrap table,
+    body.fs-page .bs-panel .table {
+        min-width: max-content;
+    }
+
+    /* —— Balance sheet —— */
+    body.fs-page .bs-two-col {
+        grid-template-columns: 1fr;
+    }
+    body.fs-page .bs-toolbar-header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    /* —— Profit & loss (pl-two-col already stacks at 991.98 in page CSS) —— */
+    body.fs-page .pl-wrap > .d-flex.align-items-center.justify-content-between {
+        flex-direction: column;
+        align-items: stretch !important;
+    }
+    body.fs-page .pl-toolbar.d-flex {
+        width: 100%;
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    /* —— Cash flow / fund flow: two columns —— */
+    body.fs-page .cf-col-right,
+    body.fs-page .ff-col-right {
+        padding-left: 0 !important;
+        margin-top: 0.75rem;
+    }
+    body.fs-page .cf-scroll,
+    body.fs-page .tr-scroll {
+        max-height: none;
+    }
+
+    /* —— Chart of accounts: numeric columns scroll with row —— */
+    body.fs-page .coa-panel {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    body.fs-page .coa-head-row,
+    body.fs-page .coa-row {
+        min-width: min(100%, 520px);
+    }
+    body.fs-page .coa-head-row .coa-h-nums,
+    body.fs-page .coa-row .coa-nums {
+        grid-template-columns: repeat(4, minmax(72px, 1fr));
+        min-width: 288px;
+    }
+    body.fs-page .coa-scroll {
+        max-height: none;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* —— Tax return —— */
+    body.fs-page .tr-tabs {
+        gap: 6px;
+    }
+    body.fs-page .tr-tabs a {
+        padding: 8px 12px;
+        font-size: 12px;
+    }
+    body.fs-page .tr-io-toolbar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    /* —— Sale analysis —— */
+    body.fs-page .sa-wrap > .d-flex.align-items-center.justify-content-between {
+        flex-direction: column;
+        align-items: stretch !important;
+        gap: 0.65rem;
+    }
+    body.fs-page .sa-toolbar {
+        width: 100%;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 8px;
+    }
+    /* Date on its own row; filter / refresh / export stay on one line */
+    body.fs-page .sa-toolbar > .input-group {
+        flex: 1 1 100%;
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0;
+    }
+    body.fs-page .sa-toolbar > .sa-filter-wrap,
+    body.fs-page .sa-toolbar > .btn,
+    body.fs-page .sa-toolbar > details.sa-export-dd {
+        flex: 0 0 auto;
+        width: auto;
+    }
+    body.fs-page .sa-toolbar .btn-sa-outline,
+    body.fs-page .sa-toolbar .btn-sa-primary,
+    body.fs-page .sa-toolbar details.sa-export-dd > summary {
+        white-space: nowrap;
+    }
+    body.fs-page .sa-subnav {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+        gap: 8px;
+        padding-bottom: 6px;
+        margin-bottom: 1rem;
+    }
+    body.fs-page .sa-subnav::-webkit-scrollbar {
+        height: 5px;
+    }
+    body.fs-page .sa-subnav::-webkit-scrollbar-thumb {
+        background: #cbd5e1;
+        border-radius: 4px;
+    }
+    body.fs-page .sa-subnav a {
+        flex: 0 0 auto;
+        white-space: nowrap;
+    }
+    body.fs-page .sa-table-outer {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    body.fs-page .sa-table-scroll {
+        max-height: none;
+    }
+    body.fs-page .sa-footer-bar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    /* —— Purchase analysis —— */
+    body.fs-page .pa-wrap > .d-flex.align-items-center.justify-content-between {
+        flex-direction: column;
+        align-items: stretch !important;
+    }
+    body.fs-page .pa-toolbar {
+        width: 100%;
+        flex-direction: column;
+        align-items: stretch;
+    }
+    body.fs-page .pa-toolbar .form-control,
+    body.fs-page .pa-toolbar .input-group {
+        max-width: 100% !important;
+        width: 100% !important;
+    }
+    body.fs-page .pa-table-outer {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    body.fs-page .pa-table-scroll {
+        max-height: none;
+    }
+    body.fs-page .pa-footer-bar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    /* Export dropdowns stay usable */
+    body.fs-page .tb-export-dd,
+    body.fs-page .bs-export-dd {
+        width: 100%;
+    }
+    body.fs-page .tb-export-dd > summary,
+    body.fs-page .bs-export-dd > summary {
+        width: 100%;
+        text-align: center;
+    }
+}

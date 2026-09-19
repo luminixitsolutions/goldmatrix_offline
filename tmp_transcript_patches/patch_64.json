@@ -1,0 +1,5 @@
+{
+    "line": 206,
+    "old": "    function clampMmGlobal(val, maxVal) {\n        return Math.max(0, Math.min(maxVal, Math.round(val * 100) \/ 100));\n    }",
+    "new": "    function clampMmGlobal(val, maxVal) {\n        return Math.max(0, Math.min(maxVal, Math.round(val * 100) \/ 100));\n    }\n    \/** Saved print size: prefer designer display width (purple handle), not natural JsBarcode stripe width. *\/\n    function getBarcodeSaveSizePx(wrap, stripesEl) {\n        var wPx = 0;\n        var hPx = 0;\n        if (wrap) {\n            var dw = parseInt(wrap.getAttribute('data-display-width'), 10);\n            if (dw > 0) wPx = dw;\n            if (!wPx && wrap.offsetWidth > 0) wPx = wrap.offsetWidth;\n        }\n        if (!wPx && stripesEl && stripesEl.offsetWidth > 0) wPx = stripesEl.offsetWidth;\n        if (!wPx) wPx = 90;\n        if (stripesEl && stripesEl.offsetHeight > 0) {\n            hPx = stripesEl.offsetHeight;\n        } else if (wrap && wrap.offsetHeight > 0) {\n            hPx = wrap.offsetHeight;\n        } else {\n            hPx = 18;\n        }\n        return { width: wPx, height: hPx };\n    }"
+}

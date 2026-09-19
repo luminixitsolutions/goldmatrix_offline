@@ -1,0 +1,774 @@
+/* Set Software sidebar – shared by set-software.php, masters.php, etc. Uses #11294b. */
+:root {
+    --theme-navy: #11294b;
+    --set-software-sidebar-width: 240px;
+    --auragold-nav-tab-gold: #c5a864;
+    --auragold-nav-tab-gold-hover: #a68a4a;
+}
+.set-software-wrapper {
+    flex: 1;
+    display: flex;
+    min-width: 0;
+    min-height: 0;
+    height: 100%;
+    position: relative;
+}
+
+/* Desktop: fill viewport below header + top nav so sidebar menu can scroll */
+@media (min-width: 992px) {
+    body:has(.set-software-wrapper) {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        max-height: 100vh;
+        overflow: hidden;
+    }
+    body:has(.set-software-wrapper) > .auragold-nav-backdrop,
+    body:has(.set-software-wrapper) > .company-header,
+    body:has(.set-software-wrapper) > .top-navbar,
+    body:has(.set-software-wrapper) .company-header,
+    body:has(.set-software-wrapper) .top-navbar {
+        flex-shrink: 0;
+    }
+    body:has(.set-software-wrapper) > .layout-content,
+    body:has(.set-software-wrapper) .layout-content {
+        flex: 1 1 auto;
+        min-height: 0 !important;
+        height: auto !important;
+        max-height: none;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+    }
+    .layout-content:has(.set-software-wrapper) > .container-fluid {
+        flex: 1 1 auto;
+        min-height: 0;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+    }
+    .layout-content:has(.set-software-wrapper) .set-software-wrapper {
+        flex: 1 1 auto;
+        min-height: 0;
+        height: auto;
+        max-height: 100%;
+        align-items: stretch;
+        overflow: hidden;
+    }
+    .layout-content:has(.set-software-wrapper) .set-software-main {
+        min-height: 0;
+        overflow-y: auto;
+    }
+    /* Fallback when header + top nav exceed calc(100vh - 60px) on .layout-content */
+    .set-software-sidebar {
+        max-height: calc(100vh - 7.25rem);
+    }
+    .set-software-sidebar-menu {
+        max-height: calc(100vh - 10rem);
+    }
+
+    /* Main nav vertical: shift page beside fixed main menu (sidebar collapse still works) */
+    body.auragold-menu-vertical:has(.set-software-wrapper) > .layout-content {
+        margin-left: var(--auragold-main-offset, var(--auragold-main-nav-width, 260px)) !important;
+        width: calc(100% - var(--auragold-main-offset, var(--auragold-main-nav-width, 260px))) !important;
+        max-width: calc(100% - var(--auragold-main-offset, var(--auragold-main-nav-width, 260px))) !important;
+        box-sizing: border-box;
+    }
+
+    /* Allow hide/show tab to collapse Set Software sidebar in vertical main menu mode */
+    body.auragold-menu-vertical:has(.set-software-wrapper) .set-software-wrapper.set-software-sidebar-collapsed .set-software-sidebar {
+        flex: 0 0 0 !important;
+        width: 0 !important;
+        min-width: 0 !important;
+        max-width: 0 !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        overflow: visible !important;
+        pointer-events: none !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        border: none !important;
+        background: transparent !important;
+    }
+}
+
+.set-software-sidebar {
+    width: var(--set-software-sidebar-width);
+    min-width: var(--set-software-sidebar-width);
+    background: var(--theme-navy);
+    color: #fff;
+    padding: 16px 0 0;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    flex: 0 0 auto;
+    align-self: stretch;
+    min-height: 0;
+    height: 100%;
+    max-height: 100%;
+    transition: width 0.25s ease, min-width 0.25s ease, opacity 0.2s ease, padding 0.25s ease;
+    overflow: hidden;
+}
+
+.set-software-sidebar-menu {
+    display: block;
+    flex: 1 1 0;
+    min-height: 0;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 16px;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.4) rgba(255, 255, 255, 0.08);
+}
+
+.set-software-sidebar-menu::-webkit-scrollbar {
+    width: 6px;
+}
+
+.set-software-sidebar-menu::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.set-software-sidebar-menu::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 3px;
+}
+
+.set-software-sidebar-menu::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.45);
+}
+
+.set-software-wrapper.set-software-sidebar-collapsed .set-software-sidebar {
+    width: 0;
+    min-width: 0;
+    max-width: 0;
+    padding-top: 16px;
+    padding-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    opacity: 1;
+    pointer-events: none;
+    overflow: visible;
+    background: transparent;
+    border: none;
+}
+
+.set-software-sidebar-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 4px;
+    flex-shrink: 0;
+    margin-bottom: 8px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    position: relative;
+    z-index: 2;
+}
+
+.set-software-sidebar-head .set-software-sidebar-title {
+    margin-bottom: 0;
+    border-bottom: none;
+    flex: 1;
+    min-width: 0;
+}
+
+.set-software-sidebar-title {
+    padding: 12px 16px;
+    font-weight: 700;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: rgba(255,255,255,0.9);
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+    margin-bottom: 8px;
+    flex-shrink: 0;
+}
+
+.set-software-nav-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 16px;
+    color: rgba(255,255,255,0.85);
+    text-decoration: none;
+    font-size: 12px;
+    transition: background 0.2s, color 0.2s;
+}
+
+.set-software-nav-item:hover {
+    background: rgba(255,255,255,0.1);
+    color: #fff;
+}
+
+.set-software-nav-item.active {
+    background: rgba(255,255,255,0.2);
+    color: #fff;
+    font-weight: 600;
+}
+
+.set-software-nav-item i {
+    margin-right: 8px;
+    opacity: 0.9;
+}
+
+/* Expandable group (e.g. Region) — align with .set-software-nav-item (no extra <details> inset) */
+.set-software-nav-group {
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+.set-software-nav-summary {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 10px 16px;
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 12px;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+    user-select: none;
+}
+.set-software-nav-summary::-webkit-details-marker,
+.set-software-nav-summary::marker {
+    display: none;
+    content: '';
+}
+/* Leading icon only — same as first icon inside .set-software-nav-item span */
+.set-software-nav-summary span i {
+    margin-right: 8px;
+    opacity: 0.9;
+    flex-shrink: 0;
+}
+.set-software-nav-summary:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+}
+.set-software-nav-summary span {
+    display: flex;
+    align-items: center;
+    min-width: 0;
+    flex: 1;
+}
+/* Trailing chevron: same horizontal line as .set-software-nav-item > i:last-child (8px inset from row edge) */
+.set-software-nav-summary-chevron {
+    margin-left: auto;
+    margin-right: 8px;
+    transition: transform 0.2s ease;
+    opacity: 0.85;
+    flex-shrink: 0;
+}
+.set-software-nav-group[open] .set-software-nav-summary-chevron {
+    transform: rotate(180deg);
+}
+.set-software-nav-group[open] .set-software-nav-summary {
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+}
+.set-software-nav-sub {
+    padding: 4px 0 8px 0;
+    border-left: 2px solid rgba(197, 168, 100, 0.5);
+    margin-left: 20px;
+}
+.set-software-nav-sub-item {
+    display: block;
+    padding: 8px 14px 8px 18px;
+    color: rgba(255, 255, 255, 0.78);
+    text-decoration: none;
+    font-size: 11px;
+    transition: background 0.2s, color 0.2s;
+}
+.set-software-nav-sub-item:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+}
+.set-software-nav-sub-item.active {
+    background: rgba(255, 255, 255, 0.18);
+    color: #fff;
+    font-weight: 600;
+}
+
+/* Collapse tab — inline with SET SOFTWARE heading on desktop */
+.set-software-collapse-tab {
+    position: relative;
+    left: auto;
+    top: auto;
+    transform: none;
+    z-index: 25;
+    width: 28px;
+    height: 40px;
+    margin: 0;
+    padding: 0;
+    flex-shrink: 0;
+    background: linear-gradient(180deg, var(--auragold-nav-tab-gold) 0%, var(--auragold-nav-tab-gold-hover) 100%);
+    border: 1px solid rgba(17, 41, 75, 0.12);
+    border-radius: 0 6px 6px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #11294b;
+    cursor: pointer;
+    font-size: 12px;
+    box-shadow: 2px 0 8px rgba(166, 138, 74, 0.35);
+    transition: background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.set-software-collapse-tab:hover {
+    background: linear-gradient(180deg, #d4b872 0%, var(--auragold-nav-tab-gold) 100%);
+}
+
+.set-software-wrapper.set-software-sidebar-collapsed .set-software-sidebar-menu,
+.set-software-wrapper.set-software-sidebar-collapsed .set-software-sidebar-head .set-software-sidebar-title {
+    opacity: 0;
+    visibility: hidden;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+    border: none;
+    pointer-events: none;
+}
+
+.set-software-wrapper.set-software-sidebar-collapsed .set-software-sidebar-head {
+    border-bottom: none;
+    margin-bottom: 0;
+    width: 28px;
+    pointer-events: auto;
+}
+
+.set-software-wrapper.set-software-sidebar-collapsed .set-software-collapse-tab {
+    position: absolute;
+    left: 0;
+    top: 16px;
+    pointer-events: auto;
+}
+
+.set-software-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    background: #fff;
+    overflow: auto;
+}
+
+/* Region masters (country/state/city): kill layout-content space-between gap below content */
+.geo-region-layout.layout-content {
+    justify-content: flex-start !important;
+    /* Room below table/pagination (newcss zeros layout-content padding); enables comfortable end-of-page scroll */
+    padding-bottom: 48px !important;
+    box-sizing: border-box !important;
+}
+.geo-region-layout .geo-region-container {
+    flex: 0 0 auto !important;
+}
+/* Extra space under page content so pagination is not flush with the window/taskbar */
+.geo-region-layout .geo-master-page {
+    padding-bottom: 72px !important;
+}
+.geo-region-layout .set-software-main {
+    min-height: 0;
+    overflow-x: auto;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+}
+.geo-region-layout .geo-table-wrap .dataTables_wrapper {
+    padding-bottom: 28px !important;
+}
+
+/* DataTables 1.13 pagination: override CDN/Bootstrap conflicts so page numbers stay visible */
+.geo-table-wrap .dataTables_wrapper .dataTables_paginate {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0;
+    column-gap: 0;
+}
+/* Number block: no flex gap between 1,2,3,…,7 */
+.geo-table-wrap .dataTables_wrapper .dataTables_paginate > span {
+    display: inline-flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: stretch;
+    gap: 0;
+    margin: 0 6px;
+}
+/* Flush adjacent page buttons (remove double-border slot) */
+.geo-table-wrap .dataTables_wrapper .dataTables_paginate > span .paginate_button + .paginate_button {
+    margin-left: -1px !important;
+}
+.geo-table-wrap .dataTables_wrapper .dataTables_paginate > span .paginate_button {
+    position: relative;
+    z-index: 0;
+}
+.geo-table-wrap .dataTables_wrapper .dataTables_paginate > span .paginate_button:hover:not(.disabled):not(.current),
+.geo-table-wrap .dataTables_wrapper .dataTables_paginate > span .paginate_button.current {
+    z-index: 1;
+}
+.geo-table-wrap .dataTables_wrapper .dataTables_paginate .paginate_button {
+    box-sizing: border-box;
+    min-width: 2.25em;
+    text-align: center;
+    line-height: 1.35;
+    font-size: 13px !important;
+    font-weight: 500;
+    color: #334155 !important;
+    background: #fff !important;
+    background-image: none !important;
+    border: 1px solid #cbd5e1 !important;
+    border-radius: 4px;
+    padding: 6px 12px !important;
+    margin: 0 !important;
+    text-decoration: none !important;
+    opacity: 1 !important;
+}
+/* Joined number row: square middle anchors; ends rounded (use of-type — ellipsis <span> is not last-child) */
+.geo-table-wrap .dataTables_wrapper .dataTables_paginate > span a.paginate_button:not(:first-of-type):not(:last-of-type) {
+    border-radius: 0 !important;
+}
+.geo-table-wrap .dataTables_wrapper .dataTables_paginate > span a.paginate_button:first-of-type {
+    border-radius: 4px 0 0 4px !important;
+}
+.geo-table-wrap .dataTables_wrapper .dataTables_paginate > span a.paginate_button:last-of-type {
+    border-radius: 0 4px 4px 0 !important;
+}
+.geo-table-wrap .dataTables_wrapper .dataTables_paginate > span a.paginate_button:first-of-type:last-of-type {
+    border-radius: 4px !important;
+}
+.geo-table-wrap .dataTables_wrapper .dataTables_paginate .paginate_button:hover:not(.disabled):not(.current) {
+    color: #0f172a !important;
+    background: #f1f5f9 !important;
+    background-image: none !important;
+    border-color: #94a3b8 !important;
+}
+.geo-table-wrap .dataTables_wrapper .dataTables_paginate .paginate_button.current,
+.geo-table-wrap .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+    color: #ffffff !important;
+    background: #11294b !important;
+    background-color: #11294b !important;
+    background-image: none !important;
+    border-color: #11294b !important;
+    font-weight: 600 !important;
+    box-shadow: none !important;
+}
+.geo-table-wrap .dataTables_wrapper .dataTables_paginate .paginate_button.disabled,
+.geo-table-wrap .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover {
+    color: #94a3b8 !important;
+    background: #f8fafc !important;
+    background-image: none !important;
+    border-color: #e2e8f0 !important;
+    cursor: not-allowed !important;
+}
+.geo-table-wrap .dataTables_wrapper .dataTables_paginate span.ellipsis {
+    color: #64748b !important;
+    padding: 6px 2px !important;
+    margin: 0 !important;
+    background: transparent !important;
+    border: none !important;
+    line-height: 1.35;
+}
+.geo-table-wrap .dataTables_wrapper .dataTables_info {
+    padding-bottom: 0;
+}
+
+/* ColReorder: drag handle (gold move icon on navy) + cursor */
+.geo-table-wrap table.dataTable thead th[data-col="actions"] {
+    cursor: default;
+}
+.geo-table-wrap table.dataTable thead th[data-col]:not([data-col="actions"]) {
+    position: relative;
+    padding-left: 2.35rem;
+    cursor: grab;
+}
+.geo-table-wrap table.dataTable thead th[data-col]:not([data-col="actions"]):active {
+    cursor: grabbing;
+}
+/* Feather-style move (4-way) — gold on navy chip, matches Set Software accent */
+.geo-table-wrap table.dataTable thead th[data-col]:not([data-col="actions"])::before {
+    content: "";
+    position: absolute;
+    left: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1.25rem;
+    height: 1.25rem;
+    border-radius: 4px;
+    background-color: #11294b;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23d4af37' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='5 9 2 12 5 15'/%3E%3Cpolyline points='9 5 12 2 15 5'/%3E%3Cpolyline points='15 19 12 22 9 19'/%3E%3Cpolyline points='19 9 22 12 19 15'/%3E%3Cline x1='2' y1='12' x2='22' y2='12'/%3E%3Cline x1='12' y1='2' x2='12' y2='22'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 12px 12px;
+    flex-shrink: 0;
+    pointer-events: none;
+}
+
+/*
+ * ColReorder ghost: shallow clone keeps class .geo-table; main tables use :not(.DTCR_clonedTable)
+ * for width:100% so ColReorder’s inline width on the drag table is not overridden.
+ */
+table.DTCR_clonedTable.geo-table,
+table.geo-table.DTCR_clonedTable {
+    table-layout: fixed !important;
+    margin: 0 !important;
+    box-shadow: 0 4px 14px rgba(17, 41, 75, 0.18);
+}
+table.DTCR_clonedTable.geo-table thead th {
+    width: 100% !important;
+    white-space: nowrap !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    box-sizing: border-box !important;
+}
+
+/* Region master grids: vertical lines between columns */
+.geo-table-wrap .geo-table thead th,
+.geo-table-wrap .geo-table tbody td {
+    border-right: 1px solid #e2e8f0;
+}
+.geo-table-wrap .geo-table thead th:last-child,
+.geo-table-wrap .geo-table tbody td:last-child {
+    border-right: none;
+}
+
+/* Mobile: off-canvas Set Software menu + toolbar open button */
+@media (max-width: 991.98px) {
+    .set-software-wrapper .set-software-collapse-tab {
+        display: none !important;
+    }
+    .set-software-wrapper .set-software-main {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .set-software-mobile-toolbar {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 8px 12px;
+        background: #f8fafc;
+        border-bottom: 1px solid #e2e8f0;
+        flex-shrink: 0;
+    }
+
+    .set-software-mobile-menu-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 8px 14px;
+        border: 1px solid rgba(17, 41, 75, 0.25);
+        border-radius: 8px;
+        background: #11294b;
+        color: #fff;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        line-height: 1.2;
+        -webkit-tap-highlight-color: transparent;
+    }
+    .set-software-mobile-menu-btn .feather {
+        width: 18px;
+        height: 18px;
+    }
+    .set-software-mobile-menu-btn:active {
+        filter: brightness(1.08);
+    }
+    .set-software-mobile-menu-btn[aria-expanded="true"] {
+        background: #1e3a5f;
+        border-color: #11294b;
+    }
+
+    .set-software-drawer-backdrop {
+        display: none;
+        position: fixed;
+        inset: 0;
+        z-index: 1048;
+        background: rgba(15, 23, 42, 0.5);
+        -webkit-tap-highlight-color: transparent;
+    }
+    body.set-software-drawer-open .set-software-drawer-backdrop {
+        display: block;
+    }
+
+    .set-software-wrapper .set-software-sidebar {
+        display: flex !important;
+        position: fixed;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: min(288px, 88vw);
+        min-width: 0;
+        max-width: 88vw;
+        z-index: 1050;
+        transform: translateX(-105%);
+        transition: transform 0.28s ease;
+        opacity: 1 !important;
+        pointer-events: auto !important;
+        padding: 0;
+        padding-top: max(8px, env(safe-area-inset-top, 0px));
+        overflow: hidden;
+        box-shadow: none;
+    }
+    .set-software-wrapper .set-software-sidebar-menu {
+        flex: 1 1 auto;
+        min-height: 0;
+        overflow-x: hidden;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: max(16px, env(safe-area-inset-bottom, 0px));
+    }
+    body.set-software-drawer-open .set-software-wrapper .set-software-sidebar {
+        transform: translateX(0);
+        box-shadow: 4px 0 28px rgba(0, 0, 0, 0.22);
+    }
+    .set-software-wrapper.set-software-sidebar-collapsed .set-software-sidebar {
+        width: min(288px, 88vw);
+        min-width: 0;
+        max-width: 88vw;
+        padding-left: 0;
+        padding-right: 0;
+        opacity: 1 !important;
+        pointer-events: auto !important;
+    }
+
+    .set-software-sidebar-mobile-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        padding: 10px 12px 8px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+        margin-bottom: 4px;
+        flex-shrink: 0;
+    }
+    .set-software-sidebar-mobile-head .set-software-sidebar-title {
+        margin-bottom: 0;
+        padding: 0;
+        border-bottom: none;
+        flex: 1;
+        min-width: 0;
+    }
+    .set-software-drawer-close {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        padding: 0;
+        border: none;
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.12);
+        color: #fff;
+        cursor: pointer;
+        flex-shrink: 0;
+        -webkit-tap-highlight-color: transparent;
+    }
+    .set-software-drawer-close .feather {
+        width: 20px;
+        height: 20px;
+    }
+    .set-software-drawer-close:active {
+        background: rgba(255, 255, 255, 0.22);
+    }
+
+    body.set-software-drawer-open {
+        overflow: hidden !important;
+    }
+}
+
+@media (min-width: 992px) {
+    .set-software-mobile-toolbar,
+    .set-software-drawer-backdrop,
+    .set-software-sidebar-mobile-head,
+    .set-software-drawer-close {
+        display: none !important;
+    }
+}
+
+/* Locked Set Software menu items */
+.set-software-nav-locked .ss-nav-lock-icon {
+    width: 14px;
+    height: 14px;
+    margin-left: 4px;
+    opacity: 0.85;
+    vertical-align: middle;
+}
+.set-software-nav-locked {
+    opacity: 0.92;
+}
+
+.ss-menu-lock-modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 10050;
+    background: rgba(15, 23, 42, 0.45);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+.ss-menu-lock-modal-overlay.is-open {
+    display: flex;
+}
+.ss-menu-lock-modal {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 12px 40px rgba(15, 23, 42, 0.18);
+    max-width: 420px;
+    width: 100%;
+    padding: 24px;
+    position: relative;
+}
+.ss-menu-lock-close {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    border: none;
+    background: transparent;
+    font-size: 1.5rem;
+    line-height: 1;
+    color: #64748b;
+    cursor: pointer;
+}
+.ss-menu-lock-modal h2 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin: 0 0 8px;
+}
+.ss-menu-lock-lead {
+    color: #64748b;
+    font-size: 0.88rem;
+    margin: 0 0 6px;
+}
+.ss-menu-lock-name {
+    font-weight: 700;
+    color: #11294b;
+    margin: 0 0 14px;
+    font-size: 0.95rem;
+}
+.ss-menu-lock-err {
+    color: #dc2626;
+    font-size: 0.85rem;
+    min-height: 1.2em;
+    margin: 8px 0 0;
+}
+.ss-menu-lock-hint {
+    font-size: 0.78rem;
+    color: #94a3b8;
+    margin: 10px 0 0;
+}
+.ss-menu-lock-btns {
+    display: flex;
+    gap: 10px;
+    margin-top: 16px;
+}
+.ss-menu-lock-btns .btn-primary {
+    background: linear-gradient(135deg, #11294b, #0d1f38);
+    border: none;
+}

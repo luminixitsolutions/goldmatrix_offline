@@ -1,0 +1,5 @@
+{
+    "line": 39,
+    "old": "        if (metal) {\n            activateToolboxCategory(metalDisplayToToolboxCategory(metal));\n            if (barcodeSettingsByMetal[metal] && typeof applyMetalSettingsSnapshot === 'function') {\n                applyMetalSettingsSnapshot(barcodeSettingsByMetal[metal]);\n            }\n        }\n    }",
+    "new": "        if (metal) {\n            activateToolboxCategory(metalDisplayToToolboxCategory(metal));\n        }\n    }"
+}

@@ -1,0 +1,5 @@
+{
+    "line": 37,
+    "old": "$barcode_settings_latest = getBarcodeSettings();\n$bs_metal_initial = isset($barcode_settings_latest['metal_type']) ? trim((string) $barcode_settings_latest['metal_type']) : '';\n$barcode_settings = ($bs_metal_initial !== '')\n    ? (getBarcodeSettings($bs_metal_initial) ?: $barcode_settings_latest)\n    : $barcode_settings_latest;",
+    "new": "\/** Metal to open after save\/reload (?barcode_metal=Gold) — avoids loading the wrong metal's layout. *\/\n$bs_load_metal = isset($_GET['barcode_metal']) ? trim((string) $_GET['barcode_metal']) : '';\nif ($bs_load_metal === '' && !empty($barcode_metals)) {\n    foreach ($barcode_metals as $_bm_init) {\n        $_dn_init = isset($_bm_init['display_name']) ? trim((string) $_bm_init['display_name']) : '';\n        if ($_dn_init !== '') {\n            $bs_load_metal = $_dn_init;\n            break;\n        }\n    }\n}\n$barcode_settings = ($bs_load_metal !== '') ? getBarcodeSettings($bs_load_metal) : getBarcodeSettings();\nif (!$barcode_settings && $bs_load_metal !== '') {\n    $barcode_settings = null;\n}"
+}

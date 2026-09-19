@@ -1,0 +1,30 @@
+    $html = '<div class="sticker-page" style="width:82mm;height:38mm;position:relative;overflow:hidden;">';
+
+    $pairs = [
+        1 => ['pos' => $layout['box1'], 'item' => $print_item['box1'] ?? null],
+        2 => ['pos' => $layout['box2'], 'item' => $print_item['box2'] ?? null],
+    ];
+    foreach ($pairs as $num => $pair) {
+        if (!is_array($pair['item']) || empty($pair['item']['barcode'])) {
+            continue;
+        }
+        $productData = array_merge($pair['item']['row'] ?? [], ['barcode' => $pair['item']['barcode']]);
+        $boxDesign = auragold_82x38_box_design_items($snapshot, (int) $num);
+        if (empty($boxDesign)) {
+            $boxDesign = auragold_82x38_default_box_design_items($snapshot, (int) $num);
+        }
+        $boxSettings = array_merge($settings, [
+            'label_width_mm'    => $boxW,
+            'label_height_mm'   => $boxH,
+            'design_layout'     => $boxDesign,
+            'barcode_svg_class' => 'barcode-svg-box' . (int) $num,
+            'barcode_svg_id'    => 'barcodeSvgBox' . (int) $num . $idSuffix,
+        ]);
+        $inner = renderBarcodeLayout($productData, $boxSettings);
+        if (strpos($inner, 'barcode-svg') === false) {
+            $def = auragold_82x38_default_box_design_items($snapshot, (int) $num);
+            $inner = renderBarcodeLayout($productData, array_merge($boxSettings, ['design_layout' => $def]));
+        }
+        $boxStyle = 'left:' . $pair['pos']['left'] . 'mm;top:' . $pair['pos']['top'] . 'mm;'
+            . 'width:' . $boxW . 'mm;height:' . $boxH . 'mm;';
+        $html .= '<div class="barcode-box barcode-box--' . (int) $num . '" style="' . htmlspecialchars($boxStyle, ENT_QUOTES, 'UTF-8') . '">';

@@ -1,0 +1,5 @@
+{
+    "line": 70,
+    "old": ".barcode-print-wrap .barcode-stripes {\n    display: block;\n    box-sizing: border-box;\n    width: 100%;\n    height: 100%;\n    overflow: hidden;\n}",
+    "new": ".barcode-print-wrap .barcode-stripes {\n    display: block;\n    box-sizing: border-box;\n    width: auto;\n    max-width: 100%;\n    height: auto;\n    overflow: hidden;\n}\n.barcode-print-wrap.barcode-selected {\n    outline: 2px solid #5a3b8c;\n    outline-offset: 1px;\n}\n.barcode-resize-handle {\n    position: absolute;\n    right: -3px;\n    bottom: -3px;\n    width: 12px;\n    height: 12px;\n    cursor: ew-resize;\n    background: #5a3b8c;\n    border: 1px solid #fff;\n    border-radius: 2px;\n    z-index: 6;\n    box-sizing: border-box;\n}\n.barcode-resize-handle:hover {\n    background: #7c3aed;\n}"
+}

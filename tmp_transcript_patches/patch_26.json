@@ -1,0 +1,5 @@
+{
+    "line": 60,
+    "old": "        if (!snap) {\n            persistedLayoutBarcode = '{}';\n            persistedLayoutQr = '{}';\n            savedDesignLayout = '{}';\n        } else {",
+    "new": "        if (!snap) {\n            persistedLayoutBarcode = '{}';\n            persistedLayoutQr = '{}';\n            savedDesignLayout = '{}';\n            var lpEmpty = getCurrentLabelPresetUi();\n            syncLabelPresetInputsFromUi(lpEmpty);\n            if (typeof syncLabelMmFromPreset === 'function') syncLabelMmFromPreset(lpEmpty.ui);\n        } else {"
+}

@@ -1,0 +1,16 @@
+-- OPTIONAL one-time migration after app saves category/stock per branch in tbl_product_branch_settings.
+-- Run only during maintenance; backup first.
+--
+-- 1) Backfill branch settings from tbl_products for your MAIN branch (replace @MAIN_BRANCH_ID):
+-- INSERT INTO tbl_product_branch_settings (product_id, branch_id, category_id, is_stock_item, updated_at)
+-- SELECT p.id, @MAIN_BRANCH_ID, p.category_id, p.is_stock_item, NOW()
+-- FROM tbl_products p
+-- ON DUPLICATE KEY UPDATE
+--   category_id = VALUES(category_id),
+--   is_stock_item = VALUES(is_stock_item),
+--   updated_at = NOW();
+--
+-- 2) Optional: stop storing branch-scoped fields on the product row (requires app deploy that no longer relies on these columns):
+-- ALTER TABLE tbl_products DROP COLUMN category_id;
+-- ALTER TABLE tbl_products DROP COLUMN is_stock_item;
+-- Note: category_id may be NOT NULL today; adjust schema (e.g. allow NULL) before DROP if needed.

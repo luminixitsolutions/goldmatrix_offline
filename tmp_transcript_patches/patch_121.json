@@ -1,0 +1,5 @@
+{
+    "line": 365,
+    "old": "        if (!isDualLabelLayoutPreset() || !shell) {\n            canvasEl.style.minHeight = '';\n            if (shell) {\n                shell.style.width = '';\n                shell.style.height = '';\n            }\n            return;\n        }",
+    "new": "        if (!isDualLabelLayoutPreset() || !shell) {\n            canvasEl.style.minHeight = '';\n            if (shell) {\n                shell.style.width = '';\n                shell.style.height = '';\n                shell.style.maxWidth = '';\n                shell.style.minWidth = '';\n                shell.style.minHeight = '';\n            }\n            var outerBadgeClear = document.getElementById('barcodeDualOuterSizeBadge');\n            if (outerBadgeClear) outerBadgeClear.textContent = '';\n            return;\n        }"
+}

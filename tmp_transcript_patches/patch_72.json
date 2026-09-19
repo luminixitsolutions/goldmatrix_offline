@@ -1,0 +1,5 @@
+{
+    "line": 259,
+    "old": ".barcode-default-white.barcode-print-area-mm {\n    flex: 0 0 auto;\n    outline: 2px dashed rgba(34, 197, 94, 0.7);\n    outline-offset: -1px;\n}",
+    "new": ".barcode-default-white.barcode-print-area-mm {\n    flex: 0 0 auto;\n    outline: 2px dashed rgba(34, 197, 94, 0.7);\n    outline-offset: -1px;\n}\n.barcode-print-size-badge {\n    position: absolute;\n    left: 2px;\n    bottom: 1px;\n    font-size: 8px;\n    font-weight: 600;\n    color: rgba(22, 163, 74, 0.9);\n    line-height: 1.1;\n    pointer-events: none;\n    z-index: 3;\n    background: rgba(255, 255, 255, 0.92);\n    padding: 1px 4px;\n    border-radius: 2px;\n}"
+}

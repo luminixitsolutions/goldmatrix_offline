@@ -1,0 +1,5 @@
+{
+    "line": 259,
+    "old": "        var dualSaveHalf = isDualLabelLayoutPreset();\n        var labelWHalf = dualSaveHalf ? getDualHalfLabelWidthMm() : labelW;\n        var contentW1 = (labelCanvas1El || labelPreview1El) ? ((labelCanvas1El || labelPreview1El).offsetWidth || 270) : 270;\n        var contentH1 = (labelCanvas1El || labelPreview1El) ? ((labelCanvas1El || labelPreview1El).offsetHeight || 54) : 54;\n        var pxToMmX1 = labelWHalf \/ contentW1;\n        var pxToMmY1 = labelH \/ contentH1;",
+    "new": "        var dualSaveHalf = isDualLabelLayoutPreset();\n        var labelWHalf = dualSaveHalf ? getDualTagPrintBoxWidthMm() : labelW;\n        var labelHSave = dualSaveHalf ? getDualTagPrintBoxHeightMm() : labelH;\n        var contentW1 = (labelCanvas1El || labelPreview1El) ? ((labelCanvas1El || labelPreview1El).offsetWidth || 270) : 270;\n        var contentH1 = (labelCanvas1El || labelPreview1El) ? ((labelCanvas1El || labelPreview1El).offsetHeight || 54) : 54;\n        var pxToMmX1 = labelWHalf \/ contentW1;\n        var pxToMmY1 = labelHSave \/ contentH1;"
+}

@@ -1,0 +1,7 @@
+        }
+    }
+    return $row;
+}
+
+/**
+ * All saved barcode rows for branch, keyed "Metal::label_size_preset" (storage preset).

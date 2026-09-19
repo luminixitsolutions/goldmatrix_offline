@@ -1,0 +1,178 @@
+/**
+ * GoldMatrix Google Translate — banner hide + widget + RTL helpers.
+ * Loaded once via includes/google_translate_scripts.php
+ */
+
+/* ---- Widget in header ---- */
+#google_translate_element.auragold-google-translate {
+    display: inline-flex !important;
+    align-items: center;
+    flex-shrink: 0;
+    min-width: 130px;
+    max-width: 180px;
+    margin: 0 6px;
+    vertical-align: middle;
+    visibility: visible !important;
+    opacity: 1 !important;
+    z-index: 1400;
+    position: relative;
+}
+#google_translate_element .goog-te-gadget {
+    font-size: 0 !important;
+    line-height: 1 !important;
+    color: transparent !important;
+}
+#google_translate_element .goog-te-gadget .goog-te-combo {
+    font-size: 12px !important;
+    line-height: 1.2 !important;
+    padding: 2px 6px;
+    min-width: 120px;
+    max-width: 170px;
+    height: 28px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    background: #fff;
+    color: #334155;
+    cursor: pointer;
+}
+#google_translate_element .goog-logo-link,
+#google_translate_element img,
+#google_translate_element .goog-te-gadget > span {
+    display: none !important;
+}
+
+/* ---- Hide top translation banner (classic + new Google classes) ---- */
+iframe.goog-te-banner-frame,
+.goog-te-banner-frame,
+.goog-te-banner-frame.skiptranslate,
+.VIpgJd-ZVi9od-ORHb-OEVmcd,
+iframe.VIpgJd-ZVi9od-ORHb-OEVmcd,
+body > .skiptranslate:has(iframe.goog-te-banner-frame),
+body > .skiptranslate:has(.VIpgJd-ZVi9od-ORHb-OEVmcd) {
+    display: none !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    max-height: 0 !important;
+    width: 0 !important;
+    border: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    position: absolute !important;
+    left: -9999px !important;
+    top: -9999px !important;
+    z-index: -1 !important;
+}
+
+/* Prevent page being pushed down after translation */
+html,
+body,
+html body,
+html.translated-ltr body,
+html.translated-rtl body,
+body.translated-ltr,
+body.translated-rtl {
+    top: 0 !important;
+    margin-top: 0 !important;
+}
+
+/* Tooltips / highlight chrome */
+#goog-gt-tt,
+.goog-te-balloon-frame,
+.VIpgJd-yAWNEb-L7lbkb,
+.goog-tooltip,
+.goog-te-spinner-pos {
+    display: none !important;
+}
+.goog-text-highlight {
+    background: transparent !important;
+    box-shadow: none !important;
+}
+
+/* Keep language popup above header */
+.goog-te-menu-frame,
+iframe.goog-te-menu-frame,
+.goog-te-menu2 {
+    z-index: 2147483647 !important;
+    max-height: 360px !important;
+}
+
+/* ---- Arabic RTL: layout direction without breaking logos/numbers ---- */
+html.auragold-gt-rtl .company-header,
+html.auragold-gt-rtl .top-navbar,
+html.auragold-gt-rtl .layout-content,
+html.auragold-gt-rtl .user-info,
+html.auragold-gt-rtl .form-group,
+html.auragold-gt-rtl label {
+    direction: rtl;
+}
+
+html.auragold-gt-rtl .auragold-header-logo,
+html.auragold-gt-rtl .company-info-logo,
+html.auragold-gt-rtl .notranslate,
+html.auragold-gt-rtl input[type="number"],
+html.auragold-gt-rtl input[type="email"],
+html.auragold-gt-rtl input[type="tel"],
+html.auragold-gt-rtl .product-table td[data-col="barcode"],
+html.auragold-gt-rtl .product-table td[data-col="amount"],
+html.auragold-gt-rtl .product-table td[data-col="rate"],
+html.auragold-gt-rtl .product-table td[data-col="purity"],
+html.auragold-gt-rtl .product-table td[data-col="gross_weight"],
+html.auragold-gt-rtl .product-table td[data-col="net_weight"],
+html.auragold-gt-rtl canvas,
+html.auragold-gt-rtl svg,
+html.auragold-gt-rtl .feather,
+html.auragold-gt-rtl i.feather {
+    direction: ltr !important;
+    unicode-bidi: isolate;
+}
+
+/* Do not mirror icons/logo */
+html.auragold-gt-rtl .auragold-header-logo,
+html.auragold-gt-rtl img.auragold-header-avatar,
+html.auragold-gt-rtl .feather {
+    transform: none !important;
+}
+
+@media (max-width: 991.98px) {
+    /* Hide language widget in header — it lives in the mobile nav drawer */
+    .company-header .auragold-gt-slot--desktop,
+    .company-header #google_translate_element {
+        display: none !important;
+    }
+
+    #auragoldTopNav .auragold-gt-slot--mobile {
+        display: flex;
+        flex-shrink: 0;
+        align-items: center;
+        padding: 10px 14px 12px;
+        border-bottom: 1px solid rgba(197, 168, 100, 0.28);
+        background: rgba(15, 31, 58, 0.98);
+    }
+
+    #auragoldTopNav #google_translate_element.auragold-google-translate {
+        display: inline-flex !important;
+        width: 100%;
+        min-width: 0;
+        max-width: none;
+        margin: 0;
+    }
+
+    #auragoldTopNav #google_translate_element .goog-te-gadget {
+        width: 100%;
+    }
+
+    #auragoldTopNav #google_translate_element .goog-te-gadget .goog-te-combo {
+        width: 100%;
+        min-width: 0;
+        max-width: none;
+        height: 36px;
+        font-size: 13px !important;
+        padding: 4px 10px;
+        border-color: rgba(197, 168, 100, 0.45);
+        border-radius: 8px;
+        background: #fff;
+        color: #0f1f3a;
+    }
+}

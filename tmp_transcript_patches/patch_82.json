@@ -1,0 +1,5 @@
+{
+    "line": 259,
+    "old": "        if (isDualLabelLayoutPreset()) {\n            layoutPayload.double_barcode_120x50 = true;\n            layoutPayload.dual_tag_half_width_mm = getDualHalfLabelWidthMm();\n            layoutPayload.dual_tag_gap_mm = DUAL_TAG_GAP_MM;\n        }",
+    "new": "        if (isDualLabelLayoutPreset()) {\n            layoutPayload.double_barcode_120x50 = true;\n            layoutPayload.dual_tag_half_width_mm = getDualHalfLabelWidthMm();\n            layoutPayload.dual_tag_gap_mm = DUAL_TAG_GAP_MM;\n            layoutPayload.dual_quadrant_width_mm = getDualTagPrintBoxWidthMm();\n            layoutPayload.dual_quadrant_height_mm = getDualTagPrintBoxHeightMm();\n        }"
+}

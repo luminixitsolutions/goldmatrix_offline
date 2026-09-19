@@ -1,0 +1,5 @@
+{
+    "line": 441,
+    "old": "        } else {\n            if (canvasEl) canvasEl.style.minHeight = '';\n            if (canvasEl) canvasEl.classList.remove('dual-barcode-layout');",
+    "new": "        } else {\n            if (canvasEl) canvasEl.style.minHeight = '';\n            if (canvasEl) canvasEl.classList.remove('dual-barcode-layout', 'barcode-dual-unified-120x50');"
+}

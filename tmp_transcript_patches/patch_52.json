@@ -1,0 +1,5 @@
+{
+    "line": 153,
+    "old": "            if (isDual120) {\n                wrap.style.top = Math.max(pad, Math.round((canvasEl.clientHeight - h) \/ 2)) + 'px';\n            } else {\n                wrap.style.top = pad + 'px';\n            }",
+    "new": "            if (isDual120) {\n                wrap.style.top = pad + 'px';\n            } else {\n                wrap.style.top = pad + 'px';\n            }"
+}

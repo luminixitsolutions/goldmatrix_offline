@@ -1,0 +1,5 @@
+{
+    "line": 116,
+    "old": ".barcode-default-inner.barcode-tag-jewelry .barcode-default-handle {\n    width: 10px;\n    min-width: 10px;\n    height: 60%;\n    min-height: 28px;\n    align-self: center;\n    border-radius: 0 10px 10px 0;\n}",
+    "new": ".barcode-default-inner.barcode-tag-jewelry .barcode-default-handle {\n    width: 10px;\n    min-width: 10px;\n    height: 60%;\n    min-height: 28px;\n    align-self: center;\n    border-radius: 0 10px 10px 0;\n}\n\/* 120×50: horizontal mid-line only (no vertical split in printable area) *\/\n.barcode-default-inner.barcode-tag-jewelry .barcode-label-center-guide {\n    left: 0;\n    top: 50%;\n    width: 100%;\n    height: 0;\n    bottom: auto;\n    border-left: none;\n    border-top: 1px dashed rgba(22, 163, 74, 0.55);\n    transform: translateY(-50%);\n}"
+}

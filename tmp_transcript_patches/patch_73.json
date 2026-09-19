@@ -1,0 +1,5 @@
+{
+    "line": 259,
+    "old": "    var DUAL_STICKER_W_MM = 120;\n    var DUAL_STICKER_H_MM = 50;\n    var DUAL_TAG_GAP_MM = 2;\n    function getDualHalfLabelWidthMm() {\n        return (DUAL_STICKER_W_MM - DUAL_TAG_GAP_MM) \/ 2;\n    }",
+    "new": "    var DUAL_STICKER_W_MM = 120;\n    var DUAL_STICKER_H_MM = 50;\n    var DUAL_TAG_GAP_MM = 2;\n    \/** One barcode print box on 120×50 butterfly tag: 2 cm × 2.5 cm *\/\n    var DUAL_QUADRANT_W_MM = 20;\n    var DUAL_QUADRANT_H_MM = 25;\n    function getDualHalfLabelWidthMm() {\n        return (DUAL_STICKER_W_MM - DUAL_TAG_GAP_MM) \/ 2;\n    }\n    function getDualTagPrintBoxWidthMm() {\n        return DUAL_QUADRANT_W_MM;\n    }\n    function getDualTagPrintBoxHeightMm() {\n        return DUAL_QUADRANT_H_MM;\n    }"
+}

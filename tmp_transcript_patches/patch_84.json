@@ -1,0 +1,5 @@
+{
+    "line": 261,
+    "old": "    function getDualHalfLabelWidthMm() {\n        return (DUAL_STICKER_W_MM - DUAL_TAG_GAP_MM) \/ 2;\n    }\n    function get120x50DualTagLayoutPx() {",
+    "new": "    function getDualHalfLabelWidthMm() {\n        return (DUAL_STICKER_W_MM - DUAL_TAG_GAP_MM) \/ 2;\n    }\n    function getDualTagPrintBoxWidthMm() {\n        return DUAL_QUADRANT_W_MM;\n    }\n    function getDualTagPrintBoxHeightMm() {\n        return DUAL_QUADRANT_H_MM;\n    }\n    function get120x50DualTagLayoutPx() {"
+}

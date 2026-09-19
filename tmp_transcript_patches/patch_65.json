@@ -1,0 +1,5 @@
+{
+    "line": 206,
+    "old": "                } else {\n                    wPx1 = barcodeStripes1.offsetWidth || 90;\n                    hPx1 = barcodeStripes1.offsetHeight || 18;\n                }\n                var barLeft = barcode1LeftMm;\n                var barTop = barcode1TopMm;\n                var barW = clampMmGlobal(wPx1 * pxToMmX1, labelW);\n                var barH = clampMmGlobal(hPx1 * pxToMmY1, labelH);",
+    "new": "                } else {\n                    var saveSize1 = getBarcodeSaveSizePx(barcodeWrap1, barcodeStripes1);\n                    wPx1 = saveSize1.width;\n                    hPx1 = saveSize1.height;\n                }\n                var barMaxW1 = dualSaveHalf ? labelWHalf : labelW;\n                var barLeft = barcode1LeftMm;\n                var barTop = barcode1TopMm;\n                var barW = clampMmGlobal(wPx1 * pxToMmX1, barMaxW1);\n                var barH = clampMmGlobal(hPx1 * pxToMmY1, labelH);"
+}

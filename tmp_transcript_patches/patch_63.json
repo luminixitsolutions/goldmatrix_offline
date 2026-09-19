@@ -1,0 +1,5 @@
+{
+    "line": 183,
+    "old": "        var canvasEl = wrap ? wrap.closest('.barcode-label-canvas') : (labelCanvas1 || document.getElementById('labelCanvas1'));\n        var maxW = getBarcodeMaxDisplayWidthPx(canvasEl);",
+    "new": "        var canvasEl = wrap ? wrap.closest('.barcode-label-canvas') : (labelCanvas1 || document.getElementById('labelCanvas1'));\n        var maxW = getBarcodeMaxDisplayWidthPx(canvasEl, wrap);"
+}

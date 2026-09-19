@@ -1,0 +1,5 @@
+{
+    "line": 75,
+    "old": "            offsetX = e.offsetX;\n            offsetY = e.offsetY;\n        });",
+    "new": "            offsetX = e.offsetX;\n            offsetY = e.offsetY;\n            e.preventDefault();\n            e.stopPropagation();\n            isDragging = true;\n        });"
+}

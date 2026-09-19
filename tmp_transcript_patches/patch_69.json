@@ -1,0 +1,5 @@
+{
+    "line": 223,
+    "old": "            bn.checked = !!persistedShowBarcodeNoQr;\n        }\n    }\n\n    function buildBarcodeFormPayload() {",
+    "new": "            bn.checked = !!persistedShowBarcodeNoQr;\n        }\n        toggleBarcodeNumber();\n    }\n\n    function buildBarcodeFormPayload() {"
+}

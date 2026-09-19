@@ -1,0 +1,5 @@
+{
+    "line": 450,
+    "old": ".barcode-dual-outer-frame {\n    display: none;\n    position: relative;\n    box-sizing: border-box;\n    margin: 0 auto;\n    padding: 0 48px 36px 0;\n    pointer-events: auto;\n}\n.dual-barcode-layout.barcode-dual-unified-120x50 .barcode-dual-outer-frame {\n    display: block;\n}\n.barcode-dual-outer-frame {\n    border: 1px solid #1e293b;\n    background: #fff;\n}",
+    "new": ".barcode-dual-outer-frame {\n    display: none;\n    position: relative;\n    box-sizing: content-box;\n    margin: 0 auto;\n    padding: 0 48px 36px 0;\n    pointer-events: auto;\n    border: 1px solid #1e293b;\n    background: #fff;\n}\n.dual-barcode-layout.barcode-dual-unified-120x50 .barcode-dual-outer-frame {\n    display: block;\n}"
+}

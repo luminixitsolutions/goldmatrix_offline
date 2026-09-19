@@ -1,0 +1,5 @@
+{
+    "line": 70,
+    "old": "                    <small class=\"prop-hint prop-hint-barcode\" id=\"propHintBarcode\" style=\"margin-top: 2px;\">Bar width = thickness of each black line (1 = thinnest). Bar height = line height. Drag the barcode on the label or use Move arrows to set position; Save applies to print.<\/small>",
+    "new": "                    <small class=\"prop-hint prop-hint-barcode\" id=\"propHintBarcode\" style=\"margin-top: 2px;\">Line thickness = each black bar width (1 = thinnest). Barcode width = total size on label. Drag the barcode to move; drag the purple corner handle to change width.<\/small>"
+}

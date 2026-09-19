@@ -1,0 +1,5 @@
+{
+    "line": 263,
+    "old": "            var wMm = boxWMm != null ? boxWMm : (typeof wMm !== 'undefined' ? wMm : displayWMm);\n            var hMm = boxHMm != null ? boxHMm : (typeof hMm !== 'undefined' ? hMm : labelHeightMm);\n            var sizeLabel = (wMm \/ 10) + ' cm × ' + (hMm \/ 10) + ' cm (' + wMm + '×' + hMm + ' mm)';\n            whiteEl.setAttribute('title', printTitle || ('Print box ' + sizeLabel));",
+    "new": "            var badgeWMm = (boxWMm != null && !isNaN(boxWMm)) ? boxWMm : wMm;\n            var badgeHMm = (boxHMm != null && !isNaN(boxHMm)) ? boxHMm : hMm;\n            var sizeLabel = (badgeWMm \/ 10) + ' cm × ' + (badgeHMm \/ 10) + ' cm (' + badgeWMm + '×' + badgeHMm + ' mm)';\n            whiteEl.setAttribute('title', printTitle || ('Print box ' + sizeLabel));"
+}

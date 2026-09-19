@@ -1,0 +1,123 @@
+.table-container {
+    flex: 1;
+    overflow-x: auto;
+    overflow-y: visible;
+    background: #fff;
+    /* margin: 20px 20px 0 20px; */
+    border-radius: 8px 8px 0 0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+.table-container .dataTables_wrapper {
+    overflow: visible;
+    min-width: 100%;
+}
+.table tbody td {
+    padding: 7px;
+    font-size: 12px;
+    border-bottom: 1px solid #f1f5f9;
+    vertical-align: middle;
+}
+.filter-form-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 0.75rem; /* 12px */
+}
+.filter-form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    /* margin-bottom: 15px; */
+}
+.page-header-bar {
+    background: #11294b;
+    color: #fff;
+    padding: 4px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 600;
+    font-size: 14px;
+    /* margin-top: 5px; */
+    border-radius: 20px;
+}
+#jwqMaterialBody .jwq-mat-actions {
+    width: 44px;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+#jwqMaterialBody .jwq-mat-actions .jwq-mat-diamond-remove {
+    line-height: 1;
+    min-width: 28px;
+}
+
+#jwqDiamondUsedModal .jwq-diamond-used-pickable:hover td {
+    background-color: #e8f1fc;
+}
+#jwqDiamondUsedModal .jwq-diamond-used-pickable td {
+    user-select: none;
+}
+#jwqDiamondUsedModal .jwq-remove-used-diamond {
+    cursor: pointer;
+}
+#jwqDiamondUsedModal .jwq-remove-used-diamond-wrap {
+    cursor: default;
+}
+#jwqDiamondUsedModal .jwq-diamond-used-table thead th,
+#jwqDiamondUsedModal .table thead th {
+    color: #fff !important;
+    background: #11294b !important;
+    border-bottom-color: rgba(255, 255, 255, 0.25);
+    font-weight: 600;
+}
+.table thead th {
+    background: #11294b !important;
+    font-weight: 600;
+    color: #fff;
+    padding: 8px;
+    /* border-bottom: 2px solid #e2e8f0; */
+    position: static;
+    
+    z-index: 10;
+    white-space: nowrap;
+    min-width: auto;
+    font-size: 12px;
+    border-bottom: 1px solid #c5a864;
+}
+.tab-link.active {
+    color: #11294b;
+    border-bottom-color: #11294b;
+    font-weight: 600;
+    background-color: #e6f0ff; /* Add your desired background color */
+}
+/* Zebra Striping - White / Light Gray */
+.table tbody tr:nth-child(odd) {
+    background-color: #ffffff;
+}
+
+.table tbody tr:nth-child(even) {
+    background-color: #f3f4f6; /* soft gray matching your theme */
+}
+
+/* Keep hover effect */
+.table tbody tr:hover {
+    background-color: #eaf1ff !important;
+}
+
+table.dataTable tbody th, table.dataTable tbody td {
+    padding: 2px;
+}
+
+/* Bootstrap modals above top navbar (navbar uses z-index 1200 for Select2 layering). */
+.modal-backdrop {
+    z-index: 1240 !important;
+}
+.modal {
+    z-index: 1250 !important;
+}
+body.modal-open .top-navbar,
+body.modal-open #auragoldTopNav {
+    z-index: 1030 !important;
+}
+

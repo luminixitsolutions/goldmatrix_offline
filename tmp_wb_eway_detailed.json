@@ -1,0 +1,1283 @@
+{
+    "fetched_at": "2026-08-05T09:11:48+00:00",
+    "source": "https://whitebooks.in/openapi/eway.json",
+    "portal": "https://developer.whitebooks.in/ewaybillapis",
+    "info": {
+        "version": "1.0",
+        "title": "E-WAYBILL-API",
+        "description": "E-WAYBILL-API",
+        "contact": {
+            "name": "WhiteBooks Developer Support",
+            "email": "sales@whitebooks.in",
+            "url": "https://whitebooks.in/about/contact-us"
+        },
+        "license": {
+            "name": "Commercial \u2014 WhiteBooks API Terms",
+            "url": "https://whitebooks.in/about/terms"
+        }
+    },
+    "servers": [
+        {
+            "url": "https://api.whitebooks.in",
+            "description": "Production"
+        },
+        {
+            "url": "https://apisandbox.whitebooks.in",
+            "description": "Sandbox"
+        }
+    ],
+    "securitySchemes": [],
+    "op_count": 27,
+    "operations": [
+        {
+            "tag": "Add Multi Vehicles",
+            "name": "Add Multi Vehicles",
+            "operationId": "",
+            "path": "/ewaybillapi/v1.03/ewayapi/addmulti",
+            "method": "POST",
+            "description": "Add Multi Vehicles",
+            "headers": [
+                "ip_address* (string) \u2014 IP Address",
+                "client_id* (string) \u2014 Client ID",
+                "client_secret* (string) \u2014 Client Secret",
+                "gstin* (string) \u2014 GSTIN number"
+            ],
+            "query": [
+                "email* (string) \u2014 User Email"
+            ],
+            "path_params": [],
+            "body_summary": "required application/json {ewbNo*:number, vehicleNo*:string, groupNo*:String, transDocNo*:string, transDocDate*:string, quantity*:integer}",
+            "body_example": {
+                "ewbNo": 381009282489,
+                "vehicleNo": "ABC1234",
+                "groupNo": "1",
+                "transDocNo": "12",
+                "transDocDate": "11/12/2024",
+                "quantity": 1
+            },
+            "validation": [
+                "ewbNo is required",
+                "groupNo is required",
+                "quantity is required",
+                "transDocDate is required",
+                "transDocNo is required",
+                "vehicleNo is required",
+                "transDocNo maxLength=15",
+                "transDocDate pattern=[0-3][0-9]/[0-1][0-9]/[2][0][1-2][0-9]"
+            ],
+            "encryption": "Not separately declared as request-body encryption in this OpenAPI operation.",
+            "success_example": null,
+            "error_example": null,
+            "response_codes": [
+                "404",
+                "500"
+            ],
+            "auth": "GSP client credentials headers (`client_id`, `client_secret`, `ip_address`) + GST e-Way username/GSTIN as documented per operation; requires prior Authentication token (`authtoken` header) when listed",
+            "service": "MultiVehicleMovementService::manage()",
+            "controller": "EWayBill/MultiVehicleMovementServiceController (planned thin ajax wrapper)",
+            "route": "ajax/whitebooks/ewaybill/add-multi-vehicles.php",
+            "permission": "ewaybill.multi_vehicle.manage",
+            "status": "Pending implementation (documented in OpenAPI only; do not invent fields)"
+        },
+        {
+            "tag": "Authentication",
+            "name": "Authentication Request",
+            "operationId": "",
+            "path": "/ewaybillapi/v1.03/authenticate",
+            "method": "GET",
+            "description": "Authentication Request",
+            "headers": [
+                "ip_address* (string) \u2014 IP Address",
+                "client_id* (string) \u2014 Client ID",
+                "client_secret* (string) \u2014 Client Secret",
+                "gstin* (string) \u2014 GSTIN number"
+            ],
+            "query": [
+                "email* (string) \u2014 User Email",
+                "username* (string) \u2014 User Name",
+                "password* (string) \u2014 Password",
+                "irp (string) \u2014 e-WayBill Server Type(NIC1/NIC2)"
+            ],
+            "path_params": [],
+            "body_summary": "No requestBody in OpenAPI",
+            "body_example": null,
+            "validation": [],
+            "encryption": "Not separately declared as request-body encryption in this OpenAPI operation. Auth uses `authtoken` (and related session fields such as SEK when returned by authenticate) per WhiteBooks e-Way headers; store encrypted at rest in app.",
+            "success_example": null,
+            "error_example": null,
+            "response_codes": [
+                "404",
+                "500"
+            ],
+            "auth": "Pre-auth: email/username/password/GSTIN + client_id/client_secret/ip_address (exact header/query names per OpenAPI)",
+            "service": "EWayBillAuthenticationService::authenticate()",
+            "controller": "EWayBill/EWayBillAuthenticationServiceController (planned thin ajax wrapper)",
+            "route": "ajax/whitebooks/ewaybill/authentication-request.php",
+            "permission": "ewaybill.authentication.manage",
+            "status": "Legacy implemented (`ewaybill_authenticate` in includes/ewaybill_api_helper.php) - to be wrapped by shared WhiteBooks client later"
+        },
+        {
+            "tag": "Cancel E-Way bill",
+            "name": "Cancel E-Way bill",
+            "operationId": "",
+            "path": "/ewaybillapi/v1.03/ewayapi/canewb",
+            "method": "POST",
+            "description": "Cancel E-Way bill",
+            "headers": [
+                "ip_address* (string) \u2014 IP Address",
+                "client_id* (string) \u2014 Client ID",
+                "client_secret* (string) \u2014 Client Secret",
+                "gstin* (string) \u2014 GSTIN number"
+            ],
+            "query": [
+                "email* (string) \u2014 User Email",
+                "irp (string) \u2014 e-WayBill Server Type(NIC1/NIC2)"
+            ],
+            "path_params": [],
+            "body_summary": "required application/json {ewbNo*:number, cancelRsnCode*:number, cancelRmrk:string}",
+            "body_example": {
+                "ewbNo": 381009282489,
+                "cancelRsnCode": 2,
+                "cancelRmrk": "Order Cancelled"
+            },
+            "validation": [
+                "cancelRsnCode is required",
+                "ewbNo is required"
+            ],
+            "encryption": "Not separately declared as request-body encryption in this OpenAPI operation.",
+            "success_example": null,
+            "error_example": null,
+            "response_codes": [
+                "404",
+                "500"
+            ],
+            "auth": "GSP client credentials headers (`client_id`, `client_secret`, `ip_address`) + GST e-Way username/GSTIN as documented per operation; requires prior Authentication token (`authtoken` header) when listed",
+            "service": "EWayBillCancellationService::cancel()",
+            "controller": "EWayBill/EWayBillCancellationServiceController (planned thin ajax wrapper)",
+            "route": "ajax/whitebooks/ewaybill/cancel-e-way-bill.php",
+            "permission": "ewaybill.cancel",
+            "status": "Pending implementation (documented in OpenAPI only; do not invent fields)"
+        },
+        {
+            "tag": "Change Multi Vehicles",
+            "name": "Change Multi Vehicles",
+            "operationId": "",
+            "path": "/ewaybillapi/v1.03/ewayapi/updtmulti",
+            "method": "POST",
+            "description": "Change Multi Vehicles",
+            "headers": [
+                "ip_address* (string) \u2014 IP Address",
+                "client_id* (string) \u2014 Client ID",
+                "client_secret* (string) \u2014 Client Secret",
+                "gstin* (string) \u2014 GSTIN number"
+            ],
+            "query": [
+                "email* (string) \u2014 User Email"
+            ],
+            "path_params": [],
+            "body_summary": "required application/json {ewbNo*:number, groupNo*:number, oldvehicleNo*:string, newVehicleNo*:string, oldTranNo*:string, newTranNo*:string, fromPlace*:string, fromState*:integer, reasonCode*:string, reasonRem*:string}",
+            "body_example": {
+                "ewbNo": 381009282489,
+                "groupNo": 1,
+                "oldvehicleNo": "ABC1234",
+                "newVehicleNo": "ABC4321",
+                "oldTranNo": "sumitra/06/2020",
+                "newTranNo": "sumitra/06/2021",
+                "fromPlace": "FRAZER TOWN",
+                "fromState": 29,
+                "reasonCode": "1",
+                "reasonRem": "Due to Break Down"
+            },
+            "validation": [
+                "ewbNo is required",
+                "fromPlace is required",
+                "fromState is required",
+                "groupNo is required",
+                "newTranNo is required",
+                "newVehicleNo is required",
+                "oldTranNo is required",
+                "oldvehicleNo is required",
+                "reasonCode is required",
+                "reasonRem is required",
+                "oldvehicleNo maxLength=15",
+                "newVehicleNo maxLength=15",
+                "oldTranNo maxLength=15",
+                "newTranNo maxLength=15",
+                "fromPlace maxLength=50",
+                "fromState maximum=2",
+                "reasonCode maxLength=1",
+                "reasonCode minLength=1",
+                "reasonRem maxLength=50"
+            ],
+            "encryption": "Not separately declared as request-body encryption in this OpenAPI operation.",
+            "success_example": null,
+            "error_example": null,
+            "response_codes": [
+                "404",
+                "500"
+            ],
+            "auth": "GSP client credentials headers (`client_id`, `client_secret`, `ip_address`) + GST e-Way username/GSTIN as documented per operation; requires prior Authentication token (`authtoken` header) when listed",
+            "service": "MultiVehicleMovementService::manage()",
+            "controller": "EWayBill/MultiVehicleMovementServiceController (planned thin ajax wrapper)",
+            "route": "ajax/whitebooks/ewaybill/change-multi-vehicles.php",
+            "permission": "ewaybill.multi_vehicle.manage",
+            "status": "Pending implementation (documented in OpenAPI only; do not invent fields)"
+        },
+        {
+            "tag": "Closure e-Way Bill",
+            "name": "Closure e-Way Bill",
+            "operationId": "",
+            "path": "/ewaybillapi/v1.03/ewayapi/clsewb",
+            "method": "POST",
+            "description": "Closure e-Way Bill",
+            "headers": [
+                "ip_address* (string) \u2014 IP Address",
+                "client_id* (string) \u2014 Client ID",
+                "client_secret* (string) \u2014 Client Secret",
+                "gstin* (string) \u2014 GSTIN number"
+            ],
+            "query": [
+                "email* (string) \u2014 User Email"
+            ],
+            "path_params": [],
+            "body_summary": "required application/json {ewbNo*:number, closureDate*:Date, remarks*:string}",
+            "body_example": {
+                "ewbNo": 381009282489,
+                "closureDate": "21/05/2026",
+                "remarks": "Closed the order"
+            },
+            "validation": [
+                "ewbNo is required",
+                "closureDate is required",
+                "remarks is required",
+                "remarks maxLength=50"
+            ],
+            "encryption": "Not separately declared as request-body encryption in this OpenAPI operation.",
+            "success_example": null,
+            "error_example": null,
+            "response_codes": [
+                "404",
+                "500"
+            ],
+            "auth": "GSP client credentials headers (`client_id`, `client_secret`, `ip_address`) + GST e-Way username/GSTIN as documented per operation; requires prior Authentication token (`authtoken` header) when listed",
+            "service": "MultiVehicleMovementService::close()",
+            "controller": "EWayBill/MultiVehicleMovementServiceController (planned thin ajax wrapper)",
+            "route": "ajax/whitebooks/ewaybill/closure-e-way-bill.php",
+            "permission": "ewaybill.multi_vehicle.manage",
+            "status": "Pending implementation (documented in OpenAPI only; do not invent fields)"
+        },
+        {
+            "tag": "Extend Validity of E-Way Bill",
+            "name": "Extend Validity of E-Way Bill",
+            "operationId": "",
+            "path": "/ewaybillapi/v1.03/ewayapi/extendvalidity",
+            "method": "POST",
+            "description": "Extend Validity of E-Way Bill",
+            "headers": [
+                "ip_address* (string) \u2014 IP Address",
+                "client_id* (string) \u2014 Client ID",
+                "client_secret* (string) \u2014 Client Secret",
+                "gstin* (string) \u2014 GSTIN number"
+            ],
+            "query": [
+                "email* (string) \u2014 User Email"
+            ],
+            "path_params": [],
+            "body_summary": "required application/json {ewbNo*:number, vehicleNo:string, fromPlace*:string, fromState*:integer, remainingDistance*:number, transDocNo:string, transDocDate:string, transMode:string, extnRsnCode*:number, extnRemarks*:string, fromPincode*:number, consignmentStatus:string, transitType:string, addressLine1:string, addressLine2:string, addressLine3:string}",
+            "body_example": {
+                "ewbNo": 381009282489,
+                "vehicleNo": "ABC1234",
+                "fromPlace": "FRAZER TOWN",
+                "fromState": 29,
+                "remainingDistance": 50,
+                "transDocNo": "12",
+                "transDocDate": "11/12/2024",
+                "transMode": "1",
+                "extnRsnCode": 1,
+                "extnRemarks": "Nature Calamity",
+                "fromPincode": 560001,
+                "consignmentStatus": "M",
+                "transitType": "",
+                "addressLine1": "",
+                "addressLine2": "",
+                "addressLine3": ""
+            },
+            "validation": [
+                "ewbNo is required",
+                "extnRemarks is required",
+                "extnRsnCode is required",
+                "fromPincode is required",
+                "fromPlace is required",
+                "fromState is required",
+                "remainingDistance is required",
+                "fromPlace maxLength=50",
+                "fromState maximum=99",
+                "transDocNo maxLength=15",
+                "transDocDate pattern=[0-3][0-9]/[0-1][0-9]/[2][0][1-2][0-9]"
+            ],
+            "encryption": "Not separately declared as request-body encryption in this OpenAPI operation.",
+            "success_example": null,
+            "error_example": null,
+            "response_codes": [
+                "404",
+                "500"
+            ],
+            "auth": "GSP client credentials headers (`client_id`, `client_secret`, `ip_address`) + GST e-Way username/GSTIN as documented per operation; requires prior Authentication token (`authtoken` header) when listed",
+            "service": "EWayBillUpdateService::extendValidity()",
+            "controller": "EWayBill/EWayBillUpdateServiceController (planned thin ajax wrapper)",
+            "route": "ajax/whitebooks/ewaybill/extend-validity-of-e-way-bill.php",
+            "permission": "ewaybill.extend_validity",
+            "status": "Pending implementation (documented in OpenAPI only; do not invent fields)"
+        },
+        {
+            "tag": "GET HSN details",
+            "name": "GET HSN details",
+            "operationId": "",
+            "path": "/ewaybillapi/v1.03/ewayapi/gethsndetailsbyhsncode",
+            "method": "GET",
+            "description": "GET HSN details",
+            "headers": [
+                "ip_address* (string) \u2014 IP Address",
+                "client_id* (string) \u2014 Client ID",
+                "client_secret* (string) \u2014 Client Secret",
+                "gstin* (string) \u2014 GSTIN number"
+            ],
+            "query": [
+                "email* (string) \u2014 User Email",
+                "hsncode* (string) \u2014 hsncode for which the details are required"
+            ],
+            "path_params": [],
+            "body_summary": "No requestBody in OpenAPI",
+            "body_example": null,
+            "validation": [],
+            "encryption": "Not separately declared as request-body encryption in this OpenAPI operation.",
+            "success_example": null,
+            "error_example": null,
+            "response_codes": [
+                "404",
+                "500"
+            ],
+            "auth": "GSP client credentials headers (`client_id`, `client_secret`, `ip_address`) + GST e-Way username/GSTIN as documented per operation; requires prior Authentication token (`authtoken` header) when listed",
+            "service": "EWayBillMasterDataService::getHsnDetails()",
+            "controller": "EWayBill/EWayBillMasterDataServiceController (planned thin ajax wrapper)",
+            "route": "ajax/whitebooks/ewaybill/get-hsn-details.php",
+            "permission": "ewaybill.lookup.hsn",
+            "status": "Pending implementation (documented in OpenAPI only; do not invent fields)"
+        },
+        {
+            "tag": "GET Transin details",
+            "name": "GET Transin details",
+            "operationId": "",
+            "path": "/ewaybillapi/v1.03/ewayapi/gettransporterdetails",
+            "method": "GET",
+            "description": "GET Transin details",
+            "headers": [
+                "ip_address* (string) \u2014 IP Address",
+                "client_id* (string) \u2014 Client ID",
+                "client_secret* (string) \u2014 Client Secret",
+                "gstin* (string) \u2014 GSTIN number"
+            ],
+            "query": [
+                "email* (string) \u2014 User Email",
+                "trn_no* (string) \u2014 Transporter GSTIN  or Transin for which the details are required"
+            ],
+            "path_params": [],
+            "body_summary": "No requestBody in OpenAPI",
+            "body_example": null,
+            "validation": [],
+            "encryption": "Not separately declared as request-body encryption in this OpenAPI operation.",
+            "success_example": null,
+            "error_example": null,
+            "response_codes": [
+                "404",
+                "500"
+            ],
+            "auth": "GSP client credentials headers (`client_id`, `client_secret`, `ip_address`) + GST e-Way username/GSTIN as documented per operation; requires prior Authentication token (`authtoken` header) when listed",
+            "service": "EWayBillMasterDataService::getTransporterDetails()",
+            "controller": "EWayBill/EWayBillMasterDataServiceController (planned thin ajax wrapper)",
+            "route": "ajax/whitebooks/ewaybill/get-transin-details.php",
+            "permission": "ewaybill.lookup.transporter",
+            "status": "Pending implementation (documented in OpenAPI only; do not invent fields)"
+        },
+        {
+            "tag": "Generate Consolidated Ewaybill",
+            "name": "Generate Consolidated Ewaybill",
+            "operationId": "",
+            "path": "/ewaybillapi/v1.03/ewayapi/gencewb",
+            "method": "POST",
+            "description": "Generate Consolidated Ewaybill",
+            "headers": [
+                "ip_address* (string) \u2014 IP Address",
+                "client_id* (string) \u2014 Client ID",
+                "client_secret* (string) \u2014 Client Secret",
+                "gstin* (string) \u2014 GSTIN number"
+            ],
+            "query": [
+                "email* (string) \u2014 User Email"
+            ],
+            "path_params": [],
+            "body_summary": "required application/json {fromPlace*:string, fromState*:number, vehicleNo:string, transMode*:string, transDocNo:string, transDocDate:string, tripSheetEwbBills*:array}",
+            "body_example": {
+                "fromPlace": "FRAZER TOWN",
+                "fromState": 5,
+                "vehicleNo": "ABC1234",
+                "transMode": "1",
+                "transDocNo": "12",
+                "transDocDate": "20/02/2024",
+                "tripSheetEwbBills": [
+                    {
+                        "ewbNo": 381009282489
+                    }
+                ]
+            },
+            "validation": [
+                "fromPlace is required",
+                "fromState is required",
+                "transMode is required",
+                "tripSheetEwbBills is required",
+                "fromPlace maxLength=50",
+                "transMode enum=1|2|3|4",
+                "transDocNo maxLength=15",
+                "transDocDate pattern=[0-3][0-9]/[0-1][0-9]/[2][0][1-2][0-9]",
+                "tripSheetEwbBills[].ewbNo is required"
+            ],
+            "encryption": "Not separately declared as request-body encryption in this OpenAPI operation.",
+            "success_example": null,
+            "error_example": null,
+            "response_codes": [
+                "404",
+                "500"
+            ],
+            "auth": "GSP client credentials headers (`client_id`, `client_secret`, `ip_address`) + GST e-Way username/GSTIN as documented per operation; requires prior Authentication token (`authtoken` header) when listed",
+            "service": "ConsolidatedEWayBillService::generate()",
+            "controller": "EWayBill/ConsolidatedEWayBillServiceController (planned thin ajax wrapper)",
+            "route": "ajax/whitebooks/ewaybill/generate-consolidated-ewaybill.php",
+            "permission": "ewaybill.consolidated.create",
+            "status": "Pending implementation (documented in OpenAPI only; do not invent fields)"
+        },
+        {
+            "tag": "Generate Eway Bill",
+            "name": "Generate Eway Bill",
+            "operationId": "",
+            "path": "/ewaybillapi/v1.03/ewayapi/genewaybill",
+            "method": "POST",
+            "description": "Generate Eway Bill",
+            "headers": [
+                "ip_address* (string) \u2014 IP Address",
+                "client_id* (string) \u2014 Client ID",
+                "client_secret* (string) \u2014 Client Secret",
+                "gstin* (string) \u2014 GSTIN number"
+            ],
+            "query": [
+                "email* (string) \u2014 User Email",
+                "irp (string) \u2014 e-WayBill Server Type(NIC1/NIC2)"
+            ],
+            "path_params": [],
+            "body_summary": "required application/json {supplyType*:string, subSupplyType*:string, subSupplyDesc:string, docType*:string, docNo*:string, docDate*:string, fromGstin*:string, fromTrdName:string, fromAddr1:string, fromAddr2:string, fromPlace:string, actFromStateCode*:integer, fromPincode*:integer, fromStateCode*:integer, toGstin*:string, toTrdName:string, toAddr1:string, toAddr2:string, toPlace:string, toPincode*:integer, actToStateCode*:integer, toStateCode*:integer, transactionType*:integer, totalValue:number, cgstValue:number, sgstValue:number, igstValue:number, cessValue:number, cessNonAdvolValue:number, totInvValue*:number, otherValue:number, transMode*:string, transDistance*:string, transporterName:string, transporterId:string, transDocNo:string, transDocDate:string, vehicleNo:string, vehicleType:string, itemList*:array}",
+            "body_example": {
+                "supplyType": "O",
+                "subSupplyType": "1",
+                "subSupplyDesc": " ",
+                "docType": "INV",
+                "docNo": "ebill/12/2024",
+                "docDate": "11/12/2024",
+                "fromGstin": "29AAGCB1286Q000",
+                "fromTrdName": "welton",
+                "fromAddr1": "2ND CROSS NO 59  19  A",
+                "fromAddr2": "GROUND FLOOR OSBORNE ROAD",
+                "fromPlace": "FRAZER TOWN",
+                "actFromStateCode": 29,
+                "fromPincode": 560001,
+                "fromStateCode": 29,
+                "toGstin": "05AAACH6188F1ZM",
+                "toTrdName": "sthuthya",
+                "toAddr1": "Shree Nilaya",
+                "toAddr2": "Dasarahosahalli",
+                "toPlace": "Beml Nagar",
+                "toPincode": 263652,
+                "actToStateCode": 5,
+                "toStateCode": 5,
+                "transactionType": 4,
+                "totalValue": 56099,
+                "cgstValue": 0,
+                "sgstValue": 0,
+                "igstValue": 300.67,
+                "cessValue": 400.56,
+                "cessNonAdvolValue": 400,
+                "totInvValue": 57200.23,
+                "otherValue": 0,
+                "transMode": "1",
+                "transDistance": "2487",
+                "transporterName": "",
+                "transporterId": "05AAACG0904A1ZL",
+                "transDocNo": "12",
+                "transDocDate": "",
+                "vehicleNo": "APR3214",
+                "vehicleType": "R",
+                "itemList": [
+                    {
+                        "productName": "Wheat",
+                        "productDesc": "Wheat",
+                        "hsnCode": 33030010,
+                        "quantity": 4,
+                        "qtyUnit": "BOX",
+                        "taxableAmount": 56099,
+                        "sgstRate": 0,
+                        "cgstRate": 0,
+                        "igstRate": 3,
+                        "cessRate": 0,
+                        "cessNonadvol": 0
+                    }
+                ]
+            },
+            "validation": [
+                "actFromStateCode is required",
+                "actToStateCode is required",
+                "docDate is required",
+                "docNo is required",
+                "docType is required",
+                "fromGstin is required",
+                "fromPincode is required",
+                "fromStateCode is required",
+                "itemList is required",
+                "subSupplyType is required",
+                "supplyType is required",
+                "toGstin is required",
+                "toPincode is required",
+                "toStateCode is required",
+                "totInvValue is required",
+                "transDistance is required",
+                "transMode is required",
+                "transactionType is required",
+                "supplyType maxLength=1",
+                "supplyType minLength=1",
+                "supplyType enum=O|I",
+                "subSupplyDesc maxLength=20",
+                "docType enum=INV|CHL|BIL|BOE|CNT|OTH",
+                "docNo maxLength=16",
+                "docDate pattern=[0-3][0-9]/[0-1][0-9]/[2][0][1-2][0-9]",
+                "fromGstin maxLength=15",
+                "fromGstin minLength=3",
+                "fromGstin pattern=([0-9]{2}[A-Z]{5}[0-9]{4}[A-Z][0-9][A-Z][0-9|A-Z])|(URP)",
+                "fromTrdName maxLength=100",
+                "fromAddr1 maxLength=120",
+                "fromAddr2 maxLength=120",
+                "fromPlace maxLength=50",
+                "actFromStateCode maximum=99",
+                "fromPincode maximum=999999",
+                "fromPincode minimum=100000",
+                "fromStateCode maximum=99",
+                "toGstin maxLength=15",
+                "toGstin minLength=3",
+                "toGstin pattern=([0-9]{2}[A-Z]{5}[0-9]{4}[A-Z][0-9][A-Z][0-9|A-Z])|(URP)",
+                "toTrdName maxLength=100",
+                "toAddr1 maxLength=120",
+                "toAddr2 maxLength=120",
+                "toPlace maxLength=50",
+                "actToStateCode maximum=99",
+                "toStateCode maximum=99",
+                "transactionType maximum=4",
+                "transMode enum=1|2|3|4",
+                "transporterName maxLength=100",
+                "transDocNo maxLength=15",
+                "vehicleNo maxLength=10",
+                "itemList[].productName maxLength=100",
+                "itemList[].productDesc maxLength=100",
+                "itemList[].qtyUnit maxLength=3",
+                "itemList[].qtyUnit minLength=3"
+            ],
+            "encryption": "Not separately declared as request-body encryption in this OpenAPI operation.",
+            "success_example": null,
+            "error_example": null,
+            "response_codes": [
+                "404",
+                "500"
+            ],
+            "auth": "GSP client credentials headers (`client_id`, `client_secret`, `ip_address`) + GST e-Way username/GSTIN as documented per operation; requires prior Authentication token (`authtoken` header) when listed",
+            "service": "EWayBillGenerationService::generate()",
+            "controller": "EWayBill/EWayBillGenerationServiceController (planned thin ajax wrapper)",
+            "route": "ajax/whitebooks/ewaybill/generate-eway-bill.php",
+            "permission": "ewaybill.generate",
+            "status": "Legacy implemented for sale-invoice/POS (`ewaybill_generate_from_sale_invoice`, ajax/generate-ewaybill.php) - full module UI pending"
+        },
+        {
+            "tag": "Get EWay bill for transporter by Date",
+            "name": "Get eway bill assigned to you (requesting GSTIN) for a transportation \u2013 Particular Date",
+            "operationId": "",
+            "path": "/ewaybillapi/v1.03/ewayapi/getewaybillsfortransporter",
+            "method": "GET",
+            "description": "Get eway bill assigned to you (requesting GSTIN) for a transportation \u2013 Particular Date",
+            "headers": [
+                "ip_address* (string) \u2014 IP Address",
+                "client_id* (string) \u2014 Client ID",
+                "client_secret* (string) \u2014 Client Secret",
+                "gstin* (string) \u2014 GSTIN number"
+            ],
+            "query": [
+                "email* (string) \u2014 User Email",
+                "date* (string) \u2014 E-way bill generated Date(dd/MM/YYYY)"
+            ],
+            "path_params": [],
+            "body_summary": "No requestBody in OpenAPI",
+            "body_example": null,
+            "validation": [],
+            "encryption": "Not separately declared as request-body encryption in this OpenAPI operation.",
+            "success_example": null,
+            "error_example": null,
+            "response_codes": [
+                "404",
+                "500"
+            ],
+            "auth": "GSP client credentials headers (`client_id`, `client_secret`, `ip_address`) + GST e-Way username/GSTIN as documented per operation; requires prior Authentication token (`authtoken` header) when listed",
+            "service": "EWayBillMasterDataService::getGstinDetails()",
+            "controller": "EWayBill/EWayBillMasterDataServiceController (planned thin ajax wrapper)",
+            "route": "ajax/whitebooks/ewaybill/get-eway-bill-assigned-to-you-requesting-gstin-for-a-transportation-particular-date.php",
+            "permission": "ewaybill.lookup.gstin",
+            "status": "Pending implementation (documented in OpenAPI only; do not invent fields)"
+        },
+        {
+            "tag": "Get Error List",
+            "name": "Get Error List",
+            "operationId": "",
+            "path": "/ewaybillapi/v1.03/ewayapi/geterrorlist",
+            "method": "GET",
+            "description": "Get Error List",
+            "headers": [
+                "ip_address* (string) \u2014 IP Address",
+                "client_id* (string) \u2014 Client ID",
+                "client_secret* (string) \u2014 Client Secret",
+                "gstin* (string) \u2014 GSTIN number"
+            ],
+            "query": [
+                "email* (string) \u2014 User Email"
+            ],
+            "path_params": [],
+            "body_summary": "No requestBody in OpenAPI",
+            "body_example": null,
+            "validation": [],
+            "encryption": "Not separately declared as request-body encryption in this OpenAPI operation.",
+            "success_example": null,
+            "error_example": null,
+            "response_codes": [
+                "404",
+                "500"
+            ],
+            "auth": "GSP client credentials headers (`client_id`, `client_secret`, `ip_address`) + GST e-Way username/GSTIN as documented per operation; requires prior Authentication token (`authtoken` header) when listed",
+            "service": "EWayBillMasterDataService::getErrorList()",
+            "controller": "EWayBill/EWayBillMasterDataServiceController (planned thin ajax wrapper)",
+            "route": "ajax/whitebooks/ewaybill/get-error-list.php",
+            "permission": "ewaybill.api_logs.view",
+            "status": "Pending implementation (documented in OpenAPI only; do not invent fields)"
+        },
+        {
+            "tag": "Get Eway Bills By Date",
+            "name": "Get eway bills assigned to you (requesting GSTIN) for a Particular Date",
+            "operationId": "",
+            "path": "/ewaybillapi/v1.03/ewayapi/getewaybillsbydate",
+            "method": "GET",
+            "description": "Get eway bills assigned to you (requesting GSTIN) for a Particular Date",
+            "headers": [
+                "ip_address* (string) \u2014 IP Address",
+                "client_id* (string) \u2014 Client ID",
+                "client_secret* (string) \u2014 Client Secret",
+                "gstin* (string) \u2014 GSTIN number"
+            ],
+            "query": [
+                "email* (string) \u2014 User Email",
+                "date* (string) \u2014 E-way bill generated Date(dd/MM/YYYY)"
+            ],
+            "path_params": [],
+            "body_summary": "No requestBody in OpenAPI",
+            "body_example": null,
+            "validation": [],
+            "encryption": "Not separately declared as request-body encryption in this OpenAPI operation.",
+            "success_example": null,
+            "error_example": null,
+            "response_codes": [
+                "404",
+                "500"
+            ],
+            "auth": "GSP client credentials headers (`client_id`, `client_secret`, `ip_address`) + GST e-Way username/GSTIN as documented per operation; requires prior Authentication token (`authtoken` header) when listed",
+            "service": "EWayBillMasterDataService::getGstinDetails()",
+            "controller": "EWayBill/EWayBillMasterDataServiceController (planned thin ajax wrapper)",
+            "route": "ajax/whitebooks/ewaybill/get-eway-bills-assigned-to-you-requesting-gstin-for-a-particular-date.php",
+            "permission": "ewaybill.lookup.gstin",
+            "status": "Pending implementation (documented in OpenAPI only; do not invent fields)"
+        },
+        {
+            "tag": "Get Eway Bills Rejected By Others",
+            "name": "Get eway bills rejected by others for a Particular Date",
+            "operationId": "",
+            "path": "/ewaybillapi/v1.03/ewayapi/getewaybillsrejectedbyothers",
+            "method": "GET",
+            "description": "Get eway bills rejected by others for a Particular Date",
+            "headers": [
+                "ip_address* (string) \u2014 IP Address",
+                "client_id* (string) \u2014 Client ID",
+                "client_secret* (string) \u2014 Client Secret",
+                "gstin* (string) \u2014 GSTIN number"
+            ],
+            "query": [
+                "email* (string) \u2014 User Email",
+                "date* (string) \u2014 E-way bill generated Date(dd/MM/YYYY)"
+            ],
+            "path_params": [],
+            "body_summary": "No requestBody in OpenAPI",
+            "body_example": null,
+            "validation": [],
+            "encryption": "Not separately declared as request-body encryption in this OpenAPI operation.",
+            "success_example": null,
+            "error_example": null,
+            "response_codes": [
+                "404",
+                "500"
+            ],
+            "auth": "GSP client credentials headers (`client_id`, `client_secret`, `ip_address`) + GST e-Way username/GSTIN as documented per operation; requires prior Authentication token (`authtoken` header) when listed",
+            "service": "EWayBillCancellationService::reject()",
+            "controller": "EWayBill/EWayBillCancellationServiceController (planned thin ajax wrapper)",
+            "route": "ajax/whitebooks/ewaybill/get-eway-bills-rejected-by-others-for-a-particular-date.php",
+            "permission": "ewaybill.reject",
+            "status": "Pending implementation (documented in OpenAPI only; do not invent fields)"
+        },
+        {
+            "tag": "Get Eway bills by parties",
+            "name": "Get e-way bills generated on you (requesting GSTIN) by other parties",
+            "operationId": "",
+            "path": "/ewaybillapi/v1.03/ewayapi/getewaybillsofotherparty",
+            "method": "GET",
+            "description": "Get e-way bills generated on you (requesting GSTIN) by other parties",
+            "headers": [
+                "ip_address* (string) \u2014 IP Address",
+                "client_id* (string) \u2014 Client ID",
+                "client_secret* (string) \u2014 Client Secret",
+                "gstin* (string) \u2014 GSTIN number"
+            ],
+            "query": [
+                "email* (string) \u2014 User Email",
+                "date* (string) \u2014 E-way bill generated Date(dd/MM/YYYY)"
+            ],
+            "path_params": [],
+            "body_summary": "No requestBody in OpenAPI",
+            "body_example": null,
+            "validation": [],
+            "encryption": "Not separately declared as request-body encryption in this OpenAPI operation.",
+            "success_example": null,
+            "error_example": null,
+            "response_codes": [
+                "404",
+                "500"
+            ],
+            "auth": "GSP client credentials headers (`client_id`, `client_secret`, `ip_address`) + GST e-Way username/GSTIN as documented per operation; requires prior Authentication token (`authtoken` header) when listed",
+            "service": "EWayBillGenerationService::generate()",
+            "controller": "EWayBill/EWayBillGenerationServiceController (planned thin ajax wrapper)",
+            "route": "ajax/whitebooks/ewaybill/get-e-way-bills-generated-on-you-requesting-gstin-by-other-parties.php",
+            "permission": "ewaybill.generate",
+            "status": "Legacy implemented for sale-invoice/POS (`ewaybill_generate_from_sale_invoice`, ajax/generate-ewaybill.php) - full module UI pending"
+        },
+        {
+            "tag": "Get EwayBill Details",
+            "name": "Get EwayBill Details",
+            "operationId": "",
+            "path": "/ewaybillapi/v1.03/ewayapi/getewaybill",
+            "method": "GET",
+            "description": "Get EwayBill Details",
+            "headers": [
+                "ip_address* (string) \u2014 IP Address",
+                "client_id* (string) \u2014 Client ID",
+                "client_secret* (string) \u2014 Client Secret",
+                "gstin* (string) \u2014 GSTIN number"
+            ],
+            "query": [
+                "email* (string) \u2014 User Email",
+                "ewbNo* (string) \u2014 ewbNo"
+            ],
+            "path_params": [],
+            "body_summary": "No requestBody in OpenAPI",
+            "body_example": null,
+            "validation": [],
+            "encryption": "Not separately declared as request-body encryption in this OpenAPI operation.",
+            "success_example": null,
+            "error_example": null,
+            "response_codes": [
+                "404",
+                "500"
+            ],
+            "auth": "GSP client credentials headers (`client_id`, `client_secret`, `ip_address`) + GST e-Way username/GSTIN as documented per operation; requires prior Authentication token (`authtoken` header) when listed",
+            "service": "EWayBillQueryService::query()",
+            "controller": "EWayBill/EWayBillQueryServiceController (planned thin ajax wrapper)",
+            "route": "ajax/whitebooks/ewaybill/get-ewaybill-details.php",
+            "permission": "ewaybill.reports.view",
+            "status": "Pending implementation (documented in OpenAPI only; do not invent fields)"
+        },
+        {
+            "tag": "Get EwayBill Report By Transporter assigned Date",
+            "name": "Get eway bill assigned to you (requesting GSTIN) for a transportation - Particular Date",
+            "operationId": "",
+            "path": "/ewaybillapi/v1.03/ewayapi/getewaybillreportbytransporterassigneddate",
+            "method": "GET",
+            "description": "Get eway bill assigned to you (requesting GSTIN) for a transportation - Particular Date",
+            "headers": [
+                "ip_address* (string) \u2014 IP Address",
+                "client_id* (string) \u2014 Client ID",
+                "client_secret* (string) \u2014 Client Secret",
+                "gstin* (string) \u2014 GSTIN number"
+            ],
+            "query": [
+                "email* (string) \u2014 User Email",
+                "date* (string) \u2014 E-way bill generated Date(dd/MM/YYYY)",
+                "stateCode* (string) \u2014 State code of the generator of the E-waybill"
+            ],
+            "path_params": [],
+            "body_summary": "No requestBody in OpenAPI",
+            "body_example": null,
+            "validation": [],
+            "encryption": "Not separately declared as request-body encryption in this OpenAPI operation.",
+            "success_example": null,
+            "error_example": null,
+            "response_codes": [
+                "404",
+                "500"
+            ],
+            "auth": "GSP client credentials headers (`client_id`, `client_secret`, `ip_address`) + GST e-Way username/GSTIN as documented per operation; requires prior Authentication token (`authtoken` header) when listed",
+            "service": "EWayBillMasterDataService::getGstinDetails()",
+            "controller": "EWayBill/EWayBillMasterDataServiceController (planned thin ajax wrapper)",
+            "route": "ajax/whitebooks/ewaybill/get-eway-bill-assigned-to-you-requesting-gstin-for-a-transportation-particular-date.php",
+            "permission": "ewaybill.lookup.gstin",
+            "status": "Pending implementation (documented in OpenAPI only; do not invent fields)"
+        },
+        {
+            "tag": "Get EwayBill by Consigner",
+            "name": "Get e-way bill details for a Document Type and Document number.",
+            "operationId": "",
+            "path": "/ewaybillapi/v1.03/ewayapi/getewaybillgeneratedbyconsigner",
+            "method": "GET",
+            "description": "Get e-way bill details for a Document Type and Document number.",
+            "headers": [
+                "ip_address* (string) \u2014 IP Address",
+                "client_id* (string) \u2014 Client ID",
+                "client_secret* (string) \u2014 Client Secret",
+                "gstin* (string) \u2014 GSTIN number"
+            ],
+            "query": [
+                "email* (string) \u2014 User Email",
+                "docType* (string) \u2014 Document Type",
+                "docNo* (string) \u2014 Document number"
+            ],
+            "path_params": [],
+            "body_summary": "No requestBody in OpenAPI",
+            "body_example": null,
+            "validation": [],
+            "encryption": "Not separately declared as request-body encryption in this OpenAPI operation.",
+            "success_example": null,
+            "error_example": null,
+            "response_codes": [
+                "404",
+                "500"
+            ],
+            "auth": "GSP client credentials headers (`client_id`, `client_secret`, `ip_address`) + GST e-Way username/GSTIN as documented per operation; requires prior Authentication token (`authtoken` header) when listed",
+            "service": "EWayBillGenerationService::generate()",
+            "controller": "EWayBill/EWayBillGenerationServiceController (planned thin ajax wrapper)",
+            "route": "ajax/whitebooks/ewaybill/get-e-way-bill-details-for-a-document-type-and-document-number.php",
+            "permission": "ewaybill.generate",
+            "status": "Legacy implemented for sale-invoice/POS (`ewaybill_generate_from_sale_invoice`, ajax/generate-ewaybill.php) - full module UI pending"
+        },
+        {
+            "tag": "Get EwayBills For Transporter By Gstin",
+            "name": "Get eway bill assigned to you (requesting GSTIN) for transportation \u2013 Particular GSTIN and Date",
+            "operationId": "",
+            "path": "/ewaybillapi/v1.03/ewayapi/getewaybillsfortransporterbygstin",
+            "method": "GET",
+            "description": "Get eway bill assigned to you (requesting GSTIN) for transportation \u2013 Particular GSTIN and Date",
+            "headers": [
+                "ip_address* (string) \u2014 IP Address",
+                "client_id* (string) \u2014 Client ID",
+                "client_secret* (string) \u2014 Client Secret",
+                "gstin* (string) \u2014 GSTIN number"
+            ],
+            "query": [
+                "email* (string) \u2014 User Email",
+                "Gen_gstin* (string) \u2014 GSTIN of E-way bill generator",
+                "date* (string) \u2014 E-way bill generated Date(dd/MM/YYYY)"
+            ],
+            "path_params": [],
+            "body_summary": "No requestBody in OpenAPI",
+            "body_example": null,
+            "validation": [],
+            "encryption": "Not separately declared as request-body encryption in this OpenAPI operation.",
+            "success_example": null,
+            "error_example": null,
+            "response_codes": [
+                "404",
+                "500"
+            ],
+            "auth": "GSP client credentials headers (`client_id`, `client_secret`, `ip_address`) + GST e-Way username/GSTIN as documented per operation; requires prior Authentication token (`authtoken` header) when listed",
+            "service": "EWayBillMasterDataService::getGstinDetails()",
+            "controller": "EWayBill/EWayBillMasterDataServiceController (planned thin ajax wrapper)",
+            "route": "ajax/whitebooks/ewaybill/get-eway-bill-assigned-to-you-requesting-gstin-for-transportation-particular-gstin-and-date.php",
+            "permission": "ewaybill.lookup.gstin",
+            "status": "Pending implementation (documented in OpenAPI only; do not invent fields)"
+        },
+        {
+            "tag": "Get EwayBills For Transporter By State",
+            "name": "Get eway bill assigned to you (requesting GSTIN) for transportation \u2013 Particular State and Date",
+            "operationId": "",
+            "path": "/ewaybillapi/v1.03/ewayapi/getewaybillsfortransporterbystate",
+            "method": "GET",
+            "description": "Get eway bill assigned to you (requesting GSTIN) for transportation \u2013 Particular State and Date",
+            "headers": [
+                "ip_address* (string) \u2014 IP Address",
+                "client_id* (string) \u2014 Client ID",
+                "client_secret* (string) \u2014 Client Secret",
+                "gstin* (string) \u2014 GSTIN number"
+            ],
+            "query": [
+                "email* (string) \u2014 User Email",
+                "stateCode* (string) \u2014 State Code of E-way bill generator",
+                "date* (string) \u2014 E-way bill generated Date(dd/MM/YYYY)"
+            ],
+            "path_params": [],
+            "body_summary": "No requestBody in OpenAPI",
+            "body_example": null,
+            "validation": [],
+            "encryption": "Not separately declared as request-body encryption in this OpenAPI operation.",
+            "success_example": null,
+            "error_example": null,
+            "response_codes": [
+                "404",
+                "500"
+            ],
+            "auth": "GSP client credentials headers (`client_id`, `client_secret`, `ip_address`) + GST e-Way username/GSTIN as documented per operation; requires prior Authentication token (`authtoken` header) when listed",
+            "service": "EWayBillMasterDataService::getGstinDetails()",
+            "controller": "EWayBill/EWayBillMasterDataServiceController (planned thin ajax wrapper)",
+            "route": "ajax/whitebooks/ewaybill/get-eway-bill-assigned-to-you-requesting-gstin-for-transportation-particular-state-and-date.php",
+            "permission": "ewaybill.lookup.gstin",
+            "status": "Pending implementation (documented in OpenAPI only; do not invent fields)"
+        },
+        {
+            "tag": "Get GSTIN details",
+            "name": "Get GSTIN details",
+            "operationId": "",
+            "path": "/ewaybillapi/v1.03/ewayapi/getgstindetails",
+            "method": "GET",
+            "description": "Get GSTIN details",
+            "headers": [
+                "ip_address* (string) \u2014 IP Address",
+                "client_id* (string) \u2014 Client ID",
+                "client_secret* (string) \u2014 Client Secret",
+                "gstin* (string) \u2014 GSTIN number"
+            ],
+            "query": [
+                "email* (string) \u2014 User Email",
+                "GSTIN* (string) \u2014 GSTIN number for which the details are required"
+            ],
+            "path_params": [],
+            "body_summary": "No requestBody in OpenAPI",
+            "body_example": null,
+            "validation": [],
+            "encryption": "Not separately declared as request-body encryption in this OpenAPI operation.",
+            "success_example": null,
+            "error_example": null,
+            "response_codes": [
+                "404",
+                "500"
+            ],
+            "auth": "GSP client credentials headers (`client_id`, `client_secret`, `ip_address`) + GST e-Way username/GSTIN as documented per operation; requires prior Authentication token (`authtoken` header) when listed",
+            "service": "EWayBillMasterDataService::getGstinDetails()",
+            "controller": "EWayBill/EWayBillMasterDataServiceController (planned thin ajax wrapper)",
+            "route": "ajax/whitebooks/ewaybill/get-gstin-details.php",
+            "permission": "ewaybill.lookup.gstin",
+            "status": "Pending implementation (documented in OpenAPI only; do not invent fields)"
+        },
+        {
+            "tag": "Get consolidated e-way bill",
+            "name": "Get consolidated e-way bill",
+            "operationId": "",
+            "path": "/ewaybillapi/v1.03/ewayapi/gettripsheet",
+            "method": "GET",
+            "description": "Get consolidated e-way bill",
+            "headers": [
+                "ip_address* (string) \u2014 IP Address",
+                "client_id* (string) \u2014 Client ID",
+                "client_secret* (string) \u2014 Client Secret",
+                "gstin* (string) \u2014 GSTIN number"
+            ],
+            "query": [
+                "email* (string) \u2014 User Email",
+                "tripSheetNo* (string) \u2014 Consolidated E-way bill number"
+            ],
+            "path_params": [],
+            "body_summary": "No requestBody in OpenAPI",
+            "body_example": null,
+            "validation": [],
+            "encryption": "Not separately declared as request-body encryption in this OpenAPI operation.",
+            "success_example": null,
+            "error_example": null,
+            "response_codes": [
+                "404",
+                "500"
+            ],
+            "auth": "GSP client credentials headers (`client_id`, `client_secret`, `ip_address`) + GST e-Way username/GSTIN as documented per operation; requires prior Authentication token (`authtoken` header) when listed",
+            "service": "ConsolidatedEWayBillService::get()",
+            "controller": "EWayBill/ConsolidatedEWayBillServiceController (planned thin ajax wrapper)",
+            "route": "ajax/whitebooks/ewaybill/get-consolidated-e-way-bill.php",
+            "permission": "ewaybill.view",
+            "status": "Pending implementation (documented in OpenAPI only; do not invent fields)"
+        },
+        {
+            "tag": "Initiate Multi Vehicle Movement",
+            "name": "Initiate Multi Vehicle Movement",
+            "operationId": "",
+            "path": "/ewaybillapi/v1.03/ewayapi/initmulti",
+            "method": "POST",
+            "description": "Initiate Multi Vehicle Movement",
+            "headers": [
+                "ip_address* (string) \u2014 IP Address",
+                "client_id* (string) \u2014 Client ID",
+                "client_secret* (string) \u2014 Client Secret",
+                "gstin* (string) \u2014 GSTIN number"
+            ],
+            "query": [
+                "email* (string) \u2014 User Email"
+            ],
+            "path_params": [],
+            "body_summary": "required application/json {ewbNo*:number, fromPlace*:string, fromState*:integer, toPlace*:string, toState*:integer, reasonCode*:string, reasonRem*:string, totalQuantity*:integer, unitCode*:string, transMode*:string}",
+            "body_example": {
+                "ewbNo": 381009282489,
+                "fromPlace": "FRAZER TOWN",
+                "fromState": 29,
+                "toPlace": "Beml Nagar",
+                "toState": 5,
+                "reasonCode": "1",
+                "reasonRem": "Due to Break Down",
+                "totalQuantity": 1,
+                "unitCode": "BOX",
+                "transMode": "1"
+            },
+            "validation": [
+                "ewbNo is required",
+                "fromPlace is required",
+                "fromState is required",
+                "reasonCode is required",
+                "reasonRem is required",
+                "toPlace is required",
+                "toState is required",
+                "totalQuantity is required",
+                "transMode is required",
+                "unitCode is required",
+                "fromPlace maxLength=50",
+                "fromState maximum=2",
+                "toPlace maxLength=50",
+                "toState maximum=2",
+                "reasonCode maxLength=1",
+                "reasonCode minLength=1",
+                "reasonRem maxLength=50",
+                "unitCode maxLength=3"
+            ],
+            "encryption": "Not separately declared as request-body encryption in this OpenAPI operation.",
+            "success_example": null,
+            "error_example": null,
+            "response_codes": [
+                "404",
+                "500"
+            ],
+            "auth": "GSP client credentials headers (`client_id`, `client_secret`, `ip_address`) + GST e-Way username/GSTIN as documented per operation; requires prior Authentication token (`authtoken` header) when listed",
+            "service": "MultiVehicleMovementService::manage()",
+            "controller": "EWayBill/MultiVehicleMovementServiceController (planned thin ajax wrapper)",
+            "route": "ajax/whitebooks/ewaybill/initiate-multi-vehicle-movement.php",
+            "permission": "ewaybill.multi_vehicle.manage",
+            "status": "Pending implementation (documented in OpenAPI only; do not invent fields)"
+        },
+        {
+            "tag": "Regenerate Consolidated E-Way Bill - Api",
+            "name": "Regenerate Consolidated E-Way Bill - Api",
+            "operationId": "",
+            "path": "/ewaybillapi/v1.03/ewayapi/regentripsheet",
+            "method": "POST",
+            "description": "Regenerate Consolidated E-Way Bill - Api",
+            "headers": [
+                "ip_address* (string) \u2014 IP Address",
+                "client_id* (string) \u2014 Client ID",
+                "client_secret* (string) \u2014 Client Secret",
+                "gstin* (string) \u2014 GSTIN number"
+            ],
+            "query": [
+                "email* (string) \u2014 User Email"
+            ],
+            "path_params": [],
+            "body_summary": "required application/json {tripSheetNo*:number, vehicleNo:string, fromPlace*:string, fromState*:integer, reasonCode*:string, reasonRem*:string, transDocNo:string, transDocDate:string, transMode*:string}",
+            "body_example": {
+                "tripSheetNo": 3010009432,
+                "vehicleNo": "ABC1234",
+                "fromPlace": "FRAZER TOWN",
+                "fromState": 5,
+                "reasonCode": "1",
+                "reasonRem": "Natural Calamity",
+                "transDocNo": "12",
+                "transDocDate": "20/02/2024",
+                "transMode": "1"
+            },
+            "validation": [
+                "fromPlace is required",
+                "fromState is required",
+                "reasonCode is required",
+                "reasonRem is required",
+                "transMode is required",
+                "tripSheetNo is required",
+                "fromPlace maxLength=50",
+                "fromState maximum=99",
+                "reasonCode maxLength=1",
+                "reasonCode minLength=1",
+                "reasonRem maxLength=50",
+                "transDocNo maxLength=15",
+                "transDocDate pattern=[0-3][0-9]/[0-1][0-9]/[2][0][1-2][0-9]"
+            ],
+            "encryption": "Not separately declared as request-body encryption in this OpenAPI operation.",
+            "success_example": null,
+            "error_example": null,
+            "response_codes": [
+                "404",
+                "500"
+            ],
+            "auth": "GSP client credentials headers (`client_id`, `client_secret`, `ip_address`) + GST e-Way username/GSTIN as documented per operation; requires prior Authentication token (`authtoken` header) when listed",
+            "service": "ConsolidatedEWayBillService::regenerate()",
+            "controller": "EWayBill/ConsolidatedEWayBillServiceController (planned thin ajax wrapper)",
+            "route": "ajax/whitebooks/ewaybill/regenerate-consolidated-e-way-bill-api.php",
+            "permission": "ewaybill.consolidated.regenerate",
+            "status": "Pending implementation (documented in OpenAPI only; do not invent fields)"
+        },
+        {
+            "tag": "Reject EwayBill",
+            "name": "Reject EwayBill",
+            "operationId": "",
+            "path": "/ewaybillapi/v1.03/ewayapi/rejewb",
+            "method": "POST",
+            "description": "Reject EwayBill",
+            "headers": [
+                "ip_address* (string) \u2014 IP Address",
+                "client_id* (string) \u2014 Client ID",
+                "client_secret* (string) \u2014 Client Secret",
+                "gstin* (string) \u2014 GSTIN number"
+            ],
+            "query": [
+                "email* (string) \u2014 User Email"
+            ],
+            "path_params": [],
+            "body_summary": "required application/json {ewbNo*:number}",
+            "body_example": {
+                "ewbNo": 311009282644
+            },
+            "validation": [
+                "ewbNo is required"
+            ],
+            "encryption": "Not separately declared as request-body encryption in this OpenAPI operation.",
+            "success_example": null,
+            "error_example": null,
+            "response_codes": [
+                "404",
+                "500"
+            ],
+            "auth": "GSP client credentials headers (`client_id`, `client_secret`, `ip_address`) + GST e-Way username/GSTIN as documented per operation; requires prior Authentication token (`authtoken` header) when listed",
+            "service": "EWayBillCancellationService::reject()",
+            "controller": "EWayBill/EWayBillCancellationServiceController (planned thin ajax wrapper)",
+            "route": "ajax/whitebooks/ewaybill/reject-ewaybill.php",
+            "permission": "ewaybill.reject",
+            "status": "Pending implementation (documented in OpenAPI only; do not invent fields)"
+        },
+        {
+            "tag": "Update PART-B/Vehicle Number",
+            "name": "Update PART-B/Vehicle Number",
+            "operationId": "",
+            "path": "/ewaybillapi/v1.03/ewayapi/vehewb",
+            "method": "POST",
+            "description": "Update PART-B/Vehicle Number",
+            "headers": [
+                "ip_address* (string) \u2014 IP Address",
+                "client_id* (string) \u2014 Client ID",
+                "client_secret* (string) \u2014 Client Secret",
+                "gstin* (string) \u2014 GSTIN number"
+            ],
+            "query": [
+                "email* (string) \u2014 User Email",
+                "irp (string) \u2014 e-WayBill Server Type(NIC1/NIC2)"
+            ],
+            "path_params": [],
+            "body_summary": "required application/json {ewbNo:number, vehicleNo:string, fromPlace*:string, fromState*:integer, reasonCode*:string, reasonRem*:string, transDocNo:string, transDocDate:string, transMode*:string}",
+            "body_example": {
+                "ewbNo": 381009282489,
+                "vehicleNo": "ABC1234",
+                "fromPlace": "FRAZER TOWN",
+                "fromState": 29,
+                "reasonCode": "1",
+                "reasonRem": "Due to Break Down",
+                "transDocNo": "12",
+                "transDocDate": "11/12/2024",
+                "transMode": "1"
+            },
+            "validation": [
+                "fromPlace is required",
+                "fromState is required",
+                "reasonCode is required",
+                "reasonRem is required",
+                "transMode is required",
+                "fromPlace maxLength=50",
+                "fromState maximum=99",
+                "reasonCode maxLength=1",
+                "reasonCode minLength=1",
+                "reasonRem maxLength=50",
+                "transDocNo maxLength=15",
+                "transDocDate pattern=[0-3][0-9]/[0-1][0-9]/[2][0][1-2][0-9]"
+            ],
+            "encryption": "Not separately declared as request-body encryption in this OpenAPI operation.",
+            "success_example": null,
+            "error_example": null,
+            "response_codes": [
+                "404",
+                "500"
+            ],
+            "auth": "GSP client credentials headers (`client_id`, `client_secret`, `ip_address`) + GST e-Way username/GSTIN as documented per operation; requires prior Authentication token (`authtoken` header) when listed",
+            "service": "EWayBillUpdateService::updatePartB()",
+            "controller": "EWayBill/EWayBillUpdateServiceController (planned thin ajax wrapper)",
+            "route": "ajax/whitebooks/ewaybill/update-part-b-vehicle-number.php",
+            "permission": "ewaybill.update_part_b",
+            "status": "Pending implementation (documented in OpenAPI only; do not invent fields)"
+        },
+        {
+            "tag": "Update Transporter",
+            "name": "Update Transporter",
+            "operationId": "",
+            "path": "/ewaybillapi/v1.03/ewayapi/updatetransporter",
+            "method": "POST",
+            "description": "Update Transporter",
+            "headers": [
+                "ip_address* (string) \u2014 IP Address",
+                "client_id* (string) \u2014 Client ID",
+                "client_secret* (string) \u2014 Client Secret",
+                "gstin* (string) \u2014 GSTIN number"
+            ],
+            "query": [
+                "email* (string) \u2014 User Email",
+                "irp (string) \u2014 e-WayBill Server Type(NIC1/NIC2)"
+            ],
+            "path_params": [],
+            "body_summary": "optional application/json {ewbNo:number, transporterId:string}",
+            "body_example": {
+                "ewbNo": 381009282489,
+                "transporterId": "05AAACG0904A1ZL"
+            },
+            "validation": [],
+            "encryption": "Not separately declared as request-body encryption in this OpenAPI operation.",
+            "success_example": null,
+            "error_example": null,
+            "response_codes": [
+                "404",
+                "500"
+            ],
+            "auth": "GSP client credentials headers (`client_id`, `client_secret`, `ip_address`) + GST e-Way username/GSTIN as documented per operation; requires prior Authentication token (`authtoken` header) when listed",
+            "service": "EWayBillUpdateService::updateTransporter()",
+            "controller": "EWayBill/EWayBillUpdateServiceController (planned thin ajax wrapper)",
+            "route": "ajax/whitebooks/ewaybill/update-transporter.php",
+            "permission": "ewaybill.update_transporter",
+            "status": "Pending implementation (documented in OpenAPI only; do not invent fields)"
+        }
+    ]
+}

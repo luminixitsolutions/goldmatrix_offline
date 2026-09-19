@@ -1,0 +1,5 @@
+{
+    "line": 305,
+    "old": "    function onBarcodeLabelSizeChange() {\n        var lp = getCurrentLabelPresetUi();\n        resizeBarcodePreviewForCurrentLabelSize();",
+    "new": "    function onBarcodeLabelSizeChange() {\n        var lp = getCurrentLabelPresetUi();\n        applyRequestedLabelPresetUi(lp);\n        resizeBarcodePreviewForCurrentLabelSize();"
+}

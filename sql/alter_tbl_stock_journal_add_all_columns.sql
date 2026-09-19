@@ -1,0 +1,47 @@
+-- Add all columns for stock journal update page (run once)
+-- If a column already exists, that ALTER will fail; skip or run individually.
+
+ALTER TABLE tbl_stock_journal ADD COLUMN rfid_code VARCHAR(100) DEFAULT NULL;
+ALTER TABLE tbl_stock_journal ADD COLUMN voucher_type VARCHAR(50) DEFAULT NULL;
+ALTER TABLE tbl_stock_journal ADD COLUMN design_no VARCHAR(100) DEFAULT NULL;
+ALTER TABLE tbl_stock_journal ADD COLUMN huid_no VARCHAR(100) DEFAULT NULL;
+ALTER TABLE tbl_stock_journal ADD COLUMN category VARCHAR(100) DEFAULT NULL;
+ALTER TABLE tbl_stock_journal ADD COLUMN calculation VARCHAR(100) DEFAULT NULL;
+ALTER TABLE tbl_stock_journal ADD COLUMN location VARCHAR(100) DEFAULT NULL;
+ALTER TABLE tbl_stock_journal ADD COLUMN karat DECIMAL(10,2) DEFAULT NULL;
+ALTER TABLE tbl_stock_journal ADD COLUMN pkt_wt DECIMAL(10,3) DEFAULT NULL;
+ALTER TABLE tbl_stock_journal ADD COLUMN pkt_less_wt DECIMAL(10,3) DEFAULT NULL;
+ALTER TABLE tbl_stock_journal ADD COLUMN requested_purity DECIMAL(10,2) DEFAULT NULL;
+ALTER TABLE tbl_stock_journal ADD COLUMN requested DECIMAL(10,3) DEFAULT NULL;
+ALTER TABLE tbl_stock_journal ADD COLUMN gold_loss_1 DECIMAL(10,3) DEFAULT NULL;
+ALTER TABLE tbl_stock_journal ADD COLUMN gold_loss_2 DECIMAL(10,3) DEFAULT NULL;
+ALTER TABLE tbl_stock_journal ADD COLUMN setting_charge DECIMAL(15,2) DEFAULT NULL;
+ALTER TABLE tbl_stock_journal ADD COLUMN wastage_per DECIMAL(10,2) DEFAULT NULL;
+ALTER TABLE tbl_stock_journal ADD COLUMN wastage_wt DECIMAL(10,3) DEFAULT NULL;
+ALTER TABLE tbl_stock_journal ADD COLUMN alloy_wt DECIMAL(10,3) DEFAULT NULL;
+ALTER TABLE tbl_stock_journal ADD COLUMN metal_value DECIMAL(15,2) DEFAULT NULL;
+ALTER TABLE tbl_stock_journal ADD COLUMN metal_cost DECIMAL(15,2) DEFAULT NULL;
+ALTER TABLE tbl_stock_journal ADD COLUMN discount_type VARCHAR(50) DEFAULT NULL;
+ALTER TABLE tbl_stock_journal ADD COLUMN discount_per DECIMAL(10,2) DEFAULT NULL;
+ALTER TABLE tbl_stock_journal ADD COLUMN discount_amount DECIMAL(15,2) DEFAULT NULL;
+ALTER TABLE tbl_stock_journal ADD COLUMN discount DECIMAL(15,2) DEFAULT NULL;
+ALTER TABLE tbl_stock_journal ADD COLUMN making_type VARCHAR(50) DEFAULT NULL;
+ALTER TABLE tbl_stock_journal ADD COLUMN making_rate DECIMAL(10,2) DEFAULT NULL;
+ALTER TABLE tbl_stock_journal ADD COLUMN making_cost DECIMAL(15,2) DEFAULT NULL;
+ALTER TABLE tbl_stock_journal ADD COLUMN minimum_price DECIMAL(15,2) DEFAULT NULL;
+ALTER TABLE tbl_stock_journal ADD COLUMN stone_charge_type VARCHAR(50) DEFAULT NULL;
+ALTER TABLE tbl_stock_journal ADD COLUMN stone_weight DECIMAL(10,3) DEFAULT NULL;
+ALTER TABLE tbl_stock_journal ADD COLUMN stone_rate DECIMAL(10,2) DEFAULT NULL;
+ALTER TABLE tbl_stock_journal ADD COLUMN stone_amount DECIMAL(15,2) DEFAULT NULL;
+ALTER TABLE tbl_stock_journal ADD COLUMN stone_cost DECIMAL(15,2) DEFAULT NULL;
+ALTER TABLE tbl_stock_journal ADD COLUMN diamond_amount DECIMAL(15,2) DEFAULT NULL;
+ALTER TABLE tbl_stock_journal ADD COLUMN purchase_amount DECIMAL(15,2) DEFAULT NULL;
+ALTER TABLE tbl_stock_journal ADD COLUMN sale_amount DECIMAL(15,2) DEFAULT NULL;
+ALTER TABLE tbl_stock_journal ADD COLUMN other_charge_type VARCHAR(50) DEFAULT NULL;
+ALTER TABLE tbl_stock_journal ADD COLUMN other_weight DECIMAL(10,3) DEFAULT NULL;
+ALTER TABLE tbl_stock_journal ADD COLUMN other_rate DECIMAL(10,2) DEFAULT NULL;
+ALTER TABLE tbl_stock_journal ADD COLUMN other_info VARCHAR(255) DEFAULT NULL;
+ALTER TABLE tbl_stock_journal ADD COLUMN other_amount DECIMAL(15,2) DEFAULT NULL;
+ALTER TABLE tbl_stock_journal ADD COLUMN hallmark_amount DECIMAL(15,2) DEFAULT NULL;
+ALTER TABLE tbl_stock_journal ADD COLUMN hallmark_rate DECIMAL(10,2) DEFAULT NULL;
+ALTER TABLE tbl_stock_journal ADD COLUMN reverse DECIMAL(15,2) DEFAULT NULL;

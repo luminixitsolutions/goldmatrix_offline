@@ -1,0 +1,5 @@
+function auragold_barcode_settings_cache_key($metalType, $storagePreset) {
+    return trim((string) $metalType) . '::' . trim((string) $storagePreset);
+}
+
+function getBarcodeSettings($metalType = null, $labelSizePreset = null, $labelWidthMm = null, $labelHeightMm = null) {

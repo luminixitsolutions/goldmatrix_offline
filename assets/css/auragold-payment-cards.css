@@ -1,0 +1,124 @@
+/**
+ * Shared payment entry cards (replaces table layout on invoice / order pages).
+ * Used with assets/js/auragold-payment-cards.js and includes/payment-cards-markup.php
+ */
+.invoice-content-row > .col-lg-8 {
+    padding-bottom: 4rem;
+}
+
+.pos-payment-cards {
+    gap: 0.65rem;
+    align-items: stretch;
+}
+.pos-payment-cards-area {
+    padding-top: 10px;
+    padding-bottom: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+.pos-payment-cards-scroll {
+    max-height: min(260px, 42vh);
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    padding: 2px 4px 14px;
+    margin-bottom: 0.35rem;
+}
+.pos-payment-card {
+    flex: 0 0 auto;
+    width: 188px;
+    max-width: 100%;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 2px 6px rgba(17, 41, 75, 0.06);
+}
+.pos-payment-card-hd {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.35rem 0.5rem;
+    background: linear-gradient(135deg, #eef2ff 0%, #e8e0f0 100%);
+    border-bottom: 1px solid #e2e8f0;
+    min-height: 2rem;
+}
+.pos-payment-card-title {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #11294b;
+}
+.pos-payment-card-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.15rem;
+}
+.pos-payment-card-actions .btn-edit,
+.pos-payment-card-actions .btn-delete {
+    padding: 0.1rem 0.25rem;
+    border: none;
+    background: transparent;
+    line-height: 1;
+    cursor: pointer;
+    border-radius: 4px;
+}
+.pos-payment-card-actions .btn-edit { color: #2563eb; }
+.pos-payment-card-actions .btn-delete { color: #dc2626; }
+.pos-payment-card-actions .btn-edit:hover { background: rgba(37, 99, 235, 0.1); }
+.pos-payment-card-actions .btn-delete:hover { background: rgba(220, 38, 38, 0.1); }
+.pos-payment-card-bd {
+    padding: 0.45rem 0.5rem 0.5rem;
+    font-size: 0.72rem;
+    color: #334155;
+}
+.pos-payment-card-desc {
+    font-size: 0.7rem;
+    color: #475569;
+    line-height: 1.25;
+    min-height: 2.2em;
+    word-break: break-word;
+}
+.pos-payment-card-amtrow {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin-top: 0.35rem;
+    font-weight: 700;
+    font-size: 0.78rem;
+    color: #11294b;
+}
+.pos-payment-card-amtrow [data-payment-amount] {
+    flex: 1 1 auto;
+    min-width: 0;
+    line-height: 1.2;
+}
+.pos-payment-card-wt {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.15rem;
+    font-size: 0.68rem;
+    font-weight: 600;
+    color: #64748b;
+}
+.pos-payment-card-wt i {
+    width: 13px;
+    height: 13px;
+}
+.pos-payment-cards-footer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.75rem 1.25rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.35rem;
+    padding: 0.55rem 0.75rem 0.65rem;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.8rem;
+    color: #11294b;
+}

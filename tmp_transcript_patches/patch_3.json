@@ -1,0 +1,5 @@
+{
+    "line": 19,
+    "old": "        setTimeout(function() {\n        flushPendingCanvasPropsToDom();\n        var payload = buildBarcodeFormPayload();\n        var layoutPayload = buildBarcodeLayoutPayloadObject(payload);",
+    "new": "        setTimeout(function() {\n        flushPendingCanvasPropsToDom();\n        var payload = buildBarcodeFormPayload();\n        if (!payload.metal_type) {\n            resetSaveButton();\n            alert('Please select a Metal Type before saving barcode settings.');\n            return;\n        }\n        var layoutPayload = buildBarcodeLayoutPayloadObject(payload);"
+}

@@ -1,0 +1,5 @@
+{
+    "line": 305,
+    "old": "        if (!val) {\n            var savedPreset = labelSizeSelect ? (labelSizeSelect.getAttribute('data-saved-preset') || '').trim() : '';\n            if (!savedPreset && labelWidthMm > 0 && labelHeightMm > 0) {\n                savedPreset = 'custom';\n            }\n            if (!savedPreset) {\n                savedPreset = '100x18';\n            }\n            if (labelSizeSelect) {\n                labelSizeSelect.value = savedPreset;\n            }\n            val = savedPreset;\n        }",
+    "new": "        if (!val) {\n            var savedPreset = labelSizeSelect ? (labelSizeSelect.getAttribute('data-saved-preset') || '').trim() : '';\n            if (!savedPreset && labelWidthMm > 0 && labelHeightMm > 0) {\n                savedPreset = 'custom';\n            }\n            if (!savedPreset) {\n                savedPreset = '100x18';\n            }\n            if (labelSizeSelect && labelSizeSelect.querySelector('option[value=\"' + savedPreset + '\"]')) {\n                labelSizeSelect.value = savedPreset;\n            }\n            val = savedPreset;\n        }"
+}

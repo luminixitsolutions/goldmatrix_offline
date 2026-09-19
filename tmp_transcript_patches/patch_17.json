@@ -1,0 +1,5 @@
+{
+    "line": 50,
+    "old": "        return {\n            metal_type: currentBarcodeMetalKey,\n            label_size_preset: labelPreset,\n            label_width_mm: pl ? pl.label_width_mm : (cwEl ? parseFloat(cwEl.value) || 100 : 100),\n            label_height_mm: pl ? pl.label_height_mm : (chEl ? parseFloat(chEl.value) || 18 : 18),",
+    "new": "        var lw = pl ? pl.label_width_mm : (cwEl ? parseFloat(cwEl.value) || 100 : 100);\n        var lh = pl ? pl.label_height_mm : (chEl ? parseFloat(chEl.value) || 18 : 18);\n        var storagePreset = barcodeLabelStoragePreset(labelPreset, lw, lh);\n        return {\n            metal_type: currentBarcodeMetalKey,\n            label_size_preset: storagePreset,\n            label_size_storage_preset: storagePreset,\n            label_size_ui_preset: labelPreset,\n            cache_key: barcodeSettingsCacheKey(currentBarcodeMetalKey, labelPreset, lw, lh),\n            label_width_mm: lw,\n            label_height_mm: lh,"
+}

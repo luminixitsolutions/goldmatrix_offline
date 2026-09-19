@@ -1,0 +1,5 @@
+{
+    "line": 38,
+    "old": "    function syncToolboxToMetalDropdownOnLoad() {\n        var ms = document.getElementById('barcodeMetalType');\n        if (ms && ms.value) {\n            currentBarcodeMetalKey = ms.value;\n            activateToolboxCategory(metalDisplayToToolboxCategory(ms.value));\n        }\n    }",
+    "new": "    function syncToolboxToMetalDropdownOnLoad() {\n        var ms = document.getElementById('barcodeMetalType');\n        if (!ms) return;\n        var metal = ms.value || '';\n        if (!metal) {\n            try { metal = sessionStorage.getItem('barcode_setting_metal') || ''; } catch (e) {}\n            if (metal) {\n                ms.value = metal;\n                currentBarcodeMetalKey = metal;\n            }\n        } else {\n            currentBarcodeMetalKey = metal;\n        }\n        if (metal) {\n            activateToolboxCategory(metalDisplayToToolboxCategory(metal));\n            if (barcodeSettingsByMetal[metal] && typeof applyMetalSettingsSnapshot === 'function') {\n                applyMetalSettingsSnapshot(barcodeSettingsByMetal[metal]);\n            }\n        }\n    }"
+}

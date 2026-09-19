@@ -1,0 +1,5 @@
+{
+    "line": 425,
+    "old": "        var isDual120 = isDualLabelLayoutPreset();\n        var pad = isDual120 ? 0 : 6;\n        function placeInTag(wrap, canvasEl, hAlign, vZone) {",
+    "new": "        var isDual120 = isDualLabelLayoutPreset();\n        var pad = isDual120 ? 0 : 6;\n        function placeInTagCentered(wrap, canvasEl) {\n            if (!wrap || !canvasEl) return;\n            resetBarcodeWrapInlineSize(wrap);\n            wrap.style.position = 'absolute';\n            wrap.style.margin = '0';\n            wrap.style.right = 'auto';\n            wrap.style.bottom = 'auto';\n            var w = Math.max(40, wrap.offsetWidth || 80);\n            var h = Math.max(20, wrap.offsetHeight || 24);\n            wrap.style.left = Math.max(0, Math.round((canvasEl.clientWidth - w) \/ 2)) + 'px';\n            wrap.style.top = Math.max(0, Math.round((canvasEl.clientHeight - h) \/ 2)) + 'px';\n        }\n        function placeInTag(wrap, canvasEl, hAlign, vZone) {"
+}

@@ -1,0 +1,5 @@
+    return $map;
+}
+
+/** Default voucher setting row (one per metal) */
+function getVoucherSettingsDefaults() {

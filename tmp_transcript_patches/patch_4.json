@@ -1,0 +1,5 @@
+{
+    "line": 19,
+    "old": "                    if (data.success) {\n                        if (labelSizeSelect) {\n                            labelSizeSelect.setAttribute('data-saved-preset', labelSizeSelect.value || '100x18');\n                        }\n                        alert(data.message || 'Barcode settings saved.');\n                        window.location.reload();\n                    } else {",
+    "new": "                    if (data.success) {\n                        if (labelSizeSelect) {\n                            labelSizeSelect.setAttribute('data-saved-preset', labelSizeSelect.value || '100x18');\n                        }\n                        currentBarcodeMetalKey = payload.metal_type;\n                        barcodeSettingsByMetal[payload.metal_type] = captureMetalSettingsSnapshot();\n                        alert(data.message || 'Barcode settings saved.');\n                    } else {"
+}

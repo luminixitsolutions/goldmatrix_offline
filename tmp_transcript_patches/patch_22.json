@@ -1,0 +1,5 @@
+{
+    "line": 52,
+    "old": "    var currentBarcodeMetalKey = <?php echo json_encode($bs_metal); ?> || '';\n    var currentBarcodeLabelStorageKey = <?php echo json_encode($bs_load_label_storage); ?> || '100x18';",
+    "new": "    var currentBarcodeMetalKey = <?php echo json_encode($bs_metal); ?> || '';\n    var currentBarcodeLabelStorageKey = <?php echo json_encode($bs_load_label_storage); ?> || '100x18';\n    var lastLoadedBarcodeContext = {\n        metal: currentBarcodeMetalKey,\n        labelUi: <?php echo json_encode($bs_label_preset_for_select); ?>,\n        labelW: <?php echo (float) ($bs['label_width_mm'] ?? 100); ?>,\n        labelH: <?php echo (float) ($bs['label_height_mm'] ?? 18); ?>\n    };"
+}

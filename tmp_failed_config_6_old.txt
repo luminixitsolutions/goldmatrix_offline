@@ -1,0 +1,6 @@
+    $metalFilter = ($metalType !== null && trim((string) $metalType) !== '') ? trim((string) $metalType) : '';
+    if ($metalFilter !== '') {
+        $mtEsc = mysqli_real_escape_string($conn, $metalFilter);
+        $metalWhere = ($branchSql !== '' ? $branchSql . ' AND' : ' WHERE') . " metal_type = '$mtEsc'";
+        $row = getRecord("SELECT $colsBase FROM $table $metalWhere ORDER BY id DESC LIMIT 1");
+    } else {

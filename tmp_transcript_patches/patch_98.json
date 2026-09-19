@@ -1,0 +1,5 @@
+{
+    "line": 305,
+    "old": "    function applyRequestedLabelPresetUi(requestedLp) {\n        if (!requestedLp) requestedLp = getCurrentLabelPresetUi();\n        if (typeof requestedLp === 'string') {\n            requestedLp = getLabelMmFromPresetUi(requestedLp, null, null);\n            requestedLp = { ui: requestedLp.w + 'x' + requestedLp.h, w: requestedLp.w, h: requestedLp.h };\n            if (requestedLp.ui.indexOf('x') < 0) requestedLp = getCurrentLabelPresetUi();\n        }",
+    "new": "    function applyRequestedLabelPresetUi(requestedLp) {\n        if (!requestedLp) {\n            requestedLp = getCurrentLabelPresetUi();\n        } else if (typeof requestedLp === 'string') {\n            var presetStr = String(requestedLp).trim();\n            var mmFromStr = getLabelMmFromPresetUi(presetStr, null, null);\n            requestedLp = { ui: presetStr, w: mmFromStr.w, h: mmFromStr.h };\n        }"
+}

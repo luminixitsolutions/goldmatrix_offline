@@ -1,0 +1,5 @@
+{
+    "line": 244,
+    "old": "                designItems2.push({\n                    type: 'barcode_image',\n                    left: barcode2LeftMm,\n                    top: barcode2TopMm,\n                    width: clampMmGlobal(wPx2 * pxToMmX2, labelWHalf),\n                    height: clampMmGlobal(hPx2 * pxToMmY2, labelH)\n                });",
+    "new": "                designItems2.push({\n                    type: 'barcode_image',\n                    left: barcode2LeftMm,\n                    top: barcode2TopMm,\n                    width: clampMmGlobal(wPx2 * pxToMmX2, labelWHalf),\n                    height: clampMmGlobal(hPx2 * pxToMmY2, labelH),\n                    display_width_mm: clampMmGlobal(wPx2 * pxToMmX2, labelWHalf)\n                });"
+}

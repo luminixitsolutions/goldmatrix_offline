@@ -1,0 +1,5 @@
+{
+    "line": 335,
+    "old": "        var dims = get120x50DualTagLayoutPx();",
+    "new": "        var dims = getDualTagLayoutPx();"
+}

@@ -1,0 +1,5 @@
+{
+    "line": 116,
+    "old": "                                            <div class=\"barcode-label-center-guide\" aria-hidden=\"true\" title=\"Center of label (half width)\"><\/div>",
+    "new": "                                            <div class=\"barcode-label-center-guide\" aria-hidden=\"true\" title=\"Horizontal mid-line (barcode above, number below)\"><\/div>"
+}

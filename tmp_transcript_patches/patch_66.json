@@ -1,0 +1,5 @@
+{
+    "line": 206,
+    "old": "                } else {\n                    wPx2 = barcodeStripes2.offsetWidth || 90;\n                    hPx2 = barcodeStripes2.offsetHeight || 18;\n                }\n                designItems2.push({\n                    type: 'barcode_image',\n                    left: barcode2LeftMm,\n                    top: barcode2TopMm,\n                    width: clampMmGlobal(wPx2 * pxToMmX2, labelW),\n                    height: clampMmGlobal(hPx2 * pxToMmY2, labelH)\n                });",
+    "new": "                } else {\n                    var saveSize2 = getBarcodeSaveSizePx(barcodeWrap2, barcodeStripes2);\n                    wPx2 = saveSize2.width;\n                    hPx2 = saveSize2.height;\n                }\n                designItems2.push({\n                    type: 'barcode_image',\n                    left: barcode2LeftMm,\n                    top: barcode2TopMm,\n                    width: clampMmGlobal(wPx2 * pxToMmX2, labelWHalf),\n                    height: clampMmGlobal(hPx2 * pxToMmY2, labelH)\n                });"
+}

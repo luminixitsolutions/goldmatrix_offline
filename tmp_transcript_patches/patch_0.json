@@ -1,0 +1,5 @@
+{
+    "line": 15,
+    "old": "$barcode_settings = getBarcodeSettings();\n$bs = $barcode_settings ?: [",
+    "new": "$barcode_settings_latest = getBarcodeSettings();\n$bs_metal_initial = isset($barcode_settings_latest['metal_type']) ? trim((string) $barcode_settings_latest['metal_type']) : '';\n$barcode_settings = ($bs_metal_initial !== '')\n    ? (getBarcodeSettings($bs_metal_initial) ?: $barcode_settings_latest)\n    : $barcode_settings_latest;\n$barcode_settings_by_metal_js = [];\nforeach (getBarcodeSettingsByMetalMap() as $_mt_key => $_mt_row) {\n    $_snap = auragold_barcode_settings_designer_snapshot($_mt_row);\n    if ($_snap) {\n        $barcode_settings_by_metal_js[$_mt_key] = $_snap;\n    }\n}\n$bs = $barcode_settings ?: ["
+}

@@ -1,0 +1,61 @@
+function auragold_barcode_settings_cache_key($metalType, $storagePreset) {
+    return trim((string) $metalType) . '::' . trim((string) $storagePreset);
+}
+
+/** Width/height in mm from storage preset (120x50, custom_100x25, …). */
+function auragold_barcode_label_mm_from_storage_preset($storagePreset, $fallbackW = 100, $fallbackH = 18) {
+    $p = trim((string) $storagePreset);
+    if (preg_match('/^custom_(\d+(?:\.\d+)?)x(\d+(?:\.\d+)?)$/i', $p, $m)) {
+        return [(float) $m[1], (float) $m[2]];
+    }
+    $p = str_replace(' ', '', strtolower($p));
+    if (preg_match('/^(\d+(?:\.\d+)?)x(\d+(?:\.\d+)?)$/', $p, $m)) {
+        return [(float) $m[1], (float) $m[2]];
+    }
+    return [(float) $fallbackW, (float) $fallbackH];
+}
+
+/** Fix rows where label_size_preset=120x50 but label_width_mm/height_mm were saved as stale custom values. */
+function auragold_barcode_settings_normalize_label_mm($row) {
+    if (!is_array($row) || empty($row)) {
+        return $row;
+    }
+    [$w, $h] = auragold_barcode_label_mm_from_storage_preset(
+        $row['label_size_preset'] ?? '100x18',
+        $row['label_width_mm'] ?? 100,
+        $row['label_height_mm'] ?? 18
+    );
+    $row['label_width_mm'] = $w;
+    $row['label_height_mm'] = $h;
+    return $row;
+}
+
+/**
+ * Load barcode print settings: metal + optional label preset, with mm synced to preset name.
+ *
+ * @param string|null $metalType
+ * @param string|null $labelPresetHint
+ * @return array|null
+ */
+function getBarcodeSettingsForPrint($metalType = null, $labelPresetHint = null) {
+    $metal = ($metalType !== null && trim((string) $metalType) !== '') ? trim((string) $metalType) : '';
+    $labelHint = ($labelPresetHint !== null && trim((string) $labelPresetHint) !== '') ? trim((string) $labelPresetHint) : '';
+    $row = null;
+    if ($metal !== '') {
+        if ($labelHint !== '') {
+            $row = getBarcodeSettings($metal, $labelHint);
+        }
+        if (!$row) {
+            $row = getBarcodeSettings($metal);
+        }
+    }
+    if (!$row) {
+        $row = getBarcodeSettings();
+    }
+    if ($row) {
+        $row = auragold_barcode_settings_normalize_label_mm($row);
+    }
+    return $row;
+}
+
+function getBarcodeSettings($metalType = null, $labelSizePreset = null, $labelWidthMm = null, $labelHeightMm = null) {

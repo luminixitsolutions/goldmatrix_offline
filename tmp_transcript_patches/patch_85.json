@@ -1,0 +1,5 @@
+{
+    "line": 262,
+    "old": "            var wMm = boxWMm || whiteWMm;\n            var hMm = boxHMm || whiteHMm;",
+    "new": "            var wMm = boxWMm != null ? boxWMm : (typeof wMm !== 'undefined' ? wMm : displayWMm);\n            var hMm = boxHMm != null ? boxHMm : (typeof hMm !== 'undefined' ? hMm : labelHeightMm);"
+}

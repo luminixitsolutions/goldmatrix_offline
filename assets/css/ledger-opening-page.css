@@ -1,0 +1,689 @@
+/* GoldMatrix Ledger Opening — scoped page styles */
+.goldmatrix-ledger-opening-page {
+    --gm-navy: #11294B;
+    --gm-navy-dark: #081F3A;
+    --gm-gold: #C5A864;
+    --gm-gold-soft: #F8F2E5;
+    --gm-bg: #F5F7FB;
+    --gm-card: #FFFFFF;
+    --gm-border: #E6EAF0;
+    --gm-text: #162033;
+    --gm-muted: #718096;
+    overflow-x: hidden;
+    background: var(--gm-bg);
+}
+
+body.goldmatrix-ledger-opening-page {
+    height: 100vh;
+    overflow-x: hidden;
+}
+
+.goldmatrix-ledger-opening-page .layout-content {
+    height: calc(100vh - 60px);
+    overflow: hidden;
+}
+
+.goldmatrix-ledger-opening-page .container-fluid {
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+}
+
+.goldmatrix-ledger-opening-page .container-fluid > .gm-page-header {
+    flex-shrink: 0;
+}
+
+.goldmatrix-ledger-opening-page .gm-page-header {
+    background: var(--gm-card);
+    border-bottom: 1px solid var(--gm-border);
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-shrink: 0;
+}
+
+.goldmatrix-ledger-opening-page .gm-page-header-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+}
+
+.goldmatrix-ledger-opening-page .gm-page-header-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    background: var(--gm-gold-soft);
+    border: 1px solid rgba(197, 168, 100, 0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--gm-gold);
+    flex-shrink: 0;
+}
+
+.goldmatrix-ledger-opening-page .gm-page-header-icon i {
+    font-size: 1.15rem;
+}
+
+.goldmatrix-ledger-opening-page .gm-page-header-text h1 {
+    margin: 0;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--gm-navy);
+    line-height: 1.2;
+}
+
+.goldmatrix-ledger-opening-page .gm-page-header-text p {
+    margin: 2px 0 0;
+    font-size: 0.78rem;
+    color: var(--gm-muted);
+    line-height: 1.35;
+}
+
+.goldmatrix-ledger-opening-page .gm-page-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.goldmatrix-ledger-opening-page .gm-btn-clear {
+    height: 38px;
+    padding: 0 14px;
+    border-radius: 8px;
+    border: 1px solid var(--gm-border);
+    background: #fff;
+    color: var(--gm-text);
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s;
+}
+
+.goldmatrix-ledger-opening-page .gm-btn-clear:hover {
+    background: #f8fafc;
+    border-color: #cbd5e1;
+}
+
+.goldmatrix-ledger-opening-page .gm-btn-save {
+    height: 38px;
+    padding: 0 16px;
+    border-radius: 8px;
+    border: none;
+    background: var(--gm-navy);
+    color: #fff;
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(17, 41, 75, 0.18);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: background 0.15s;
+}
+
+.goldmatrix-ledger-opening-page .gm-btn-save:hover {
+    background: var(--gm-navy-dark);
+}
+
+.goldmatrix-ledger-opening-page .ledger-form-container {
+    background: var(--gm-bg);
+    padding: 0;
+    overflow-y: auto;
+    flex: 1;
+    min-height: 0;
+}
+
+.goldmatrix-ledger-opening-page .gm-page-shell {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 16px 20px 50px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 320px;
+    gap: 16px;
+    align-items: start;
+}
+
+.goldmatrix-ledger-opening-page .gm-main-column {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.goldmatrix-ledger-opening-page .gm-sidebar-column {
+    position: sticky;
+    top: 12px;
+    align-self: start;
+    max-height: calc(100vh - 140px);
+}
+
+.goldmatrix-ledger-opening-page .gm-card {
+    background: var(--gm-card);
+    border: 1px solid var(--gm-border);
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(17, 41, 75, 0.04);
+}
+
+.goldmatrix-ledger-opening-page .gm-card-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px 0;
+}
+
+.goldmatrix-ledger-opening-page .gm-section-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 7px;
+    background: var(--gm-gold-soft);
+    color: var(--gm-gold);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.goldmatrix-ledger-opening-page .gm-section-icon i {
+    font-size: 0.85rem;
+}
+
+.goldmatrix-ledger-opening-page .gm-card-title {
+    margin: 0;
+    color: var(--gm-navy);
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.goldmatrix-ledger-opening-page .gm-card-body {
+    padding: 12px 16px 16px;
+}
+
+.goldmatrix-ledger-opening-page .gm-form-grid {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 10px 12px;
+}
+
+.goldmatrix-ledger-opening-page .gm-col-4 { grid-column: span 4; }
+.goldmatrix-ledger-opening-page .gm-col-6 { grid-column: span 6; }
+.goldmatrix-ledger-opening-page .gm-col-12 { grid-column: span 12; }
+
+.goldmatrix-ledger-opening-page .gm-field {
+    min-width: 0;
+}
+
+.goldmatrix-ledger-opening-page .gm-field label {
+    display: block;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--gm-navy);
+    margin-bottom: 5px;
+    line-height: 1.2;
+}
+
+.goldmatrix-ledger-opening-page .gm-field label .req {
+    color: #dc2626;
+    margin-left: 2px;
+}
+
+.goldmatrix-ledger-opening-page .gm-input,
+.goldmatrix-ledger-opening-page .ledger-form-container .form-control,
+.goldmatrix-ledger-opening-page .ledger-form-container select.form-control,
+.goldmatrix-ledger-opening-page .ledger-form-container textarea.form-control {
+    width: 100%;
+    height: 38px;
+    border: 1px solid #E2E7EE;
+    border-radius: 7px;
+    background: #fff;
+    font-size: 13px;
+    padding: 8px 11px;
+    color: var(--gm-text);
+    box-shadow: none;
+}
+
+.goldmatrix-ledger-opening-page .ledger-form-container textarea.form-control {
+    height: auto;
+    min-height: 120px;
+    resize: vertical;
+}
+
+.goldmatrix-ledger-opening-page .gm-input:focus,
+.goldmatrix-ledger-opening-page .ledger-form-container .form-control:focus {
+    border-color: var(--gm-gold);
+    box-shadow: 0 0 0 3px rgba(197, 168, 100, 0.12);
+    outline: none;
+}
+
+.goldmatrix-ledger-opening-page .gm-photo-col {
+    grid-column: span 2;
+}
+
+.goldmatrix-ledger-opening-page .gm-fields-col {
+    grid-column: span 10;
+}
+
+.goldmatrix-ledger-opening-page .gm-photo-upload {
+    text-align: center;
+}
+
+.goldmatrix-ledger-opening-page .gm-photo-circle {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    border: 2px dashed rgba(197, 168, 100, 0.65);
+    background: var(--gm-gold-soft);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s;
+}
+
+.goldmatrix-ledger-opening-page .gm-photo-circle:hover {
+    border-color: var(--gm-gold);
+    background: #fff9ed;
+}
+
+.goldmatrix-ledger-opening-page .gm-photo-circle i {
+    color: var(--gm-gold);
+    font-size: 1.1rem;
+}
+
+.goldmatrix-ledger-opening-page .gm-photo-circle span {
+    font-size: 0.65rem;
+    color: var(--gm-muted);
+    margin-top: 4px;
+    font-weight: 600;
+}
+
+.goldmatrix-ledger-opening-page #ledgerPhotoPreview {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    margin: 0 auto;
+    overflow: hidden;
+    border: 2px solid var(--gm-gold);
+}
+
+.goldmatrix-ledger-opening-page #ledgerPhotoPreview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.goldmatrix-ledger-opening-page .gm-mobile-group {
+    display: flex;
+    align-items: stretch;
+    border: 1px solid #E2E7EE;
+    border-radius: 7px;
+    overflow: hidden;
+    background: #fff;
+    height: 38px;
+}
+
+.goldmatrix-ledger-opening-page .gm-mobile-group:focus-within {
+    border-color: var(--gm-gold);
+    box-shadow: 0 0 0 3px rgba(197, 168, 100, 0.12);
+}
+
+.goldmatrix-ledger-opening-page .gm-mobile-group select {
+    width: 88px;
+    flex-shrink: 0;
+    border: none;
+    border-right: 1px solid #E2E7EE;
+    border-radius: 0;
+    height: 100%;
+    font-size: 12px;
+    padding: 0 6px;
+    background: #f8fafc;
+}
+
+.goldmatrix-ledger-opening-page .gm-mobile-group input {
+    flex: 1;
+    min-width: 0;
+    border: none;
+    height: 100%;
+    padding: 0 10px;
+    font-size: 13px;
+}
+
+.goldmatrix-ledger-opening-page .gm-mobile-group input:focus {
+    outline: none;
+}
+
+.goldmatrix-ledger-opening-page .gm-options-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 14px 20px;
+    padding-top: 4px;
+}
+
+.goldmatrix-ledger-opening-page .gm-options-row .form-check-label {
+    font-size: 12px;
+    color: var(--gm-text);
+}
+
+.goldmatrix-ledger-opening-page .gm-tab-card .nav-tabs {
+    border-bottom: 1px solid var(--gm-border);
+    padding: 0 12px;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.goldmatrix-ledger-opening-page .gm-tab-card .nav-tabs .nav-link {
+    border: none;
+    border-bottom: 2px solid transparent;
+    border-radius: 0;
+    padding: 10px 14px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--gm-muted);
+    white-space: nowrap;
+    background: transparent;
+}
+
+.goldmatrix-ledger-opening-page .gm-tab-card .nav-tabs .nav-link:hover {
+    color: var(--gm-navy);
+    background: var(--gm-gold-soft);
+}
+
+.goldmatrix-ledger-opening-page .gm-tab-card .nav-tabs .nav-link.active {
+    color: var(--gm-navy);
+    background: #fff;
+    border-bottom-color: var(--gm-gold);
+}
+
+.goldmatrix-ledger-opening-page .gm-tab-card .tab-content {
+    padding: 14px 16px 18px;
+}
+
+.goldmatrix-ledger-opening-page .gm-tab-card .tab-content .gm-field {
+    margin-bottom: 10px;
+}
+
+.goldmatrix-ledger-opening-page .gm-tab-card .tab-content .gm-field:last-child {
+    margin-bottom: 0;
+}
+
+.goldmatrix-ledger-opening-page .ledger-form-container .form-group {
+    margin-bottom: 0;
+}
+
+.goldmatrix-ledger-opening-page .gm-subsection-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--gm-navy);
+    margin: 0 0 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.goldmatrix-ledger-opening-page .gm-bank-block {
+    position: relative;
+}
+
+.goldmatrix-ledger-opening-page .gm-bank-watermark {
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: rgba(17, 41, 75, 0.08);
+    font-size: 2rem;
+    pointer-events: none;
+}
+
+.goldmatrix-ledger-opening-page .gm-city-actions {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.goldmatrix-ledger-opening-page .gm-city-actions select {
+    flex: 1;
+    min-width: 0;
+}
+
+.goldmatrix-ledger-opening-page .gm-icon-btn {
+    width: 34px;
+    height: 34px;
+    border-radius: 7px;
+    border: 1px solid var(--gm-border);
+    background: #fff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    cursor: pointer;
+    padding: 0;
+}
+
+.goldmatrix-ledger-opening-page .gm-icon-btn:hover {
+    background: var(--gm-gold-soft);
+    border-color: rgba(197, 168, 100, 0.45);
+}
+
+.goldmatrix-ledger-opening-page .item-tax-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+
+.goldmatrix-ledger-opening-page .item-tax-table thead {
+    background: var(--gm-navy);
+    color: #fff;
+}
+
+.goldmatrix-ledger-opening-page .item-tax-table thead th {
+    padding: 10px 12px;
+    font-weight: 600;
+    text-align: left;
+    border-bottom: 2px solid var(--gm-gold);
+}
+
+.goldmatrix-ledger-opening-page .item-tax-table tbody tr:nth-child(even) {
+    background: #fafbfd;
+}
+
+.goldmatrix-ledger-opening-page .item-tax-table tbody tr:hover {
+    background: var(--gm-gold-soft);
+}
+
+.goldmatrix-ledger-opening-page .item-tax-table tbody td {
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--gm-border);
+    vertical-align: middle;
+}
+
+.goldmatrix-ledger-opening-page .share-holder-file-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 10px;
+    background: #f8fafc;
+    border: 1px solid var(--gm-border);
+    border-radius: 8px;
+    margin-bottom: 8px;
+}
+
+.goldmatrix-ledger-opening-page #shareHolderDocumentUpload {
+    border: 2px dashed #cbd5e1;
+    border-radius: 10px;
+    padding: 1.5rem;
+    text-align: center;
+    background: #f8fafc;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+}
+
+.goldmatrix-ledger-opening-page #shareHolderDocumentUpload:hover {
+    border-color: var(--gm-gold);
+    background: var(--gm-gold-soft);
+}
+
+.goldmatrix-ledger-opening-page .gm-opening-panel {
+    background: var(--gm-card);
+    border: 1px solid var(--gm-border);
+    border-radius: 12px;
+    box-shadow: 0 4px 14px rgba(17, 41, 75, 0.08);
+    display: flex;
+    flex-direction: column;
+    max-height: calc(100vh - 140px);
+    overflow: hidden;
+}
+
+.goldmatrix-ledger-opening-page .gm-opening-head {
+    padding: 12px 14px;
+    border-bottom: 2px solid var(--gm-gold);
+    background: linear-gradient(180deg, #fff 0%, #fafbfd 100%);
+}
+
+.goldmatrix-ledger-opening-page .gm-opening-head h6 {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--gm-navy);
+}
+
+.goldmatrix-ledger-opening-page .gm-opening-body {
+    padding: 12px 14px 14px;
+    overflow-y: auto;
+    flex: 1 1 auto;
+}
+
+.goldmatrix-ledger-opening-page .gm-opening-block {
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #eef2f7;
+}
+
+.goldmatrix-ledger-opening-page .gm-opening-block:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+.goldmatrix-ledger-opening-page .gm-opening-block label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--gm-navy);
+    margin-bottom: 5px;
+    display: block;
+}
+
+.goldmatrix-ledger-opening-page .gm-opening-cd {
+    display: flex;
+    gap: 12px;
+    margin-top: 6px;
+    flex-wrap: wrap;
+}
+
+.goldmatrix-ledger-opening-page .gm-metal-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.goldmatrix-ledger-opening-page .gm-metal-card {
+    border: 1px solid var(--gm-border);
+    border-radius: 8px;
+    padding: 8px 10px;
+}
+
+.goldmatrix-ledger-opening-page .gm-metal-card.gm-metal-gold { background: #FFF9ED; }
+.goldmatrix-ledger-opening-page .gm-metal-card.gm-metal-silver { background: #F7F8FA; }
+.goldmatrix-ledger-opening-page .gm-metal-card.gm-metal-diamond { background: #F7F5FF; }
+.goldmatrix-ledger-opening-page .gm-metal-card.gm-metal-platinum { background: #F5F7FA; }
+.goldmatrix-ledger-opening-page .gm-metal-card.gm-metal-watch { background: #FAF8F5; }
+.goldmatrix-ledger-opening-page .gm-metal-card.gm-metal-service { background: #FFF8F8; }
+.goldmatrix-ledger-opening-page .gm-metal-card.gm-metal-other { background: #FAFAFA; }
+
+.goldmatrix-ledger-opening-page .gm-metal-card-head {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 6px;
+}
+
+.goldmatrix-ledger-opening-page .gm-metal-card-head i {
+    color: var(--gm-gold);
+    font-size: 0.85rem;
+}
+
+.goldmatrix-ledger-opening-page .gm-metal-card-head span {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--gm-navy);
+    line-height: 1.25;
+    word-break: break-word;
+}
+
+.goldmatrix-ledger-opening-page .gm-metal-card .form-control {
+    height: 32px;
+    font-size: 12px;
+}
+
+.goldmatrix-ledger-opening-page .gm-metal-card .gm-opening-cd {
+    margin-top: 4px;
+}
+
+.goldmatrix-ledger-opening-page .gm-metal-card .form-check-label {
+    font-size: 11px;
+}
+
+.goldmatrix-ledger-opening-page select#openingBranchId {
+    position: relative;
+    z-index: 2;
+    cursor: pointer;
+    pointer-events: auto;
+    opacity: 1;
+    background-color: #fff;
+}
+
+.goldmatrix-ledger-opening-page .gm-notes-help {
+    font-size: 11px;
+    color: var(--gm-muted);
+    margin: -4px 0 8px;
+}
+
+@media (max-width: 1199px) {
+    .goldmatrix-ledger-opening-page .gm-form-grid .gm-photo-col { grid-column: span 12; }
+    .goldmatrix-ledger-opening-page .gm-form-grid .gm-fields-col { grid-column: span 12; }
+    .goldmatrix-ledger-opening-page .gm-col-4 { grid-column: span 6; }
+}
+
+@media (max-width: 991px) {
+    .goldmatrix-ledger-opening-page .gm-page-shell {
+        grid-template-columns: 1fr;
+    }
+    .goldmatrix-ledger-opening-page .gm-sidebar-column {
+        position: static;
+        max-height: none;
+    }
+    .goldmatrix-ledger-opening-page .gm-opening-panel {
+        max-height: none;
+    }
+    .goldmatrix-ledger-opening-page .gm-col-4,
+    .goldmatrix-ledger-opening-page .gm-col-6 {
+        grid-column: span 12;
+    }
+}
+
+@media (max-width: 576px) {
+    .goldmatrix-ledger-opening-page .gm-page-header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .goldmatrix-ledger-opening-page .gm-page-header-actions {
+        justify-content: flex-end;
+    }
+}

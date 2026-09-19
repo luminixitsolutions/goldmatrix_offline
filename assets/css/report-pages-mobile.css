@@ -1,0 +1,248 @@
+/**
+ * Report submenu pages — mobile/tablet only (≤991.98px).
+ * Desktop unchanged. Loaded when $AURAGOLD_REPORT_PAGE is set.
+ */
+@media (max-width: 991.98px) {
+    /* —— Transaction / Account Ledger reports —— */
+    body.report-page,
+    body.report-page html {
+        height: auto;
+        min-height: 100vh;
+        overflow-y: auto !important;
+    }
+    body.report-page .layout-content {
+        height: auto;
+        min-height: calc(100vh - 60px);
+        overflow: auto;
+    }
+    body.report-page .container-fluid {
+        height: auto;
+        min-height: 0;
+        overflow: visible;
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+    }
+    body.report-page .page-header-bar {
+        flex-wrap: wrap;
+        gap: 8px;
+        padding: 10px 12px;
+        align-items: center;
+    }
+    body.report-page .page-header-bar > div:first-child {
+        flex: 1 1 100%;
+        font-size: 13px;
+    }
+    body.report-page .page-header-actions {
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: center;
+        gap: 8px;
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: 2px;
+    }
+    body.report-page .tabs-container {
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+        padding: 0 10px;
+    }
+    body.report-page .tabs-list {
+        flex-wrap: nowrap;
+        width: max-content;
+        min-width: 100%;
+    }
+    body.report-page .tab-link {
+        white-space: nowrap;
+        padding: 8px 12px;
+        font-size: 12px;
+    }
+    body.report-page .toolbar {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 10px 12px;
+    }
+    body.report-page .toolbar-left,
+    body.report-page .toolbar-right {
+        width: 100%;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+    body.report-page .tr-toolbar-voucher-wrap,
+    body.report-page .tr-toolbar-voucher-select {
+        max-width: 100%;
+        min-width: 0;
+        width: 100%;
+    }
+    body.report-page .table-container,
+    body.report-page .transaction-list-wrap,
+    body.report-page .transaction-list-container {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        max-width: 100%;
+    }
+    body.report-page .transaction-card {
+        min-width: min(880px, 100%);
+    }
+
+    /* —— Day report —— */
+    .layout-container.day-report-page .page-header-bar {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+    }
+    .layout-container.day-report-page .page-header-bar > div:first-child {
+        flex-direction: column;
+        align-items: stretch !important;
+        gap: 8px;
+        width: 100%;
+    }
+    .layout-container.day-report-page .day-report-title {
+        margin: 0;
+    }
+    .layout-container.day-report-page .date-input {
+        width: 100%;
+        max-width: 100%;
+    }
+    .layout-container.day-report-page .page-header-actions {
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 8px;
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    .layout-container.day-report-page .page-header-actions .btn-primary,
+    .layout-container.day-report-page .page-header-actions .btn-export {
+        white-space: nowrap;
+        flex: 0 0 auto;
+    }
+    .layout-container.day-report-page .table-responsive {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* —— Ageing + Reward Point (shared shell) —— */
+    .layout-container.ageing-report-page .ageing-tabs-row,
+    .layout-container.reward-point-report-page .ageing-tabs-row {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+        gap: 10px;
+        padding-bottom: 8px;
+    }
+    .layout-container.ageing-report-page .ageing-tabs,
+    .layout-container.reward-point-report-page .ageing-tabs {
+        flex: 0 0 auto;
+        flex-wrap: nowrap;
+    }
+    .layout-container.ageing-report-page .ageing-tab,
+    .layout-container.reward-point-report-page .ageing-tab {
+        white-space: nowrap;
+        flex: 0 0 auto;
+        padding: 8px 16px;
+        font-size: 12px;
+    }
+    .layout-container.ageing-report-page .toolbar-actions,
+    .layout-container.reward-point-report-page .toolbar-actions {
+        display: flex;
+        flex-wrap: nowrap;
+        flex: 0 0 auto;
+        gap: 8px;
+        margin-left: 0;
+    }
+    .layout-container.ageing-report-page .toolbar-inner,
+    .layout-container.reward-point-report-page .toolbar-inner {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .layout-container.ageing-report-page .field-group,
+    .layout-container.reward-point-report-page .field-group {
+        min-width: 0;
+        width: 100%;
+        max-width: 100%;
+    }
+    .layout-container.ageing-report-page .ageing-table-wrap,
+    .layout-container.reward-point-report-page .ageing-table-wrap {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        max-height: none;
+    }
+
+    /* —— Ledger Balance —— */
+    .layout-container.ledger-balance-report-page .page-header-bar {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+    }
+    .layout-container.ledger-balance-report-page .header-left {
+        flex-direction: column;
+        align-items: stretch;
+        width: 100%;
+        gap: 8px;
+    }
+    .layout-container.ledger-balance-report-page .search-box {
+        width: 100%;
+        max-width: 100%;
+    }
+    .layout-container.ledger-balance-report-page .header-right {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        width: 100%;
+        justify-content: flex-start;
+        gap: 8px;
+    }
+    .layout-container.ledger-balance-report-page .lbr-page-title {
+        display: none;
+    }
+    .layout-container.ledger-balance-report-page .date-range-display {
+        white-space: nowrap;
+        flex: 0 0 auto;
+    }
+    .layout-container.ledger-balance-report-page .table-responsive {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* —— KYC report —— */
+    .layout-container.kyc-report-page .kyc-toolbar.page-header-bar {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+    }
+    .layout-container.kyc-report-page .kyc-header-search {
+        max-width: 100%;
+        width: 100%;
+        min-width: 0;
+        flex: 1 1 100%;
+    }
+    .layout-container.kyc-report-page .kyc-toolbar-actions {
+        display: flex;
+        flex-wrap: nowrap;
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        gap: 8px;
+        justify-content: flex-start;
+    }
+    .layout-container.kyc-report-page .kyc-table-wrap,
+    .layout-container.kyc-report-page .table-responsive {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        max-width: 100%;
+    }
+
+    /* Layout containers: padding */
+    .layout-container.ageing-report-page .page-container,
+    .layout-container.reward-point-report-page .page-container,
+    .layout-container.ledger-balance-report-page .page-container,
+    .layout-container.kyc-report-page .page-container,
+    .layout-container.day-report-page .page-container {
+        padding-left: 10px;
+        padding-right: 10px;
+        box-sizing: border-box;
+    }
+}

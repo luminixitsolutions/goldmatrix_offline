@@ -1,0 +1,5 @@
+{
+    "line": 38,
+    "old": "                        currentBarcodeMetalKey = payload.metal_type;\n                        barcodeSettingsByMetal[payload.metal_type] = captureMetalSettingsSnapshot();\n                        alert(data.message || 'Barcode settings saved.');",
+    "new": "                        currentBarcodeMetalKey = payload.metal_type;\n                        barcodeSettingsByMetal[payload.metal_type] = captureMetalSettingsSnapshot();\n                        try { sessionStorage.setItem('barcode_setting_metal', payload.metal_type); } catch (e) {}\n                        var reloadUrl = 'set-software.php?barcode_metal=' + encodeURIComponent(payload.metal_type);\n                        var sbReload = document.getElementById('settingsBranchId');\n                        if (sbReload && sbReload.value) {\n                            reloadUrl += '&branch_id=' + encodeURIComponent(sbReload.value);\n                        }\n                        window.location.href = reloadUrl;"
+}

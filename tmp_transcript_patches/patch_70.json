@@ -1,0 +1,5 @@
+{
+    "line": 244,
+    "old": "                designItems.push({\n                    type: 'barcode_image',\n                    left: barLeft,\n                    top: barTop,\n                    width: barW,\n                    height: barH\n                });",
+    "new": "                designItems.push({\n                    type: 'barcode_image',\n                    left: barLeft,\n                    top: barTop,\n                    width: barW,\n                    height: barH,\n                    display_width_mm: barW\n                });"
+}

@@ -1,0 +1,5 @@
+{
+    "line": 38,
+    "old": "    function onBarcodeMetalTypeChange() {\n        var metalSelectEl = document.getElementById('barcodeMetalType');\n        if (!metalSelectEl) return;\n        var prev = currentBarcodeMetalKey;\n        if (prev) {\n            barcodeSettingsByMetal[prev] = captureMetalSettingsSnapshot();\n        }\n        var newMetal = metalSelectEl.value || '';\n        currentBarcodeMetalKey = newMetal;",
+    "new": "    function onBarcodeMetalTypeChange() {\n        var metalSelectEl = document.getElementById('barcodeMetalType');\n        if (!metalSelectEl) return;\n        var prev = currentBarcodeMetalKey;\n        if (prev) {\n            barcodeSettingsByMetal[prev] = captureMetalSettingsSnapshot();\n        }\n        var newMetal = metalSelectEl.value || '';\n        currentBarcodeMetalKey = newMetal;\n        try { if (newMetal) sessionStorage.setItem('barcode_setting_metal', newMetal); } catch (e) {}"
+}

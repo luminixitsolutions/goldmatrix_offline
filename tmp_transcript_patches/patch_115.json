@@ -1,0 +1,5 @@
+{
+    "line": 338,
+    "old": "        if (val === 'custom' || val === '120x50') {\n            wMm = labelWidthMm || (val === '120x50' ? 120 : 100);\n            hMm = labelHeightMm || (val === '120x50' ? 50 : 18);",
+    "new": "        if (val === 'custom' || val === '120x50' || val === '250x120') {\n            wMm = labelWidthMm || (val === '250x120' ? 250 : (val === '120x50' ? 120 : 100));\n            hMm = labelHeightMm || (val === '250x120' ? 120 : (val === '120x50' ? 50 : 18));"
+}
