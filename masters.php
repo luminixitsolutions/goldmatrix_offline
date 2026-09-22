@@ -10,17 +10,20 @@ auragold_ensure_branch_id_on_settings_tables($conn);
 $settings_branch_id = auragold_settings_branch_id();
 require_once __DIR__ . '/includes/auragold_carat_dashboard_image_schema.php';
 require_once __DIR__ . '/includes/auragold_carat_purity_for_schema.php';
+require_once __DIR__ . '/includes/auragold_carat_arabic_name_schema.php';
 require_once __DIR__ . '/includes/auragold_metal_dashboard_image_schema.php';
 require_once __DIR__ . '/includes/auragold_metal_opening_fields_schema.php';
 if (isset($conn) && $conn) {
     auragold_ensure_tbl_carat_dashboard_images($conn);
     auragold_ensure_tbl_carat_purity_split($conn);
+    auragold_ensure_tbl_carat_arabic_name($conn);
     auragold_ensure_tbl_metal_dashboard_images($conn);
     auragold_ensure_tbl_metal_opening_fields($conn);
 }
 $masters_metal_has_dash_img = isset($conn) && $conn && function_exists('auragold_tbl_has_column') && auragold_tbl_has_column($conn, 'tbl_metal', 'dashboard_image_path');
 $masters_metal_show_dash = isset($conn) && $conn && function_exists('auragold_tbl_has_column') && auragold_tbl_has_column($conn, 'tbl_metal', 'show_on_dashboard');
 $masters_metal_has_opening_fields = isset($conn) && $conn && function_exists('auragold_tbl_has_column') && auragold_tbl_has_column($conn, 'tbl_metal', 'product_opening_name');
+$masters_carat_has_arabic = isset($conn) && $conn && function_exists('auragold_carat_has_arabic_name') && auragold_carat_has_arabic_name($conn);
 $masters_metal_table_cols = 4 + ($masters_metal_has_opening_fields ? 2 : 0) + ($masters_metal_has_dash_img ? 1 : 0) + ($masters_metal_show_dash ? 1 : 0);
 $masters_metal_list_order = $masters_metal_has_opening_fields ? ' ORDER BY order_no ASC, id DESC' : ' ORDER BY id DESC';
 if (!function_exists('masters_req')) {
@@ -500,6 +503,7 @@ if (!function_exists('masters_req')) {
             $masters_carat_has_metal = function_exists('auragold_tbl_has_column') && auragold_tbl_has_column($conn, 'tbl_carat', 'metal_id');
             $masters_carat_has_dash_img = function_exists('auragold_tbl_has_column') && auragold_tbl_has_column($conn, 'tbl_carat', 'dashboard_image_path');
             $masters_carat_has_split_purity = function_exists('auragold_carat_has_split_purity') && auragold_carat_has_split_purity($conn);
+            $masters_carat_has_arabic = function_exists('auragold_carat_has_arabic_name') && auragold_carat_has_arabic_name($conn);
             $masters_carat_metal_list = [];
             if ($masters_carat_has_metal) {
                 $masters_carat_metal_list = getList('SELECT id, display_name FROM tbl_metal WHERE status = 1 ORDER BY id ASC');
@@ -509,7 +513,8 @@ if (!function_exists('masters_req')) {
             }
             $masters_carat_colspan = ($masters_carat_has_metal ? 5 : 4)
                 + ($masters_carat_has_split_purity ? 2 : 0)
-                + ($masters_carat_has_dash_img ? 1 : 0);
+                + ($masters_carat_has_dash_img ? 1 : 0)
+                + ($masters_carat_has_arabic ? 1 : 0);
             ?>
             <!-- CARAT -->
             <div class="master-card">
@@ -520,6 +525,7 @@ if (!function_exists('masters_req')) {
                         <thead>
                             <tr>
                                 <th>Name<?php echo masters_req(); ?></th>
+                                <?php if ($masters_carat_has_arabic) { ?><th>Arabic Name</th><?php } ?>
                                 <?php if ($masters_carat_has_metal) { ?><th>Metal<?php echo masters_req(); ?></th><?php } ?>
                                 <?php if ($masters_carat_has_split_purity) { ?>
                                 <th>Sale %<?php echo masters_req(); ?></th>
@@ -537,7 +543,7 @@ if (!function_exists('masters_req')) {
 <?php
 $carats = [];
 if ($masters_carat_has_metal) {
-    $sql = "SELECT c.id, c.name, c.purity, c.description, c.metal_id"
+    $sql = "SELECT c.id, c.name" . ($masters_carat_has_arabic ? ', c.arabic_name' : '') . ", c.purity, c.description, c.metal_id"
         . ($masters_carat_has_split_purity ? ', c.purity_sales, c.purity_purchase, c.purity_common' : '')
         . ($masters_carat_has_dash_img ? ', c.dashboard_image_path, c.dashboard_image_url' : '') . "
         FROM tbl_carat c
@@ -560,7 +566,7 @@ if ($masters_carat_has_metal) {
         }
     }
 } else {
-    $sql = "SELECT id, name, purity, description"
+    $sql = "SELECT id, name" . ($masters_carat_has_arabic ? ', arabic_name' : '') . ", purity, description"
         . ($masters_carat_has_split_purity ? ', purity_sales, purity_purchase, purity_common' : '')
         . ($masters_carat_has_dash_img ? ', dashboard_image_path, dashboard_image_url' : '') . "
         FROM tbl_carat 
@@ -582,6 +588,7 @@ if (is_array($carats) && count($carats) > 0) {
         $edit_onclick = 'editCarat('
             . (int) ($row['id'] ?? 0) . ', '
             . json_encode((string) ($row['name'] ?? ''), JSON_UNESCAPED_UNICODE) . ', '
+            . json_encode((string) ($row['arabic_name'] ?? ''), JSON_UNESCAPED_UNICODE) . ', '
             . json_encode((string) ($row['description'] ?? ''), JSON_UNESCAPED_UNICODE);
         if ($masters_carat_has_metal) {
             $edit_onclick .= ', ' . (int) ($row['metal_id'] ?? 0);
@@ -599,6 +606,11 @@ if (is_array($carats) && count($carats) > 0) {
 ?>
     <tr id="carat_<?php echo (int) $row['id']; ?>">
     <td><?php echo htmlspecialchars((string) ($row['name'] ?? '')); ?></td>
+    <?php if ($masters_carat_has_arabic) {
+        $arName = trim((string) ($row['arabic_name'] ?? ''));
+    ?>
+    <td dir="rtl"><?php echo $arName !== '' ? htmlspecialchars($arName) : '—'; ?></td>
+    <?php } ?>
     <?php if ($masters_carat_has_metal) { ?>
     <td><?php echo htmlspecialchars(($row['metal_name'] ?? '') !== '' ? (string) $row['metal_name'] : '—'); ?></td>
     <?php } ?>
@@ -2362,9 +2374,15 @@ if (is_array($carats) && count($carats) > 0) {
       <div class="modal-body">
         <form id="caratForm">
 <input type="hidden" id="caratId">
-          <div class="form-group">
-            <label>Name<?php echo masters_req(); ?></label>
-            <input type="text" class="form-control form-control-sm" id="caratName" required>
+          <div class="form-row">
+            <div class="form-group col-6">
+              <label>Name<?php echo masters_req(); ?></label>
+              <input type="text" class="form-control form-control-sm" id="caratName" required>
+            </div>
+            <div class="form-group col-6">
+              <label>Arabic Name</label>
+              <input type="text" class="form-control form-control-sm" id="caratArabicName" dir="rtl" lang="ar" autocomplete="off">
+            </div>
           </div>
           <?php if ($masters_carat_has_metal) { ?>
           <div class="form-group">
@@ -6757,6 +6775,9 @@ function loadCaratImageForEdit(id) {
                 return;
             }
             var r = res.row;
+            if ($("#caratArabicName").length) {
+                $("#caratArabicName").val(r.arabic_name != null && r.arabic_name !== "" ? r.arabic_name : "");
+            }
             if ($("#caratPuritySales").length) {
                 $("#caratPuritySales").val(r.purity_sales != null && r.purity_sales !== "" ? r.purity_sales : "");
                 $("#caratPurityPurchase").val(r.purity_purchase != null && r.purity_purchase !== "" ? r.purity_purchase : "");
@@ -6770,10 +6791,13 @@ function loadCaratImageForEdit(id) {
         });
 }
 
-function editCarat(id, name, desc, metalId, puritySales, purityPurchase, purityCommon) {
+function editCarat(id, name, arabicName, desc, metalId, puritySales, purityPurchase, purityCommon) {
 
     $("#caratId").val(id);
     $("#caratName").val(name);
+    if ($("#caratArabicName").length) {
+        $("#caratArabicName").val(arabicName != null ? arabicName : "");
+    }
     $("#caratDesc").val(desc);
     if ($("#caratPuritySales").length) {
         $("#caratPuritySales").val(puritySales != null ? puritySales : "");
@@ -6801,6 +6825,7 @@ function saveCarat(){
 
     let id     = $("#caratId").val();
     let name   = $("#caratName").val().trim();
+    let arabicName = $("#caratArabicName").length ? $("#caratArabicName").val().trim() : "";
     let desc   = $("#caratDesc").val().trim();
     let purity = "";
     let puritySales = "";
@@ -6852,7 +6877,10 @@ function saveCarat(){
                 $("#noCaratRow").remove();
 
                 let safeName = res.name.replace(/'/g, "\\'");
+                let safeArabicName = (res.arabic_name != null ? String(res.arabic_name) : "").replace(/'/g, "\\'");
                 let safeDesc = res.description.replace(/'/g, "\\'");
+                let arabicTd = <?php echo $masters_carat_has_arabic ? "true" : "false"; ?>
+                    ? `<td dir="rtl">${res.arabic_name ? res.arabic_name : '—'}</td>` : '';
                 let metalTd = <?php echo $masters_carat_has_metal ? "true" : "false"; ?>
                     ? `<td>${res.metal_name ? res.metal_name : '—'}</td>` : '';
                 let splitPurityTds = <?php echo $masters_carat_has_split_purity ? "true" : "false"; ?>
@@ -6876,6 +6904,7 @@ function saveCarat(){
                 let row = `
                     <tr id="carat_${res.id}">
                         <td>${res.name}</td>
+                        ${arabicTd}
                         ${metalTd}
                         <?php if ($masters_carat_has_split_purity) { ?>
                         ${splitPurityTds}
@@ -6888,6 +6917,7 @@ function saveCarat(){
                             <a href="javascript:void(0)"
                                onclick="editCarat(${res.id},
                                '${safeName}',
+                               '${safeArabicName}',
                                '${safeDesc}'<?php if ($masters_carat_has_metal) { ?>,
                                ${typeof res.metal_id !== 'undefined' ? res.metal_id : 0}<?php } ?><?php if ($masters_carat_has_split_purity) { ?>,
                                '${safePuritySales}',
@@ -6935,6 +6965,7 @@ function saveCarat(){
         fd.append("action", id ? "update" : "add");
         if (id) { fd.append("id", String(id)); }
         fd.append("name", name);
+        fd.append("arabic_name", arabicName);
         fd.append("purity", purity);
         fd.append("description", desc);
         if ($("#caratPuritySales").length) {
@@ -6961,6 +6992,7 @@ function saveCarat(){
             action: id ? "update" : "add",
             id: id,
             name: name,
+            arabic_name: arabicName,
             purity: purity,
             description: desc
         };

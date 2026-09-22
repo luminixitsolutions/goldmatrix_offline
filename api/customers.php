@@ -13,8 +13,11 @@
  *   GET /api/customers.php?summary=0
  *
  * By default only Customer Type = "Customer" records are returned.
- * Each customer includes: total_sale_invoice, total_sale_invoice_amount,
- * total_previous_balance_amount, total_purchase_invoice (and total_purchase_invoice_amount).
+ * Each customer includes billing/shipping address fields (billing_address1, billing_city, …),
+ * country_name / state_name / city_name (readable names, not IDs),
+ * structured billing_address / shipping_address objects, and address (full billing address text).
+ * Also: total_sale_invoice, total_sale_invoice_amount, total_previous_balance_amount,
+ * total_purchase_invoice (and total_purchase_invoice_amount).
  *
  * Token sources: ?access_token=, ?shop_access_token=, ?token=,
  *                header X-Access-Token, header Authorization: Bearer …

@@ -88,9 +88,9 @@ if (!function_exists('auragold_party_select2_js_config')) {
             'dropdownClass' => $wrapClass === 'si-customer-select2-wrap'
                 ? 'si-customer-select2-dropdown'
                 : 'auragold-party-select2-dropdown',
-            'searchUrl' => 'ajax/search-customers.php',
+            'searchUrl' => (string) ($a['searchUrl'] ?? 'ajax/search-customers.php'),
             'placeholder' => $placeholder,
-            'noResultsText' => $isSupplier ? 'No supplier found' : 'No account found',
+            'noResultsText' => (string) ($a['noResultsText'] ?? ($isSupplier ? 'No supplier found' : 'No account found')),
         ];
     }
 }

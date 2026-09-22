@@ -129,9 +129,11 @@ if ($preview_sample) {
     }
 
     $items = getList("
-        SELECT sii.*, COALESCE(p.name, sii.product_name) as product_name, c.name as category_name
+        SELECT sii.*, COALESCE(p.name, sii.product_name) as product_name, p.alternate_name as product_alternate_name,
+            pc.carat as product_carat, c.name as category_name
         FROM $t_items sii
         LEFT JOIN tbl_products p ON sii.product_id = p.id
+        LEFT JOIN tbl_product_characteristics pc ON sii.product_characteristic_id = pc.id
         LEFT JOIN tbl_categories c ON p.category_id = c.id
         WHERE sii.invoice_id = $invoice_id ORDER BY sii.id ASC
     ");

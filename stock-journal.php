@@ -36,8 +36,9 @@ $purchase_branch_sql_pi = '';
 if ($stock_journal_effective_branch_id > 0 && isset($conn) && $conn instanceof mysqli && function_exists('auragold_tbl_has_column')
     && auragold_tbl_has_column($conn, 'tbl_purchase_invoices', 'branch_id')) {
     $b = (int) $stock_journal_effective_branch_id;
-    $purchase_branch_sql = ' AND branch_id = ' . $b;
-    $purchase_branch_sql_pi = ' AND pi.branch_id = ' . $b;
+    // Same as transaction-report: include unset/legacy branch_id so PI-1 etc. are not hidden.
+    $purchase_branch_sql = ' AND (branch_id = ' . $b . ' OR branch_id IS NULL OR branch_id = 0)';
+    $purchase_branch_sql_pi = ' AND (pi.branch_id = ' . $b . ' OR pi.branch_id IS NULL OR pi.branch_id = 0)';
 }
 
 $po_branch_sql = '';
@@ -145,22 +146,25 @@ if (!is_array($customers)) {
     $customers = [];
 }
 
-// Build WHERE clause for invoices table
-$where_clause = "1=1";
+// Build WHERE clause for invoices table (pi. alias — used with JOINs)
+$pi_active_sql = (isset($conn) && $conn instanceof mysqli && function_exists('auragold_doc_series_active_sql'))
+    ? auragold_doc_series_active_sql($conn, 'tbl_purchase_invoices', 'pi')
+    : " AND (LOWER(TRIM(CAST(IFNULL(pi.status, '') AS CHAR))) NOT IN ('deleted','cancelled','canceled','void'))";
+$where_clause = "1=1" . $pi_active_sql;
 if (!empty($search)) {
-    $where_clause .= " AND (invoice_no LIKE '%" . esc($search) . "%' OR supplier_name LIKE '%" . esc($search) . "%')";
+    $where_clause .= " AND (pi.invoice_no LIKE '%" . esc($search) . "%' OR pi.supplier_name LIKE '%" . esc($search) . "%')";
 }
 if (!empty($from_date)) {
-    $where_clause .= " AND invoice_date >= '" . esc($from_date) . "'";
+    $where_clause .= " AND pi.invoice_date >= '" . esc($from_date) . "'";
 }
 if (!empty($to_date)) {
-    $where_clause .= " AND invoice_date <= '" . esc($to_date) . "'";
+    $where_clause .= " AND pi.invoice_date <= '" . esc($to_date) . "'";
 }
 if (!empty($customer_filter)) {
-    $where_clause .= " AND supplier_name = '" . esc($customer_filter) . "'";
+    $where_clause .= " AND pi.supplier_name = '" . esc($customer_filter) . "'";
 }
 if (!empty($source_filter)) {
-    $where_clause .= " AND invoice_no LIKE '%" . esc($source_filter) . "%'";
+    $where_clause .= " AND pi.invoice_no LIKE '%" . esc($source_filter) . "%'";
 }
 if ($branch_filter > 0 && isset($conn) && $conn instanceof mysqli && function_exists('auragold_tbl_has_column')
     && auragold_tbl_has_column($conn, 'tbl_purchase_invoices', 'branch_id')) {
@@ -181,13 +185,9 @@ if (!empty($account_no_filter)) {
     $pi_item_extra_sql .= " AND pi.invoice_no LIKE '%" . esc($account_no_filter) . "%'";
 }
 
+// Do not require show_in_stock_journal = 1. The checkbox defaulted off, so saved PIs
+// (including PI-1) were stored as 0 and never appeared in this work queue.
 $pi_show_in_stock_journal_sql = '';
-if ($voucher === 'purchase_invoice'
-    && isset($conn) && $conn instanceof mysqli
-    && function_exists('auragold_tbl_has_column')
-    && auragold_tbl_has_column($conn, 'tbl_purchase_invoices', 'show_in_stock_journal')) {
-    $pi_show_in_stock_journal_sql = ' AND pi.show_in_stock_journal = 1';
-}
 
 try {
     if ($voucher === 'product_opening') {
@@ -327,20 +327,40 @@ try {
     } else {
         // purchase_invoice (default)
         // Line visible when it has qty, weight, amount, barcode, or product (do not hide zero-total imitation lines).
-        // Use OR on metal_qty/quantity (not COALESCE) so metal_qty=0 does not hide quantity>0 rows.
+        $pii_has_metal_qty = isset($conn) && $conn instanceof mysqli && function_exists('auragold_tbl_has_column')
+            && auragold_tbl_has_column($conn, 'tbl_purchase_invoice_items', 'metal_qty');
+        $pii_has_purchase_amount = isset($conn) && $conn instanceof mysqli && function_exists('auragold_tbl_has_column')
+            && auragold_tbl_has_column($conn, 'tbl_purchase_invoice_items', 'purchase_amount');
+        $pii_has_final_weight = isset($conn) && $conn instanceof mysqli && function_exists('auragold_tbl_has_column')
+            && auragold_tbl_has_column($conn, 'tbl_purchase_invoice_items', 'final_weight');
+        $sj_has_comment = isset($conn) && $conn instanceof mysqli && function_exists('auragold_tbl_has_column')
+            && auragold_tbl_has_column($conn, 'tbl_stock_journal', 'comment');
+        $pii_qty_expr = $pii_has_metal_qty
+            ? 'COALESCE(NULLIF(pii.metal_qty, 0), pii.quantity, 0)'
+            : 'COALESCE(pii.quantity, 0)';
+        $pii_purchase_amt_expr = $pii_has_purchase_amount
+            ? 'COALESCE(NULLIF(pii.purchase_amount, 0), NULLIF(pii.net_amount, 0), pii.amount, 0)'
+            : 'COALESCE(NULLIF(pii.net_amount, 0), pii.amount, 0)';
+        $sj_comment_join_sql = $sj_has_comment
+            ? " AND (sj.comment IS NULL OR sj.comment NOT LIKE 'auragold_doc|src=pi|%')"
+            : '';
+
         $pii_visible_sql = " AND (pii.id IS NULL"
-            . " OR COALESCE(pii.metal_qty, 0) > 0"
+            . ($pii_has_metal_qty ? " OR COALESCE(pii.metal_qty, 0) > 0" : "")
             . " OR COALESCE(pii.quantity, 0) > 0"
             . " OR COALESCE(pii.gross_weight, 0) > 0"
             . " OR COALESCE(pii.net_weight, 0) > 0"
-            . " OR COALESCE(pii.final_weight, 0) > 0"
+            . ($pii_has_final_weight ? " OR COALESCE(pii.final_weight, 0) > 0" : "")
             . " OR COALESCE(pii.net_amount, 0) > 0"
             . " OR COALESCE(pii.amount, 0) > 0"
-            . " OR COALESCE(pii.purchase_amount, 0) > 0"
+            . ($pii_has_purchase_amount ? " OR COALESCE(pii.purchase_amount, 0) > 0" : "")
             . " OR TRIM(IFNULL(pii.barcode, '')) <> ''"
             . " OR COALESCE(pii.product_id, 0) > 0)";
 
-        // Get unique customers for filter (already loaded above)
+        $pi_count_extra_joins = '';
+        if ($metal_filter > 0) {
+            $pi_count_extra_joins = " LEFT JOIN tbl_product_characteristics pc ON pii.product_characteristic_id = pc.id";
+        }
 
         // Simplified query - get invoices first, join items if they exist
     // This ensures invoices always show even if they have no items
@@ -359,7 +379,7 @@ try {
             pii.product_id,
             pii.product_name,
             pii.barcode,
-            COALESCE(NULLIF(pii.metal_qty, 0), pii.quantity, 0) as quantity,
+            {$pii_qty_expr} as quantity,
             COALESCE(p.name, pii.product_name, 'N/A') as full_product_name,
             COALESCE(pc.metal_id, 0) as metal_id,
             COALESCE(m.display_name, 'N/A') as metal_name,
@@ -371,13 +391,13 @@ try {
             COALESCE(pii.purity, 0) as purity,
             COALESCE(pii.rate, 0) as rate,
             COALESCE(pii.net_amount, 0) as net_amount,
-            COALESCE(NULLIF(pii.purchase_amount, 0), NULLIF(pii.net_amount, 0), pii.amount, 0) as purchase_amount,
+            {$pii_purchase_amt_expr} as purchase_amount,
             0.00 as stockjournal_amount,
             COALESCE(SUM(sj.quantity), 0) as production_qty,
             COALESCE(SUM(COALESCE(sj.gross_weight, sj.net_weight, 0)), 0) as production_wt,
-            GREATEST(COALESCE(NULLIF(pii.metal_qty, 0), pii.quantity, 0) - COALESCE(SUM(sj.quantity), 0), 0) as available_qty,
+            GREATEST({$pii_qty_expr} - COALESCE(SUM(sj.quantity), 0), 0) as available_qty,
             GREATEST(COALESCE(pii.gross_weight, 0) - COALESCE(SUM(COALESCE(sj.gross_weight, sj.net_weight, 0)), 0), 0) as available_wt,
-            COALESCE(NULLIF(pii.metal_qty, 0), pii.quantity, 0) as total_qty,
+            {$pii_qty_expr} as total_qty,
             0.00 as stone_wt,
             CASE WHEN COUNT(DISTINCT sj.id) > 0 THEN 1 ELSE 0 END as has_stock_journal,
             'purchase_invoice' as voucher_type,
@@ -388,7 +408,7 @@ try {
         LEFT JOIN tbl_product_characteristics pc ON pii.product_characteristic_id = pc.id
         LEFT JOIN tbl_metal m ON pc.metal_id = m.id
         LEFT JOIN tbl_stock_journal sj ON sj.item_id = pii.id AND sj.status = 'active'
-            AND (sj.comment IS NULL OR sj.comment NOT LIKE 'auragold_doc|src=pi|%')
+            {$sj_comment_join_sql}
         WHERE $where_clause$purchase_branch_sql_pi$pi_show_in_stock_journal_sql$pii_visible_sql$pi_item_extra_sql
         GROUP BY pi.id, pii.id
         ORDER BY pi.id DESC, pii.id ASC
@@ -399,10 +419,14 @@ try {
         SELECT COUNT(*) as total
         FROM tbl_purchase_invoices pi
         LEFT JOIN tbl_purchase_invoice_items pii ON pi.id = pii.invoice_id
+        {$pi_count_extra_joins}
         WHERE $where_clause$purchase_branch_sql_pi$pi_show_in_stock_journal_sql$pii_visible_sql$pi_item_extra_sql
     ";
     
     $total_record = getRecord($count_query);
+    if (!$total_record && isset($conn) && $conn instanceof mysqli && mysqli_error($conn)) {
+        error_log('Stock Journal purchase_invoice count failed: ' . mysqli_error($conn));
+    }
     $total_records = $total_record ? (int)$total_record['total'] : 0;
     $total_pages = $total_records > 0 ? ceil($total_records / $per_page) : 1;
 

@@ -54,34 +54,113 @@ if (!auragold_product_linked_to_branch($conn, $product_id, $working_branch_id)) 
     exit;
 }
 
-// Check if product is used in sale invoice, purchase invoice, repair invoice, etc.
+// Check if product is used on an *active* document. Soft-deleted purchase invoices
+// (and their leftover items / stock-journal audit rows) must not block delete.
 $used_in = [];
 
-$check_tables = [
-    'tbl_sale_invoice_items'       => 'Sale Invoice',
-    'tbl_purchase_invoice_items'   => 'Purchase Invoice',
-    'tbl_repair_invoice_items'     => 'Repair Invoice',
-    'tbl_credit_note_items'        => 'Credit Note',
-    'tbl_debit_note_items'         => 'Debit Note',
-    'tbl_receipt_voucher_items'    => 'Receipt Voucher',
-    'tbl_sale_receipt_voucher_items' => 'Sale Receipt Voucher',
-    'tbl_payment_voucher_items'    => 'Payment Voucher',
-    'tbl_stock_journal'            => 'Stock Journal',
-    'tbl_purchase_quotation_items' => 'Purchase Quotation',
-    'tbl_sale_quotation_items'     => 'Sale Quotation',
-    'tbl_purchase_return_items'    => 'Purchase Return',
-    'tbl_sale_return_items'        => 'Sale Return',
-    'tbl_advance_payment_items'    => 'Advance Payment',
+$tbl_exists = static function ($conn, $table): bool {
+    $table = preg_replace('/[^a-zA-Z0-9_]/', '', (string) $table);
+    if ($table === '') {
+        return false;
+    }
+    $r = @mysqli_query($conn, "SHOW TABLES LIKE '$table'");
+    $ok = ($r && mysqli_num_rows($r) > 0);
+    if ($r) {
+        mysqli_free_result($r);
+    }
+    return $ok;
+};
+
+$inactive_status_sql = static function ($conn, $table, $alias) {
+    if (function_exists('auragold_doc_series_active_sql')) {
+        return auragold_doc_series_active_sql($conn, $table, $alias);
+    }
+    $a = preg_replace('/[^a-zA-Z0-9_]/', '', (string) $alias);
+    $col = ($a !== '' ? $a . '.' : '') . 'status';
+    return " AND (LOWER(TRIM(CAST(IFNULL($col, '') AS CHAR))) NOT IN ('deleted','cancelled','canceled','void'))";
+};
+
+$check_docs = [
+    ['items' => 'tbl_sale_invoice_items', 'parent' => 'tbl_sale_invoices', 'fk' => 'invoice_id', 'label' => 'Sale Invoice'],
+    ['items' => 'tbl_purchase_invoice_items', 'parent' => 'tbl_purchase_invoices', 'fk' => 'invoice_id', 'label' => 'Purchase Invoice'],
+    ['items' => 'tbl_repair_invoice_items', 'parent' => 'tbl_repair_invoices', 'fk' => 'repair_invoice_id', 'label' => 'Repair Invoice'],
+    ['items' => 'tbl_credit_note_items', 'parent' => 'tbl_credit_notes', 'fk' => 'credit_note_id', 'label' => 'Credit Note'],
+    ['items' => 'tbl_debit_note_items', 'parent' => 'tbl_debit_notes', 'fk' => 'debit_note_id', 'label' => 'Debit Note'],
+    ['items' => 'tbl_receipt_voucher_items', 'parent' => 'tbl_receipt_vouchers', 'fk' => 'voucher_id', 'label' => 'Receipt Voucher'],
+    ['items' => 'tbl_sale_receipt_voucher_items', 'parent' => 'tbl_sale_receipt_vouchers', 'fk' => 'voucher_id', 'label' => 'Sale Receipt Voucher'],
+    ['items' => 'tbl_payment_voucher_items', 'parent' => 'tbl_payment_vouchers', 'fk' => 'voucher_id', 'label' => 'Payment Voucher'],
+    ['items' => 'tbl_purchase_quotation_items', 'parent' => 'tbl_purchase_quotations', 'fk' => 'quotation_id', 'label' => 'Purchase Quotation'],
+    ['items' => 'tbl_sale_quotation_items', 'parent' => 'tbl_sale_quotations', 'fk' => 'quotation_id', 'label' => 'Sale Quotation'],
+    ['items' => 'tbl_purchase_return_items', 'parent' => 'tbl_purchase_returns', 'fk' => 'return_id', 'label' => 'Purchase Return'],
+    ['items' => 'tbl_sale_return_items', 'parent' => 'tbl_sale_returns', 'fk' => 'return_id', 'label' => 'Sale Return'],
+    ['items' => 'tbl_advance_payment_items', 'parent' => 'tbl_advance_payments', 'fk' => 'voucher_id', 'label' => 'Advance Payment'],
 ];
 
-foreach ($check_tables as $table => $label) {
-    $exists = @mysqli_query($conn, "SELECT 1 FROM information_schema.tables WHERE table_schema = DATABASE() AND table_name = '$table' LIMIT 1");
-    if (!$exists || mysqli_num_rows($exists) == 0) {
+foreach ($check_docs as $doc) {
+    $items_table = $doc['items'];
+    $parent_table = $doc['parent'];
+    $fk = $doc['fk'];
+    if (!$tbl_exists($conn, $items_table)) {
         continue;
     }
-    $row = getRecord("SELECT 1 FROM $table WHERE product_id = $product_id LIMIT 1");
+    $has_product = function_exists('auragold_tbl_has_column')
+        ? auragold_tbl_has_column($conn, $items_table, 'product_id')
+        : true;
+    if (!$has_product) {
+        continue;
+    }
+    if ($tbl_exists($conn, $parent_table)
+        && (!function_exists('auragold_tbl_has_column') || auragold_tbl_has_column($conn, $items_table, $fk))) {
+        $active = $inactive_status_sql($conn, $parent_table, 'p');
+        $row = getRecord("
+            SELECT 1
+            FROM `$items_table` i
+            INNER JOIN `$parent_table` p ON p.id = i.`$fk`
+            WHERE i.product_id = $product_id
+            $active
+            LIMIT 1
+        ");
+    } else {
+        $row = getRecord("SELECT 1 FROM `$items_table` WHERE product_id = $product_id LIMIT 1");
+    }
     if ($row) {
-        $used_in[] = $label;
+        $used_in[] = $doc['label'];
+    }
+}
+
+if ($tbl_exists($conn, 'tbl_stock_journal')) {
+    $sj_active = '';
+    if (function_exists('auragold_tbl_has_column') && auragold_tbl_has_column($conn, 'tbl_stock_journal', 'status')) {
+        $sj_active = " AND (LOWER(TRIM(CAST(IFNULL(sj.status, '') AS CHAR))) NOT IN ('deleted','cancelled','canceled','void','0'))";
+    }
+    $sj_not_audit = '';
+    if (function_exists('auragold_tbl_has_column') && auragold_tbl_has_column($conn, 'tbl_stock_journal', 'comment')) {
+        $sj_not_audit = " AND (sj.comment IS NULL OR sj.comment NOT LIKE 'auragold_doc|%')";
+    }
+    $pi_join = '';
+    $pi_active = '';
+    if ($tbl_exists($conn, 'tbl_purchase_invoices') && $tbl_exists($conn, 'tbl_purchase_invoice_items')) {
+        $sj_inv_expr = 'pii.invoice_id';
+        if (function_exists('auragold_tbl_has_column') && auragold_tbl_has_column($conn, 'tbl_stock_journal', 'invoice_id')) {
+            $sj_inv_expr = 'COALESCE(NULLIF(sj.invoice_id, 0), pii.invoice_id)';
+        }
+        $pi_join = " LEFT JOIN tbl_purchase_invoice_items pii ON pii.id = sj.item_id
+                     LEFT JOIN tbl_purchase_invoices pi ON pi.id = $sj_inv_expr";
+        // Standalone / product-opening rows have no PI parent. Deleted PI rows must not block delete.
+        $pi_active = " AND (pi.id IS NULL OR LOWER(TRIM(CAST(IFNULL(pi.status, '') AS CHAR))) NOT IN ('deleted','cancelled','canceled','void'))";
+    }
+    $sj_row = getRecord("
+        SELECT 1
+        FROM tbl_stock_journal sj
+        $pi_join
+        WHERE sj.product_id = $product_id
+        $sj_active
+        $sj_not_audit
+        $pi_active
+        LIMIT 1
+    ");
+    if ($sj_row) {
+        $used_in[] = 'Stock Journal';
     }
 }
 

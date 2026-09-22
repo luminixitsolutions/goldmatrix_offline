@@ -42,6 +42,185 @@ if (!function_exists('auragold_api_customers_fetch_all')) {
     }
 }
 
+if (!function_exists('auragold_api_customers_lookup_location_name')) {
+    /**
+     * @param mysqli $link
+     */
+    function auragold_api_customers_lookup_location_name($link, string $table, int $id): string
+    {
+        static $cache = [];
+        if ($id <= 0) {
+            return '';
+        }
+        $table = preg_replace('/[^a-zA-Z0-9_]/', '', $table);
+        if ($table === '') {
+            return '';
+        }
+        $key = spl_object_hash($link) . ':' . $table . ':' . $id;
+        if (array_key_exists($key, $cache)) {
+            return $cache[$key];
+        }
+        $rs = @mysqli_query($link, 'SELECT name FROM `' . $table . '` WHERE id = ' . $id . ' LIMIT 1');
+        $name = '';
+        if ($rs && ($row = mysqli_fetch_assoc($rs))) {
+            $name = trim((string) ($row['name'] ?? ''));
+        }
+        if ($rs) {
+            mysqli_free_result($rs);
+        }
+        $cache[$key] = $name;
+        return $name;
+    }
+}
+
+if (!function_exists('auragold_api_customers_format_address_parts')) {
+    /**
+     * @param list<string> $parts
+     */
+    function auragold_api_customers_format_address_parts(array $parts): string
+    {
+        $clean = [];
+        foreach ($parts as $part) {
+            $part = trim((string) $part);
+            if ($part !== '') {
+                $clean[] = $part;
+            }
+        }
+        return implode(', ', $clean);
+    }
+}
+
+if (!function_exists('auragold_api_customers_build_address_block')) {
+    /**
+     * @param mysqli              $link
+     * @param array<string,mixed> $row
+     * @param string              $prefix billing|shipping
+     * @return array<string,mixed>
+     */
+    function auragold_api_customers_build_address_block($link, array $row, string $prefix): array
+    {
+        $prefix = $prefix === 'shipping' ? 'shipping' : 'billing';
+        $addr1 = trim((string) ($row[$prefix . '_address1'] ?? ''));
+        $addr2 = trim((string) ($row[$prefix . '_address2'] ?? ''));
+        $country = trim((string) ($row[$prefix . '_country'] ?? ''));
+        $state = trim((string) ($row[$prefix . '_state'] ?? ''));
+        $city = trim((string) ($row[$prefix . '_city'] ?? ''));
+        $zip = trim((string) ($row[$prefix . '_zip_code'] ?? ''));
+
+        if ($prefix === 'billing') {
+            if ($country === '' && !empty($row['country_id'])) {
+                $country = auragold_api_customers_lookup_location_name($link, 'tbl_countries', (int) $row['country_id']);
+            }
+            if ($state === '' && !empty($row['ledger_state_id'])) {
+                $state = auragold_api_customers_lookup_location_name($link, 'tbl_states', (int) $row['ledger_state_id']);
+            }
+            if ($city === '' && !empty($row['ledger_city_id'])) {
+                $city = auragold_api_customers_lookup_location_name($link, 'tbl_cities', (int) $row['ledger_city_id']);
+            }
+        }
+
+        return [
+            'address1'      => $addr1,
+            'address2'      => $addr2,
+            'country'       => $country,
+            'state'         => $state,
+            'city'          => $city,
+            'zip_code'      => $zip,
+            'full_address'  => auragold_api_customers_format_address_parts([$addr1, $addr2, $city, $state, $zip, $country]),
+        ];
+    }
+}
+
+if (!function_exists('auragold_api_customers_resolve_location_names')) {
+    /**
+     * Resolve readable country / state / city names from IDs or stored text.
+     *
+     * @param mysqli              $link
+     * @param array<string,mixed> $row
+     * @return array{country:string,state:string,city:string}
+     */
+    function auragold_api_customers_resolve_location_names($link, array $row): array
+    {
+        $country = trim((string) ($row['billing_country'] ?? ''));
+        $state = trim((string) ($row['billing_state'] ?? ''));
+        $city = trim((string) ($row['billing_city'] ?? ''));
+
+        $countryId = (int) ($row['country_id'] ?? 0);
+        $stateId = (int) ($row['ledger_state_id'] ?? 0);
+        $cityId = (int) ($row['ledger_city_id'] ?? 0);
+
+        if ($country === '' && $countryId > 0) {
+            $country = auragold_api_customers_lookup_location_name($link, 'tbl_countries', $countryId);
+        }
+        if ($state === '' && $stateId > 0) {
+            $state = auragold_api_customers_lookup_location_name($link, 'tbl_states', $stateId);
+        }
+        if ($city === '' && $cityId > 0) {
+            $city = auragold_api_customers_lookup_location_name($link, 'tbl_cities', $cityId);
+        }
+
+        return [
+            'country' => $country,
+            'state'   => $state,
+            'city'    => $city,
+        ];
+    }
+}
+
+if (!function_exists('auragold_api_customers_attach_address_blocks')) {
+    /**
+     * @param mysqli              $link
+     * @param array<string,mixed> $row
+     * @return array<string,mixed>
+     */
+    function auragold_api_customers_attach_address_blocks($link, array $row): array
+    {
+        $location = auragold_api_customers_resolve_location_names($link, $row);
+        $countryName = (string) ($location['country'] ?? '');
+        $stateName = (string) ($location['state'] ?? '');
+        $cityName = (string) ($location['city'] ?? '');
+
+        if ($countryName !== '') {
+            $row['billing_country'] = $countryName;
+            if (trim((string) ($row['shipping_country'] ?? '')) === '') {
+                $row['shipping_country'] = $countryName;
+            }
+        }
+        if ($stateName !== '') {
+            $row['billing_state'] = $stateName;
+            if (trim((string) ($row['shipping_state'] ?? '')) === '') {
+                $row['shipping_state'] = $stateName;
+            }
+        }
+        if ($cityName !== '') {
+            $row['billing_city'] = $cityName;
+            if (trim((string) ($row['shipping_city'] ?? '')) === '') {
+                $row['shipping_city'] = $cityName;
+            }
+        }
+
+        $billing = auragold_api_customers_build_address_block($link, $row, 'billing');
+        $shipping = auragold_api_customers_build_address_block($link, $row, 'shipping');
+
+        $row['country_name'] = $countryName;
+        $row['state_name'] = $stateName;
+        $row['city_name'] = $cityName;
+        $row['country'] = $countryName;
+        $row['state'] = $stateName;
+        $row['city'] = $cityName;
+
+        $row['billing_address'] = $billing;
+        $row['shipping_address'] = $shipping;
+        $row['address'] = (string) ($billing['full_address'] ?? '');
+        $row['billing_address_text'] = (string) ($billing['full_address'] ?? '');
+        $row['shipping_address_text'] = (string) ($shipping['full_address'] ?? '');
+
+        unset($row['country_id'], $row['ledger_state_id'], $row['ledger_city_id']);
+
+        return $row;
+    }
+}
+
 if (!function_exists('auragold_api_customers_format_row')) {
     /**
      * Normalize one tbl_customers row for JSON output.
@@ -259,7 +438,8 @@ if (!function_exists('auragold_api_customers_list_for_shop')) {
         $rows = auragold_api_customers_fetch_all($link, $sql);
         $out  = [];
         foreach ($rows as $row) {
-            $out[] = auragold_api_customers_format_row($row);
+            $formatted = auragold_api_customers_format_row($row);
+            $out[] = auragold_api_customers_attach_address_blocks($link, $formatted);
         }
         return $out;
     }

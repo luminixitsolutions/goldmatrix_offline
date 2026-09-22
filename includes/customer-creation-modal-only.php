@@ -115,10 +115,10 @@ $ccm_css_ver = (int) @filemtime(__DIR__ . '/../assets/css/customer-creation-moda
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <label>National Id <span class="req">*</span></label>
+                                                        <label>National Id</label>
                                                         <div class="input-group ccm-has-icon">
                                                             <i class="feather icon-credit-card ccm-field-icon"></i>
-                                                            <input type="text" class="form-control" id="ledgerNationalId" name="national_id" required>
+                                                            <input type="text" class="form-control" id="ledgerNationalId" name="national_id">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -151,8 +151,8 @@ $ccm_css_ver = (int) @filemtime(__DIR__ . '/../assets/css/customer-creation-moda
                                         </div>
                                         <div class="col-md-3 col-sm-6">
                                             <div class="form-group">
-                                                <label>Special Day <span class="req">*</span></label>
-                                                <input type="date" class="form-control" id="specialDay" name="special_day" required>
+                                                <label>Special Day</label>
+                                                <input type="date" class="form-control" id="specialDay" name="special_day">
                                             </div>
                                         </div>
                                         <div class="col-md-3 col-sm-6">

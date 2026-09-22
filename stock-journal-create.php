@@ -5941,7 +5941,7 @@ include __DIR__ . '/includes/auragold_voucher_runtime_scripts.php';
             purity: p.purity,
             final_wt: sjRoundWeight3(p.final_weight),
             net_wt: sjRoundWeight3(p.net_weight),
-            pure_wt: p.pure_weight,
+            pure_wt: sjRoundWeight3(p.pure_weight),
             rate: (function () {
                 var r = parseFloat(p.rate);
                 var mr = parseFloat(p.metal_rate);

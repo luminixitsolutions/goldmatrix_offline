@@ -178,14 +178,17 @@ if (!function_exists('auragold_get_carat_list')) {
         $has_split = auragold_carat_has_split_purity($conn);
         $extraSplit = $has_split ? ', purity_sales, purity_purchase, purity_common' : '';
         $extraSplitAliased = $has_split ? ', c.purity_sales, c.purity_purchase, c.purity_common' : '';
+        $has_arabic = function_exists('auragold_tbl_has_column') && auragold_tbl_has_column($conn, 'tbl_carat', 'arabic_name');
+        $extraArabic = $has_arabic ? ', arabic_name' : '';
+        $extraArabicAliased = $has_arabic ? ', c.arabic_name' : '';
         if ($has_metal) {
-            $sql = 'SELECT c.id, c.name, c.purity, c.description, c.metal_id, m.display_name AS metal_name' . $extraSplitAliased
+            $sql = 'SELECT c.id, c.name' . $extraArabicAliased . ', c.purity, c.description, c.metal_id, m.display_name AS metal_name' . $extraSplitAliased
                 . ' FROM tbl_carat c'
                 . ' LEFT JOIN tbl_metal m ON m.id = c.metal_id AND m.status = 1'
                 . ' WHERE c.status = 1 ' . $suffix
                 . ' ORDER BY c.metal_id IS NULL, c.metal_id ASC, c.id ASC';
         } else {
-            $sql = 'SELECT id, name, purity, description' . $extraSplit
+            $sql = 'SELECT id, name' . $extraArabic . ', purity, description' . $extraSplit
                 . ' FROM tbl_carat WHERE status = 1 ' . $suffix . ' ORDER BY id ASC';
         }
         $list = getList($sql);
@@ -199,13 +202,13 @@ if (!function_exists('auragold_get_carat_list')) {
             }
             if ($fallbackSuffix !== $suffix) {
                 if ($has_metal) {
-                    $sqlFb = 'SELECT c.id, c.name, c.purity, c.description, c.metal_id, m.display_name AS metal_name' . $extraSplitAliased
+                    $sqlFb = 'SELECT c.id, c.name' . $extraArabicAliased . ', c.purity, c.description, c.metal_id, m.display_name AS metal_name' . $extraSplitAliased
                         . ' FROM tbl_carat c'
                         . ' LEFT JOIN tbl_metal m ON m.id = c.metal_id AND m.status = 1'
                         . ' WHERE c.status = 1 ' . $fallbackSuffix
                         . ' ORDER BY c.metal_id IS NULL, c.metal_id ASC, c.id ASC';
                 } else {
-                    $sqlFb = 'SELECT id, name, purity, description' . $extraSplit
+                    $sqlFb = 'SELECT id, name' . $extraArabic . ', purity, description' . $extraSplit
                         . ' FROM tbl_carat WHERE status = 1 ' . $fallbackSuffix . ' ORDER BY id ASC';
                 }
                 $listFb = getList($sqlFb);
@@ -215,13 +218,13 @@ if (!function_exists('auragold_get_carat_list')) {
             }
             if ($list === []) {
                 if ($has_metal) {
-                    $sqlAll = 'SELECT c.id, c.name, c.purity, c.description, c.metal_id, m.display_name AS metal_name' . $extraSplitAliased
+                    $sqlAll = 'SELECT c.id, c.name' . $extraArabicAliased . ', c.purity, c.description, c.metal_id, m.display_name AS metal_name' . $extraSplitAliased
                         . ' FROM tbl_carat c'
                         . ' LEFT JOIN tbl_metal m ON m.id = c.metal_id AND m.status = 1'
                         . ' WHERE c.status = 1'
                         . ' ORDER BY c.metal_id IS NULL, c.metal_id ASC, c.id ASC';
                 } else {
-                    $sqlAll = 'SELECT id, name, purity, description' . $extraSplit
+                    $sqlAll = 'SELECT id, name' . $extraArabic . ', purity, description' . $extraSplit
                         . ' FROM tbl_carat WHERE status = 1 ORDER BY id ASC';
                 }
                 $listAll = getList($sqlAll);

@@ -204,10 +204,10 @@ if (!function_exists('auragold_dashboard_normalize_fy_date')) {
 
 if (!function_exists('auragold_dashboard_sale_status_where')) {
     /**
-     * Exclude cancelled/void sale invoices from aggregates.
+     * Exclude cancelled/void/deleted sale invoices from aggregates.
      */
     function auragold_dashboard_sale_status_condition($siAlias = 'si') {
-        return "({$siAlias}.status IS NULL OR LOWER(TRIM({$siAlias}.status)) NOT IN ('cancelled','void','canceled'))";
+        return "({$siAlias}.status IS NULL OR TRIM({$siAlias}.status) = '' OR LOWER(TRIM({$siAlias}.status)) NOT IN ('cancelled','void','canceled','deleted'))";
     }
 
     function auragold_dashboard_sale_status_where($siAlias = 'si') {
@@ -870,7 +870,7 @@ if (!function_exists('auragold_dashboard_sale_status_where')) {
                         sj.gross_weight, sj.metal_type, sj.voucher_type,
                         COALESCE(NULLIF(TRIM(sj.voucher_type), ''), 'Stock') AS type_label
                  FROM tbl_stock_journal sj
-                 WHERE sj.status IS NULL OR LOWER(TRIM(sj.status)) NOT IN ('cancelled','void','canceled')
+                 WHERE sj.status IS NULL OR TRIM(sj.status) = '' OR LOWER(TRIM(sj.status)) NOT IN ('cancelled','void','canceled','deleted')
                  $sjX $sjDateSql
                  ORDER BY sj.sj_date DESC, sj.id DESC
                  LIMIT 10"
@@ -894,11 +894,11 @@ if (!function_exists('auragold_dashboard_sale_status_where')) {
     }
 
     function auragold_dashboard_purchase_status_where($alias = 'pi') {
-        return ' AND (' . $alias . '.status IS NULL OR LOWER(TRIM(' . $alias . '.status)) NOT IN (\'cancelled\',\'void\',\'canceled\')) ';
+        return ' AND (' . $alias . '.status IS NULL OR TRIM(' . $alias . '.status) = \'\' OR LOWER(TRIM(' . $alias . '.status)) NOT IN (\'cancelled\',\'void\',\'canceled\',\'deleted\')) ';
     }
 
     function auragold_dashboard_order_status_where($alias = 'so') {
-        return ' AND (' . $alias . '.status IS NULL OR LOWER(TRIM(' . $alias . '.status)) NOT IN (\'cancelled\',\'void\',\'canceled\')) ';
+        return ' AND (' . $alias . '.status IS NULL OR TRIM(' . $alias . '.status) = \'\' OR LOWER(TRIM(' . $alias . '.status)) NOT IN (\'cancelled\',\'void\',\'canceled\',\'deleted\')) ';
     }
 
     /**
@@ -1519,7 +1519,7 @@ if (!function_exists('auragold_dashboard_sale_status_where')) {
                 "SELECT so.id, so.order_no, so.customer_name, so.order_date, so.status,
                         COALESCE(so.grand_total, 0) AS grand_total
                  FROM tbl_sale_orders so
-                 WHERE LOWER(TRIM(IFNULL(so.status,''))) NOT IN ('completed','done','closed','delivered','fulfilled','cancelled','void')
+                 WHERE LOWER(TRIM(IFNULL(so.status,''))) NOT IN ('completed','done','closed','delivered','fulfilled','cancelled','void','deleted')
                  AND TRIM(IFNULL(so.status,'')) <> '' $ot $orderExtra $soX
                  ORDER BY so.order_date DESC, so.id DESC
                  LIMIT 6"
@@ -1647,7 +1647,7 @@ if (!function_exists('auragold_dashboard_sale_status_where')) {
                 "SELECT so.id, so.order_no, so.customer_name, so.order_date, so.status,
                         COALESCE(so.grand_total, 0) AS grand_total
                  FROM tbl_sale_orders so
-                 WHERE LOWER(TRIM(IFNULL(so.status,''))) NOT IN ('completed','done','closed','delivered','fulfilled','cancelled','void')
+                 WHERE LOWER(TRIM(IFNULL(so.status,''))) NOT IN ('completed','done','closed','delivered','fulfilled','cancelled','void','deleted')
                  AND TRIM(IFNULL(so.status,'')) <> '' $ot $orderExtra $soX
                  ORDER BY so.order_date DESC, so.id DESC
                  LIMIT 6"
@@ -1659,7 +1659,7 @@ if (!function_exists('auragold_dashboard_sale_status_where')) {
                 "SELECT co.id, co.consignment_no, co.customer_name, co.consignment_date, co.grand_total, co.status
                  FROM tbl_consignment_out co $consJoin
                  WHERE LOWER(TRIM(IFNULL(co.status,''))) IN ('active','open','pending')
-                 OR (TRIM(IFNULL(co.status,'')) <> '' AND LOWER(TRIM(co.status)) NOT IN ('cancelled','void','canceled','returned','closed','completed'))
+                 OR (TRIM(IFNULL(co.status,'')) <> '' AND LOWER(TRIM(co.status)) NOT IN ('cancelled','void','canceled','deleted','returned','closed','completed'))
                  $consExtra
                  ORDER BY co.consignment_date DESC, co.id DESC
                  LIMIT 6"
@@ -1718,7 +1718,7 @@ if (!function_exists('auragold_dashboard_sale_status_where')) {
         $jwoX = function_exists('auragold_dashboard_jwo_extra_sql') ? auragold_dashboard_jwo_extra_sql('j') : '';
         $soX  = function_exists('auragold_dashboard_so_extra_sql') ? auragold_dashboard_so_extra_sql('so') : '';
         $ot   = auragold_dashboard_order_status_where('so');
-        $stDone = " LOWER(TRIM(IFNULL(j.status,''))) IN ('cancelled','void','canceled','completed','done','closed') ";
+        $stDone = " LOWER(TRIM(IFNULL(j.status,''))) IN ('cancelled','void','canceled','deleted','completed','done','closed') ";
         $stOpen = " NOT ($stDone) ";
         $jDateSql = " AND j.order_date >= '" . $rangeStart . "' AND j.order_date <= '" . $rangeEnd . "' ";
         $soDateSql = " AND so.order_date >= '" . $rangeStart . "' AND so.order_date <= '" . $rangeEnd . "' ";
@@ -1741,7 +1741,7 @@ if (!function_exists('auragold_dashboard_sale_status_where')) {
         if (auragold_table_exists('tbl_sale_orders')) {
             $rPending = getRecord(
                 "SELECT COUNT(*) AS c FROM tbl_sale_orders so
-                 WHERE LOWER(TRIM(IFNULL(so.status,''))) NOT IN ('completed','done','closed','delivered','fulfilled','cancelled','void')
+                 WHERE LOWER(TRIM(IFNULL(so.status,''))) NOT IN ('completed','done','closed','delivered','fulfilled','cancelled','void','deleted')
                  AND TRIM(IFNULL(so.status,'')) <> '' $ot $soX"
             );
             $out['pending_sale_orders'] = $rPending ? (int) ($rPending['c'] ?? 0) : 0;
@@ -1803,7 +1803,7 @@ if (!function_exists('auragold_dashboard_sale_status_where')) {
         }
 
         $out['has_jobwork'] = true;
-        $stDone = " LOWER(TRIM(IFNULL(j.status,''))) IN ('cancelled','void','canceled','completed','done','closed') ";
+        $stDone = " LOWER(TRIM(IFNULL(j.status,''))) IN ('cancelled','void','canceled','deleted','completed','done','closed') ";
         $stOpen = " NOT ($stDone) ";
 
         $rTot = getRecord("SELECT COUNT(*) AS c FROM $jw j WHERE 1=1 $jwoX $jDateSql");

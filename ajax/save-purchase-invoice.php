@@ -598,7 +598,7 @@ try {
         $sjsj = mysqli_query($conn, "SHOW COLUMNS FROM tbl_purchase_invoices LIKE 'show_in_stock_journal'");
         $has_show_in_stock_journal_col = ($sjsj && mysqli_num_rows($sjsj) > 0);
         if (!$has_show_in_stock_journal_col) {
-            @mysqli_query($conn, "ALTER TABLE tbl_purchase_invoices ADD COLUMN show_in_stock_journal TINYINT(1) NOT NULL DEFAULT 0 AFTER comment");
+            @mysqli_query($conn, "ALTER TABLE tbl_purchase_invoices ADD COLUMN show_in_stock_journal TINYINT(1) NOT NULL DEFAULT 1 AFTER comment");
             $has_show_in_stock_journal_col = true;
         }
         if ($sjsj) mysqli_free_result($sjsj);
@@ -617,7 +617,7 @@ try {
     $advance_payment = (float)($_POST['advance_payment'] ?? 0);
     $metal_amt = (float)($_POST['metal_amt'] ?? 0);
     $round_off = (float)($_POST['round_off'] ?? 0);
-    $show_in_stock_journal = isset($_POST['show_in_stock_journal']) ? (int)$_POST['show_in_stock_journal'] : 0;
+    $show_in_stock_journal = isset($_POST['show_in_stock_journal']) ? (int)$_POST['show_in_stock_journal'] : 1;
     $paid_amt = (float)($_POST['paid_amt'] ?? 0);
     $balance_amt = (float)($_POST['balance_amt'] ?? 0);
     $use_previous_balance = isset($_POST['use_previous_balance']) ? (int)$_POST['use_previous_balance'] : 0;

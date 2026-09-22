@@ -241,8 +241,8 @@ if (!function_exists('auragold_ledger_opening_metal_icon')) {
                                         <input type="text" class="form-control" id="ledgerIdentityNo" name="identity_no">
                                     </div>
                                     <div class="gm-field gm-col-4">
-                                        <label for="ledgerNationalId">National Id <span class="req">*</span></label>
-                                        <input type="text" class="form-control" id="ledgerNationalId" name="national_id" required>
+                                        <label for="ledgerNationalId">National Id</label>
+                                        <input type="text" class="form-control" id="ledgerNationalId" name="national_id">
                                     </div>
                                 </div>
                             </div>
@@ -271,8 +271,8 @@ if (!function_exists('auragold_ledger_opening_metal_icon')) {
                                 <input type="date" class="form-control" id="identityExpiryDate" name="identity_expiry_date">
                             </div>
                             <div class="gm-field gm-col-4">
-                                <label for="specialDay">Special Day <span class="req">*</span></label>
-                                <input type="date" class="form-control" id="specialDay" name="special_day" required>
+                                <label for="specialDay">Special Day</label>
+                                <input type="date" class="form-control" id="specialDay" name="special_day">
                             </div>
                             <div class="gm-field gm-col-4">
                                 <label for="customerType">Customer Type <span class="req">*</span></label>
@@ -849,18 +849,6 @@ if (!function_exists('auragold_ledger_opening_metal_icon')) {
         if (isNewCustomer && customerTypeEl && !String(customerTypeEl.value || '').trim()) {
             alert('Customer type is required');
             customerTypeEl.focus();
-            return;
-        }
-        var nationalIdEl = document.getElementById('ledgerNationalId');
-        if (!nationalIdEl || !String(nationalIdEl.value || '').trim()) {
-            alert('National Id is required');
-            if (nationalIdEl) nationalIdEl.focus();
-            return;
-        }
-        var specialDayEl = document.getElementById('specialDay');
-        if (!specialDayEl || !String(specialDayEl.value || '').trim()) {
-            alert('Special Day is required');
-            if (specialDayEl) specialDayEl.focus();
             return;
         }
         var formData = new FormData(form);

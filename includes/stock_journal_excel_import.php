@@ -236,10 +236,10 @@ if (!function_exists('auragold_sj_excel_sj_cell_f')) {
 }
 
 if (!function_exists('auragold_sj_excel_round_weight')) {
-    /** Round weight values to 3 decimals (matches stock journal UI / DB precision). */
+    /** Keep up to 6 decimals for opening stock / gross wt (matches tbl_stock_journal DECIMAL(18,6)). */
     function auragold_sj_excel_round_weight(float $w): float
     {
-        return round($w, 3);
+        return round($w, 6);
     }
 }
 

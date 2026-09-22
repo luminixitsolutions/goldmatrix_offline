@@ -52,6 +52,7 @@ $auragold_utilities_pages = [
     'product-opening.php',
     'account-ledger.php',
     'customer-details-import.php',
+    'delete-customer-entries.php',
     'metal-to-amount.php',
     'amount-to-metal.php',
     'bank-reconciliation.php',
@@ -639,6 +640,7 @@ if ($auragold_dropdown_branch_title === '') {
                                         <?php if (auragold_nav_show_php_href('product-opening.php')): ?><li><a class="dropdown-item" href="product-opening.php"><i class="feather icon-package"></i> <?php echo function_exists('auragold_t') ? htmlspecialchars(auragold_t('nav.util.product_opening'), ENT_QUOTES, 'UTF-8') : 'Product Opening'; ?></a></li><?php endif; ?>
                                         <?php if (auragold_nav_show_php_href('account-ledger.php')): ?><li><a class="dropdown-item" href="account-ledger.php"><i class="feather icon-book"></i> <?php echo function_exists('auragold_t') ? htmlspecialchars(auragold_t('nav.util.account_ledger'), ENT_QUOTES, 'UTF-8') : 'Account Ledger'; ?></a></li><?php endif; ?>
                                         <?php if (auragold_nav_show_php_href('customer-details-import.php')): ?><li><a class="dropdown-item" href="customer-details-import.php"><i class="feather icon-upload"></i> <?php echo function_exists('auragold_t') ? htmlspecialchars(auragold_t('nav.util.customer_details_import'), ENT_QUOTES, 'UTF-8') : 'Customer Details Import'; ?></a></li><?php endif; ?>
+                                        <?php if (auragold_nav_show_php_href('delete-customer-entries.php')): ?><li><a class="dropdown-item" href="delete-customer-entries.php"><i class="feather icon-trash-2"></i> Delete Customer Entries</a></li><?php endif; ?>
                                         <?php if (auragold_nav_show_php_href('metal-to-amount.php')): ?><li><a class="dropdown-item" href="metal-to-amount.php"><i class="feather icon-layers"></i> <?php echo function_exists('auragold_t') ? htmlspecialchars(auragold_t('nav.util.metal_to_amount'), ENT_QUOTES, 'UTF-8') : 'Metal to Amount'; ?></a></li><?php endif; ?>
                                         <?php if (auragold_nav_show_php_href('amount-to-metal.php')): ?><li><a class="dropdown-item" href="amount-to-metal.php"><i class="feather icon-repeat"></i> <?php echo function_exists('auragold_t') ? htmlspecialchars(auragold_t('nav.util.amount_to_metal'), ENT_QUOTES, 'UTF-8') : 'Amount to Metal'; ?></a></li><?php endif; ?>
                                         <?php if (auragold_nav_show_php_href('bank-reconciliation.php')): ?><li data-mm-page="utilities.bank_reconciliation"><a class="dropdown-item" href="bank-reconciliation.php"><i class="feather icon-refresh-cw"></i> <?php echo function_exists('auragold_t') ? htmlspecialchars(auragold_t('nav.util.bank_recon'), ENT_QUOTES, 'UTF-8') : 'Bank Reconciliation'; ?></a></li><?php endif; ?>

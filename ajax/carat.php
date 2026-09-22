@@ -3,6 +3,7 @@ session_start();
 require_once __DIR__ . '/../config.php';
 require_once __DIR__ . '/../includes/auragold_carat_dashboard_image_schema.php';
 require_once __DIR__ . '/../includes/auragold_carat_purity_for_schema.php';
+require_once __DIR__ . '/../includes/auragold_carat_arabic_name_schema.php';
 
 header('Content-Type: application/json');
 
@@ -12,10 +13,12 @@ $table   = 'tbl_carat';
 
 auragold_ensure_tbl_carat_dashboard_images($conn);
 auragold_ensure_tbl_carat_purity_split($conn);
+auragold_ensure_tbl_carat_arabic_name($conn);
 
 $has_metal_col = function_exists('auragold_tbl_has_column') && auragold_tbl_has_column($conn, 'tbl_carat', 'metal_id');
 $has_img_cols = function_exists('auragold_tbl_has_column') && auragold_tbl_has_column($conn, 'tbl_carat', 'dashboard_image_path');
 $has_split_purity = function_exists('auragold_carat_has_split_purity') && auragold_carat_has_split_purity($conn);
+$has_arabic_name = function_exists('auragold_carat_has_arabic_name') && auragold_carat_has_arabic_name($conn);
 
 $carat_parse_purity_post = static function () use ($has_split_purity): array {
     if ($has_split_purity) {
@@ -166,7 +169,7 @@ if ($action === 'get') {
         echo json_encode(['status' => 'error', 'message' => 'Access denied']);
         exit;
     }
-    $cols = 'id,name,metal_id,purity,description';
+    $cols = 'id,name' . ($has_arabic_name ? ',arabic_name' : '') . ',metal_id,purity,description';
     if ($has_split_purity) {
         $cols .= ',purity_sales,purity_purchase,purity_common';
     }
@@ -187,6 +190,9 @@ if ($action === 'get') {
 if ($action === 'add') {
 
     $name   = esc($_POST['name'] ?? '');
+    $arabic_name = $has_arabic_name ? esc($_POST['arabic_name'] ?? '') : '';
+    $ins_arabic_col = $has_arabic_name ? ', arabic_name' : '';
+    $ins_arabic_val = $has_arabic_name ? ",'$arabic_name'" : '';
     $desc   = esc($_POST['description'] ?? '');
     $purityParsed = $carat_parse_purity_post();
     $purityErr = $carat_validate_split_purity($purityParsed);
@@ -224,25 +230,25 @@ if ($action === 'add') {
         }
         if ($has_img_cols) {
             mysqli_query($conn,"
-                INSERT INTO tbl_carat (name, metal_id, purity{$split_cols}, description, dashboard_image_url, branch_id, created_by)
-                VALUES ('$name','$metal_id','$purity'{$split_vals},'$desc','" . ($clear_img ? '' : $ext_url_sql) . "','$bid','$user_id')
+                INSERT INTO tbl_carat (name{$ins_arabic_col}, metal_id, purity{$split_cols}, description, dashboard_image_url, branch_id, created_by)
+                VALUES ('$name'{$ins_arabic_val},'$metal_id','$purity'{$split_vals},'$desc','" . ($clear_img ? '' : $ext_url_sql) . "','$bid','$user_id')
             ");
         } else {
             mysqli_query($conn,"
-                INSERT INTO tbl_carat (name, metal_id, purity{$split_cols}, description, branch_id, created_by)
-                VALUES ('$name','$metal_id','$purity'{$split_vals},'$desc','$bid','$user_id')
+                INSERT INTO tbl_carat (name{$ins_arabic_col}, metal_id, purity{$split_cols}, description, branch_id, created_by)
+                VALUES ('$name'{$ins_arabic_val},'$metal_id','$purity'{$split_vals},'$desc','$bid','$user_id')
             ");
         }
     } else {
         if ($has_img_cols) {
             mysqli_query($conn,"
-                INSERT INTO tbl_carat (name, purity{$split_cols}, description, dashboard_image_url, branch_id, created_by)
-                VALUES ('$name','$purity'{$split_vals},'$desc','" . ($clear_img ? '' : $ext_url_sql) . "','$bid','$user_id')
+                INSERT INTO tbl_carat (name{$ins_arabic_col}, purity{$split_cols}, description, dashboard_image_url, branch_id, created_by)
+                VALUES ('$name'{$ins_arabic_val},'$purity'{$split_vals},'$desc','" . ($clear_img ? '' : $ext_url_sql) . "','$bid','$user_id')
             ");
         } else {
             mysqli_query($conn,"
-                INSERT INTO tbl_carat (name, purity{$split_cols}, description, branch_id, created_by)
-                VALUES ('$name','$purity'{$split_vals},'$desc','$bid','$user_id')
+                INSERT INTO tbl_carat (name{$ins_arabic_col}, purity{$split_cols}, description, branch_id, created_by)
+                VALUES ('$name'{$ins_arabic_val},'$purity'{$split_vals},'$desc','$bid','$user_id')
             ");
         }
     }
@@ -271,6 +277,9 @@ if ($action === 'add') {
         "purity"=>$purity,
         "description"=>$desc,
     ];
+    if ($has_arabic_name) {
+        $out['arabic_name'] = $arabic_name;
+    }
     if ($has_metal_col) {
         $out['metal_id'] = $metal_id;
         $out['metal_name'] = $resolve_metal_name($conn, $metal_id);
@@ -283,7 +292,7 @@ if ($action === 'add') {
         $out['dashboard_image_url'] = $clear_img ? '' : $ext_url_in;
         $out['has_dashboard_thumb'] = ($saved_path_display !== '' || ($clear_img ? false : $ext_url_in !== ''));
     }
-    echo json_encode($out);
+    echo json_encode($out, JSON_UNESCAPED_UNICODE | JSON_INVALID_UTF8_SUBSTITUTE);
     exit;
 }
 
@@ -292,6 +301,8 @@ if ($action === 'update') {
 
     $id     = intval($_POST['id']);
     $name   = esc($_POST['name'] ?? '');
+    $arabic_name = $has_arabic_name ? esc($_POST['arabic_name'] ?? '') : '';
+    $upd_arabic_set = $has_arabic_name ? "arabic_name='$arabic_name'," : '';
     $desc   = esc($_POST['description'] ?? '');
     $purityParsed = $carat_parse_purity_post();
     $purityErr = $carat_validate_split_purity($purityParsed);
@@ -344,6 +355,7 @@ if ($action === 'update') {
             mysqli_query($conn,"
                 UPDATE tbl_carat
                 SET name='$name',
+                    {$upd_arabic_set}
                     metal_id='$metal_id',
                     purity='$purity',
                     {$split_set}
@@ -371,6 +383,7 @@ if ($action === 'update') {
             mysqli_query($conn,"
                 UPDATE tbl_carat
                 SET name='$name',
+                    {$upd_arabic_set}
                     metal_id='$metal_id',
                     purity='$purity',
                     {$split_set}
@@ -384,6 +397,7 @@ if ($action === 'update') {
             mysqli_query($conn,"
                 UPDATE tbl_carat
                 SET name='$name',
+                    {$upd_arabic_set}
                     metal_id='$metal_id',
                     purity='$purity',
                     {$split_set}
@@ -400,6 +414,7 @@ if ($action === 'update') {
             mysqli_query($conn,"
                 UPDATE tbl_carat
                 SET name='$name',
+                    {$upd_arabic_set}
                     purity='$purity',
                     {$split_set}
                     description='$desc',
@@ -426,6 +441,7 @@ if ($action === 'update') {
             mysqli_query($conn,"
                 UPDATE tbl_carat
                 SET name='$name',
+                    {$upd_arabic_set}
                     purity='$purity',
                     {$split_set}
                     description='$desc',
@@ -438,6 +454,7 @@ if ($action === 'update') {
             mysqli_query($conn,"
                 UPDATE tbl_carat
                 SET name='$name',
+                    {$upd_arabic_set}
                     purity='$purity',
                     {$split_set}
                     description='$desc',
@@ -454,6 +471,9 @@ if ($action === 'update') {
         "purity"=>$purity,
         "description"=>$desc
     ];
+    if ($has_arabic_name) {
+        $out['arabic_name'] = $arabic_name;
+    }
     if ($has_metal_col) {
         $out['metal_id'] = $metal_id;
         $out['metal_name'] = $resolve_metal_name($conn, $metal_id);
@@ -469,7 +489,7 @@ if ($action === 'update') {
         $out['dashboard_image_url'] = $du;
         $out['has_dashboard_thumb'] = ($dp !== '' || $du !== '');
     }
-    echo json_encode($out);
+    echo json_encode($out, JSON_UNESCAPED_UNICODE | JSON_INVALID_UTF8_SUBSTITUTE);
     exit;
 }
 

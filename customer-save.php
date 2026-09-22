@@ -224,12 +224,6 @@ try {
     if ($name == '') {
         throw new Exception("Name is required");
     }
-    if (trim($national_id) === '') {
-        throw new Exception("National Id is required");
-    }
-    if (empty($special_day) || trim((string) $special_day) === '') {
-        throw new Exception("Special Day is required");
-    }
     if (!$is_update && $customer_type_id <= 0) {
         throw new Exception("Customer type is required");
     }

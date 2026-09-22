@@ -2,6 +2,10 @@
 /**
  * Template 10 – Monaco Jewellery Sales Invoice (A4 landscape, bilingual EN/AR, gold theme).
  */
+require_once __DIR__ . '/../includes/auragold_carat_arabic_name_schema.php';
+if (isset($conn) && $conn) {
+    auragold_ensure_tbl_carat_arabic_name($conn);
+}
 if (!isset($items) || !is_array($items)) {
     $items = [];
 }
@@ -45,6 +49,62 @@ $fmt_disc_pct = static function ($n) {
         return '';
     }
     return rtrim(rtrim(number_format($n, 2, '.', ''), '0'), '.');
+};
+/** Gold karat label (18K, 21K, …) — not diamond carat weight. */
+$fmt_gold_karat = static function ($item) {
+    if (!is_array($item)) {
+        return '';
+    }
+    $conn_ref = (isset($GLOBALS['conn']) && $GLOBALS['conn']) ? $GLOBALS['conn'] : null;
+    if (!$conn_ref && isset($conn) && $conn) {
+        $conn_ref = $conn;
+    }
+    $carat_raw = trim((string) ($item['carat'] ?? ''));
+    $candidates = [
+        $item['product_carat'] ?? '',
+        $item['karat'] ?? '',
+    ];
+    if ($carat_raw !== '' && !is_numeric($carat_raw)) {
+        $candidates[] = $carat_raw;
+    } elseif ($carat_raw !== '' && is_numeric($carat_raw)) {
+        $cn = (float) $carat_raw;
+        if ($cn >= 8 && $cn <= 24 && abs($cn - round($cn)) < 0.001) {
+            $candidates[] = $carat_raw;
+        }
+    }
+    $candidates[] = $item['purity'] ?? '';
+    $candidates[] = $item['opening_purity'] ?? '';
+    $candidates[] = $item['requested_purity'] ?? '';
+    foreach ($candidates as $raw) {
+        $raw = trim((string) $raw);
+        if ($raw === '' || $raw === '0' || $raw === '0.0' || $raw === '0.00') {
+            continue;
+        }
+        $label = '';
+        if (function_exists('auragold_barcode_format_carat_label')) {
+            $label = auragold_barcode_format_carat_label($raw, $conn_ref);
+        }
+        if ($label === '' && !is_numeric($raw)) {
+            $label = $raw;
+        }
+        if ($label === '' && is_numeric($raw)) {
+            $n = (float) $raw;
+            $whole = (abs($n - round($n)) < 0.001) ? (int) round($n) : null;
+            if ($whole !== null && $whole >= 8 && $whole <= 24) {
+                $label = $whole . 'K';
+            }
+        }
+        if ($label !== '') {
+            if (function_exists('auragold_carat_karat_label_with_arabic')) {
+                return auragold_carat_karat_label_with_arabic($raw, $conn_ref, $label);
+            }
+            if (preg_match('/^(\d+)\s*K?$/i', trim($label), $m)) {
+                return $m[1] . 'K';
+            }
+            return $label;
+        }
+    }
+    return '';
 };
 
 $amount_curr = trim((string) ($print_settings['t10_amount_currency_label'] ?? 'QAR'));
@@ -135,8 +195,12 @@ foreach ($items as $idx => $item) {
         continue;
     }
     $pname = trim((string) ($item['product_name'] ?? ('Product #' . ($item['product_id'] ?? ''))));
+    $pname_ar = trim((string) ($item['product_alternate_name'] ?? $item['alternate_name'] ?? ''));
     $design_no = trim((string) ($item['design_no'] ?? $item['barcode'] ?? ''));
     $desc = $design_no !== '' ? ($design_no . ' / ' . $pname) : $pname;
+    if ($pname_ar !== '') {
+        $desc .= ' / ' . $pname_ar;
+    }
 
     $gold_wt = (float) ($item['net_weight'] ?? $item['final_weight'] ?? $item['gross_weight'] ?? 0);
     $diamond_wt = (float) ($item['diamond_carat'] ?? $item['stone_weight'] ?? 0);
@@ -174,6 +238,7 @@ foreach ($items as $idx => $item) {
     $item_lines[] = [
         'sn' => $idx + 1,
         'desc' => $desc,
+        'karat' => $fmt_gold_karat($item),
         'gold_wt' => $gold_wt,
         'diamond_wt' => $diamond_wt,
         'qty' => $qty,
@@ -328,14 +393,15 @@ $terms_ar_lines = array_values(array_filter(array_map('trim', preg_split('/\r\n|
 .invoice.inv-monaco .items th:first-child, .invoice.inv-monaco .items td:first-child { border-left: 1px solid var(--gold-soft); }
 .invoice.inv-monaco .items tr:first-child th:first-child { border-radius: 2mm 0 0 0; }
 .invoice.inv-monaco .items tr:first-child th:last-child { border-radius: 0 2mm 0 0; }
-.invoice.inv-monaco .items col.sn { width: 7.36%; }
-.invoice.inv-monaco .items col.desc { width: 28.98%; }
-.invoice.inv-monaco .items col.gw { width: 10.7%; }
-.invoice.inv-monaco .items col.dw { width: 11.93%; }
-.invoice.inv-monaco .items col.qty { width: 6.47%; }
-.invoice.inv-monaco .items col.val { width: 11.71%; }
-.invoice.inv-monaco .items col.disc { width: 9.48%; }
-.invoice.inv-monaco .items col.final { width: 13.38%; }
+.invoice.inv-monaco .items col.sn { width: 6.8%; }
+.invoice.inv-monaco .items col.desc { width: 20%; }
+.invoice.inv-monaco .items col.karat { width: 9%; }
+.invoice.inv-monaco .items col.gw { width: 10.2%; }
+.invoice.inv-monaco .items col.dw { width: 11.4%; }
+.invoice.inv-monaco .items col.qty { width: 6.2%; }
+.invoice.inv-monaco .items col.val { width: 11.2%; }
+.invoice.inv-monaco .items col.disc { width: 9%; }
+.invoice.inv-monaco .items col.final { width: 13.2%; }
 .invoice.inv-monaco .items .desc { text-align: left; }
 .invoice.inv-monaco .items tfoot.items-total td { font-weight: 700; font-size: 10px; vertical-align: middle; border-bottom: 1px solid var(--gold-soft); }
 .invoice.inv-monaco .items tfoot.items-total .total-spacer { background: #fff; }
@@ -554,12 +620,13 @@ $terms_ar_lines = array_values(array_filter(array_map('trim', preg_split('/\r\n|
     ?>
     <table class="items">
         <colgroup>
-            <col class="sn"><col class="desc"><col class="gw"><col class="dw"><col class="qty"><col class="val"><col class="disc"><col class="final">
+            <col class="sn"><col class="desc"><col class="karat"><col class="gw"><col class="dw"><col class="qty"><col class="val"><col class="disc"><col class="final">
         </colgroup>
         <thead>
             <tr>
                 <th class="sn">S/No. / <span class="ar">م</span></th>
                 <th class="desc">Code / Description / <span class="ar">الرمز والوصف</span></th>
+                <th class="karat">Karat<br><span class="ar">العيار</span></th>
                 <th class="gw">Gold Wt (g)<br><span class="ar">وزن الذهب (جم)</span></th>
                 <th class="dw">Diamond Wt (ct)<br><span class="ar">وزن الألماس (قيراط)</span></th>
                 <th class="qty">Qty<br><span class="ar">الكمية</span></th>
@@ -578,7 +645,7 @@ $terms_ar_lines = array_values(array_filter(array_map('trim', preg_split('/\r\n|
             if (empty($item_lines)):
                 for ($pi = 0; $pi < $min_item_rows; $pi++):
             ?>
-            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
             <?php
                 endfor;
             else:
@@ -587,6 +654,14 @@ $terms_ar_lines = array_values(array_filter(array_map('trim', preg_split('/\r\n|
             <tr>
                 <td><?php echo $h($ln['sn']); ?></td>
                 <td class="desc"><?php echo $h($ln['desc']); ?></td>
+                <td><?php
+                    $karat_parts = preg_split('#\s*/\s*#u', (string) ($ln['karat'] ?? ''), 2);
+                    if (is_array($karat_parts) && count($karat_parts) === 2 && trim($karat_parts[1]) !== '') {
+                        echo $h(trim($karat_parts[0])) . ' / <span class="ar">' . $h(trim($karat_parts[1])) . '</span>';
+                    } else {
+                        echo $h($ln['karat']);
+                    }
+                ?></td>
                 <td><?php echo $h($fmt_wt($ln['gold_wt'])); ?></td>
                 <td><?php echo $h($fmt_wt($ln['diamond_wt'])); ?></td>
                 <td><?php echo $h($fmt_qty($ln['qty'])); ?></td>
@@ -598,7 +673,7 @@ $terms_ar_lines = array_values(array_filter(array_map('trim', preg_split('/\r\n|
                 endforeach;
                 for ($pi = 0; $pi < $pad_rows; $pi++):
             ?>
-            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
             <?php
                 endfor;
             endif;
@@ -606,7 +681,7 @@ $terms_ar_lines = array_values(array_filter(array_map('trim', preg_split('/\r\n|
         </tbody>
         <tfoot class="items-total">
             <tr>
-                <td colspan="6" class="total-spacer"></td>
+                <td colspan="7" class="total-spacer"></td>
                 <td class="disc total-label">Total / <span class="ar">الإجمالي</span></td>
                 <td class="final total-amt<?php echo $grand_amt_class; ?>"><?php echo $h($amount_curr); ?> <?php echo $h($grand_fmt_t10); ?></td>
             </tr>

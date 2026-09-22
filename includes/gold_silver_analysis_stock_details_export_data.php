@@ -5,6 +5,9 @@
  * Depends on $_GET (branch, metal, adv_*, search) and includes/gold_silver_analysis_roll_up_include.php already defining $stock_roll_up_sql.
  */
 
+require_once __DIR__ . '/auragold_analysis_show_in_stock_sql.php';
+require_once __DIR__ . '/gold_silver_analysis_helpers.php';
+
 /** @return array<string, mixed> */
 function auragold_gsa_stock_details_row_col(array $row, string $name): ?float
 {

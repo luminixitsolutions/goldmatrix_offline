@@ -4,6 +4,9 @@ require_once '../config.php';
 if (is_file(__DIR__ . '/../includes/auragold_sale_order_jobwork_lock.php')) {
     require_once __DIR__ . '/../includes/auragold_sale_order_jobwork_lock.php';
 }
+if (is_file(__DIR__ . '/../includes/auragold_stock_journal_delete.php')) {
+    require_once __DIR__ . '/../includes/auragold_stock_journal_delete.php';
+}
 
 header('Content-Type: application/json');
 
@@ -732,6 +735,101 @@ try {
         ";
         if (!mysqli_query($conn, $del_by_no)) {
             throw new Exception('Ledger delete by invoice no failed: ' . mysqli_error($conn));
+        }
+    }
+
+    // Purchase invoice: remove stock journal, inward stock, items, payments, linked scrap.
+    // Soft-delete of the header alone left PI lines visible on stock-journal.php.
+    if ($type === 'purchase_invoice') {
+        $invoice_id_pi = (int) $id;
+        $pi_items_del = getList("SELECT id, product_id, product_characteristic_id, created_at FROM tbl_purchase_invoice_items WHERE invoice_id = $invoice_id_pi");
+        if (!is_array($pi_items_del)) {
+            $pi_items_del = [];
+        }
+        foreach ($pi_items_del as $pi_it) {
+            $pii_id = (int) ($pi_it['id'] ?? 0);
+            if ($pii_id <= 0) {
+                continue;
+            }
+            if (function_exists('auragold_delete_stock_journal_entries')) {
+                auragold_delete_stock_journal_entries($conn, [
+                    'voucher' => 'purchase_invoice',
+                    'item_id' => $pii_id,
+                ]);
+            }
+            $old_product_id = (int) ($pi_it['product_id'] ?? 0);
+            $old_char_id = isset($pi_it['product_characteristic_id']) && $pi_it['product_characteristic_id'] !== '' && $pi_it['product_characteristic_id'] !== null
+                ? (int) $pi_it['product_characteristic_id']
+                : 0;
+            $old_timestamp = trim((string) ($pi_it['created_at'] ?? ''));
+            if ($old_product_id > 0 && $old_timestamp !== '') {
+                $old_date = date('Y-m-d', strtotime($old_timestamp));
+                $ts_esc = mysqli_real_escape_string($conn, $old_timestamp);
+                $char_sql = $old_char_id > 0
+                    ? "AND product_characteristic_id = $old_char_id"
+                    : "AND product_characteristic_id IS NULL";
+                mysqli_query($conn, "
+                    DELETE FROM tbl_stock
+                    WHERE product_id = $old_product_id
+                    $char_sql
+                    AND DATE(created_at) = '$old_date'
+                    AND stock_type = 'purchase'
+                    AND ABS(TIMESTAMPDIFF(MINUTE, created_at, '$ts_esc')) <= 5
+                ");
+            }
+        }
+        $sj_pi_tbl = @mysqli_query($conn, "SHOW TABLES LIKE 'tbl_stock_journal'");
+        if ($sj_pi_tbl && mysqli_num_rows($sj_pi_tbl) > 0) {
+            mysqli_free_result($sj_pi_tbl);
+            if (!mysqli_query($conn, "DELETE FROM tbl_stock_journal WHERE comment LIKE 'auragold_doc|src=pi|iid=" . $invoice_id_pi . "|%'")) {
+                throw new Exception('Purchase stock journal audit delete failed: ' . mysqli_error($conn));
+            }
+            $sj_has_invoice_id = function_exists('auragold_tbl_has_column') && auragold_tbl_has_column($conn, 'tbl_stock_journal', 'invoice_id');
+            if ($sj_has_invoice_id && !mysqli_query($conn, "DELETE FROM tbl_stock_journal WHERE invoice_id = $invoice_id_pi")) {
+                throw new Exception('Purchase stock journal delete failed: ' . mysqli_error($conn));
+            }
+        } elseif ($sj_pi_tbl) {
+            mysqli_free_result($sj_pi_tbl);
+        }
+        $pi_ref_scrap = 'PI:' . $invoice_id_pi;
+        $pi_ref_esc = mysqli_real_escape_string($conn, $pi_ref_scrap);
+        $ojb_pi_chk = @mysqli_query($conn, "SHOW TABLES LIKE 'tbl_old_jewelry_scrap_invoices'");
+        if ($ojb_pi_chk && mysqli_num_rows($ojb_pi_chk) > 0) {
+            mysqli_free_result($ojb_pi_chk);
+            $ojb_pi_rows = getList("SELECT id FROM tbl_old_jewelry_scrap_invoices WHERE ref_no = '$pi_ref_esc'");
+            if (is_array($ojb_pi_rows)) {
+                foreach ($ojb_pi_rows as $ojbp) {
+                    $ojbid = (int) ($ojbp['id'] ?? 0);
+                    if ($ojbid <= 0) {
+                        continue;
+                    }
+                    mysqli_query($conn, "DELETE FROM tbl_customer_ledger WHERE status = 1 AND transaction_type IN ('old_jewelry_scrap_invoice', 'old_jewelry_scrap_contra') AND transaction_id = $ojbid");
+                    $ojb_meta = getRecord("SELECT invoice_no, customer_name FROM tbl_old_jewelry_scrap_invoices WHERE id = $ojbid LIMIT 1");
+                    if ($ojb_meta) {
+                        $ino_m = esc(trim((string) ($ojb_meta['invoice_no'] ?? '')));
+                        $cn_m = esc(trim((string) ($ojb_meta['customer_name'] ?? '')));
+                        if ($ino_m !== '' && $cn_m !== '') {
+                            mysqli_query($conn, "DELETE FROM tbl_customer_ledger WHERE status = 1 AND customer_name = '$cn_m' AND transaction_no = '$ino_m' AND transaction_type IN ('old_jewelry_scrap_invoice', 'Old Jewelry - Scrap Invoice')");
+                        }
+                    }
+                    mysqli_query($conn, "DELETE FROM tbl_old_jewelry_scrap_invoice_items WHERE invoice_id = $ojbid");
+                    mysqli_query($conn, "DELETE FROM tbl_old_jewelry_scrap_invoices WHERE id = $ojbid");
+                }
+            }
+        } elseif ($ojb_pi_chk) {
+            mysqli_free_result($ojb_pi_chk);
+        }
+        $pip_tbl = @mysqli_query($conn, "SHOW TABLES LIKE 'tbl_purchase_invoice_payments'");
+        if ($pip_tbl && mysqli_num_rows($pip_tbl) > 0) {
+            mysqli_free_result($pip_tbl);
+            if (!mysqli_query($conn, "DELETE FROM tbl_purchase_invoice_payments WHERE invoice_id = $invoice_id_pi")) {
+                throw new Exception('Purchase invoice payments delete failed: ' . mysqli_error($conn));
+            }
+        } elseif ($pip_tbl) {
+            mysqli_free_result($pip_tbl);
+        }
+        if (!mysqli_query($conn, "DELETE FROM tbl_purchase_invoice_items WHERE invoice_id = $invoice_id_pi")) {
+            throw new Exception('Purchase invoice items delete failed: ' . mysqli_error($conn));
         }
     }
 

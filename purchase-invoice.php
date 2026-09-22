@@ -3052,7 +3052,8 @@ text-transform: uppercase;
                                                 }
                                             }
                                         }
-                                        $pi_show_in_stock_journal = (!empty($edit_order) && is_array($edit_order) && !empty($edit_order['show_in_stock_journal']));
+                                        $pi_show_in_stock_journal = empty($edit_order)
+                                            || (!empty($edit_order['show_in_stock_journal']));
                                         ?>
                                         <div class="col-md-3">
                                             <div class="form-group">

@@ -317,10 +317,10 @@ for ($r = 2; $r <= $highestRow; $r++) {
         $net_weight = auragold_sj_excel_round_weight(max(0.0, $gw - $less));
     }
     $purity_frac = $purity > 1 ? ($purity / 100) : $purity;
-    $pure_weight = $net_weight * $purity_frac;
+    $pure_weight = auragold_sj_excel_round_weight($net_weight * $purity_frac);
     $pwi = $sjF($cM, 'pure_wt_in', $sheet, $r);
     if (abs($pwi) > 0) {
-        $pure_weight = $pwi;
+        $pure_weight = auragold_sj_excel_round_weight($pwi);
     }
     $pname = $product_name;
     if ($sjS($cM, 'product_name_in', $sheet, $r) !== '') {
@@ -367,7 +367,7 @@ for ($r = 2; $r <= $highestRow; $r++) {
         'gross_weight' => $gw,
         'less_weight' => $less,
         'purity' => $purity,
-        'final_weight' => !empty($cM['final_wt']) ? $sjF($cM, 'final_wt', $sheet, $r) : $gw,
+        'final_weight' => auragold_sj_excel_round_weight(!empty($cM['final_wt']) ? $sjF($cM, 'final_wt', $sheet, $r) : $gw),
         'net_weight' => $net_weight,
         'pure_weight' => $pure_weight,
         'design_no' => $sjS($cM, 'design_no', $sheet, $r),

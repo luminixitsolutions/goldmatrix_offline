@@ -85,16 +85,6 @@
             return fail('Sundry Debtors is required. Please select a ledger group.', sundryEl, null);
         }
 
-        var nationalIdEl = window.auragoldGetCustomerCreationField('ledgerNationalId');
-        if (!nationalIdEl || !String(nationalIdEl.value || '').trim()) {
-            return fail('National Id is required. Please enter National Id.', nationalIdEl, null);
-        }
-
-        var specialDayEl = window.auragoldGetCustomerCreationField('specialDay');
-        if (!specialDayEl || !String(specialDayEl.value || '').trim()) {
-            return fail('Special Day is required. Please select Special Day.', specialDayEl, null);
-        }
-
         var countryEl = window.auragoldGetCustomerCreationField('billingCountry');
         if (countryEl && !String(countryEl.value || '').trim()) {
             return fail('Billing country is required. Open Billing Address and select country.', countryEl, '#billing-address');
